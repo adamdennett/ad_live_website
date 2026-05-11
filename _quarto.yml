@@ -16,11 +16,11 @@ website:
   title: "Adam Dennett"
   description: "Professor of Urban Analytics, UCL CASA"
   site-url: https://adamdennett.co.uk
-  favicon: assets/avatar.jpg
+  favicon: assets/Me2025.jpg
   open-graph: true
   twitter-card:
     creator: "@adam_dennett"
-    image: assets/MeCrop.jpg
+    image: assets/Me2025.jpg
   navbar:
     pinned: true
     left:

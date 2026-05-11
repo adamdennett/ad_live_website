@@ -3,7 +3,7 @@ title: "Adam Dennett"
 subtitle: "Professor of Urban Analytics, Bartlett Centre for Advanced Spatial Analysis (CASA), UCL"
 about:
   template: trestles
-  image: assets/MeCrop.jpg
+  image: assets/Me2025.jpg
   image-shape: round
   image-width: 18em
   links:

@@ -2,7 +2,7 @@
 title: "About"
 about:
   template: solana
-  image: assets/avatar.jpg
+  image: assets/Me2025.jpg
   image-shape: round
   image-width: 12em
   links:

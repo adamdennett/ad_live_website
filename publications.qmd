@@ -173,6 +173,8 @@ every render. The full record (and any work not represented here) lives at
 are on [Google Scholar](https://scholar.google.co.uk/citations?user=P_sHtmkAAAAJ).
 :::
 
+[{{< fa graduation-cap >}}&nbsp;&nbsp;PhD Thesis (PDF) — *Understanding Internal Migration in Britain at the Start of the 21st Century*, 2011](https://www.dropbox.com/scl/fi/tdrym79443ho4rfbwqyuu/AdamDennettPhDThesis.pdf?rlkey=kfdm2ca8xllnh0i9vkn8p3rda&dl=1){.btn .btn-outline-secondary role="button" target="_blank"}
+
 ```{r render}
 #| output: asis
 years_sorted <- sort(unique(pubs$year), decreasing = TRUE)

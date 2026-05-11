@@ -34,3 +34,5 @@ various academic activities, projects and writing.
 Head to the [Projects](projects.qmd) page for a live, auto-updating gallery of
 the things I'm currently building on GitHub, or [About](about.qmd) for a bit
 more on me.
+
+<!-- gh workflow run "Render and publish" --repo adamdennett/ad_live_website -->

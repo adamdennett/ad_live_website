@@ -2,11 +2,13 @@
    Featured (non-GitHub) research projects — hero cards at the top
    =========================================================================== */
 
+/* Match the GitHub project-grid sizing so featured cards aren't out
+   of proportion with the cards beneath. */
 .featured-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-  gap: 1.25rem;
-  margin: 0.5rem 0 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1rem;
+  margin: 0.5rem 0 2.5rem;
 }
 
 .featured-card {
@@ -14,16 +16,16 @@
   flex-direction: column;
   background: #FFFFFF;
   border: 1px solid #E8E2D4;
-  border-radius: 6px;
+  border-radius: 4px;
   overflow: hidden;
   text-decoration: none !important;
   background-image: none !important;
   color: inherit;
-  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
 }
 .featured-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 32px rgba(26, 26, 26, 0.10);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(26, 26, 26, 0.08);
   border-color: #D8D0BD;
 }
 
@@ -33,6 +35,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border-bottom: 1px solid #E8E2D4;
 }
 .featured-image-wrap.featured-image-photo {
   background: #1A1A1A;
@@ -41,16 +44,16 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 320ms ease;
+  transition: transform 280ms ease;
 }
 .featured-card:hover .featured-image-photo .featured-image {
-  transform: scale(1.04);
+  transform: scale(1.03);
 }
 
 /* Logo variant: contain the SVG with breathing room, no zoom on hover */
 .featured-image-wrap.featured-image-logo {
   background: #F7F4ED;
-  padding: 2rem;
+  padding: 1.1rem;
 }
 .featured-image-wrap.featured-image-logo .featured-image {
   max-width: 80%;
@@ -59,7 +62,7 @@
 }
 
 .featured-body {
-  padding: 1.3rem 1.4rem 1.4rem;
+  padding: 1.1rem 1.2rem 1rem;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -67,29 +70,29 @@
 
 .featured-title {
   font-family: "Fraunces", Georgia, serif;
-  font-variation-settings: "opsz" 96, "SOFT" 40;
+  font-variation-settings: "opsz" 80, "SOFT" 40;
   font-weight: 500;
-  letter-spacing: -0.012em;
-  font-size: 1.35rem;
-  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-size: 1.15rem;
+  line-height: 1.25;
   margin: 0 0 0.5rem 0;
   color: #111;
 }
 .featured-desc {
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   line-height: 1.5;
   color: #4a4a4a;
-  margin: 0 0 1rem 0;
+  margin: 0 0 0.85rem 0;
   flex: 1;
 }
 .featured-cta {
   font-family: "Inter", sans-serif;
-  font-size: 0.92rem;
+  font-size: 0.85rem;
   font-weight: 500;
   color: #C2542D;
   border-top: 1px solid #F2EEE3;
-  padding-top: 0.8rem;
-  transition: gap 200ms ease, color 200ms ease;
+  padding-top: 0.5rem;
+  margin-top: auto;
 }
 .featured-card:hover .featured-cta {
   color: #A8421F;
@@ -117,7 +120,10 @@
 }
 [data-bs-theme="dark"] .featured-card:hover {
   border-color: #3A342B;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+[data-bs-theme="dark"] .featured-image-wrap {
+  border-bottom-color: #2A2620;
 }
 [data-bs-theme="dark"] .featured-image-wrap.featured-image-logo {
   background: #14110D;

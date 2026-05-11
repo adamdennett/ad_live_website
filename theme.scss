@@ -210,9 +210,37 @@ a:hover {
     color: $primary !important;
   }
 
-  // Right-side social icons inherit the same charcoal
-  .quarto-navbar-tools .nav-link,
-  .navbar-nav .nav-item .nav-link i { color: inherit; }
+  // Social icons sit inside .nav-link as <i class="bi bi-...">
+  .nav-link i,
+  .nav-link i.bi { color: inherit !important; }
+
+  // Theme toggle and search buttons live outside .nav-link
+  .quarto-navigation-tool,
+  .quarto-color-scheme-toggle,
+  .quarto-search-button,
+  #quarto-search a,
+  #quarto-search button,
+  .aa-DetachedSearchButton {
+    color: #4a4a4a !important;
+    border-color: transparent !important;
+    background: transparent !important;
+  }
+  .quarto-navigation-tool i,
+  .quarto-color-scheme-toggle i,
+  .quarto-search-button i,
+  #quarto-search i,
+  .aa-DetachedSearchButtonIcon {
+    color: #4a4a4a !important;
+  }
+  .quarto-navigation-tool:hover,
+  .quarto-color-scheme-toggle:hover,
+  .quarto-search-button:hover,
+  #quarto-search a:hover,
+  .aa-DetachedSearchButton:hover {
+    color: $primary !important;
+    i { color: $primary !important; }
+  }
+  .aa-DetachedSearchButtonPlaceholder { color: #6E6862 !important; }
 
   // Hamburger / collapse toggler on small screens
   .navbar-toggler {

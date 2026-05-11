@@ -14,10 +14,12 @@ profilepic: "../assets/MeCrop.jpg"
 # header position line, section underline highlights, and location text.
 headcolor: "C2542D"
 date: "`r format(Sys.time(), '%B %Y')`"
-# Redefine the rest of awesome-cv's named colours to match the website
-# palette (ink #1A1A1A, secondary #5E5E5E, muted #6E6862). These have
-# to happen after the .cls loads, hence header-includes.
+# Redefine awesome-cv's named colours + fonts to match the website
+# (terracotta #C2542D primary, ink #1A1A1A, secondary #5E5E5E, muted
+# #6E6862; Fraunces for headings, Inter for body, JetBrains Mono for
+# code). All happens after the .cls loads, hence header-includes.
 header-includes:
+  # --- colours ------------------------------------------------------------
   - \definecolor{adwebink}{HTML}{1A1A1A}
   - \definecolor{adwebsecondary}{HTML}{5E5E5E}
   - \definecolor{adwebmuted}{HTML}{6E6862}
@@ -25,6 +27,37 @@ header-includes:
   - \colorlet{darktext}{adwebink}
   - \colorlet{graytext}{adwebsecondary}
   - \colorlet{lighttext}{adwebmuted}
+  # --- fonts --------------------------------------------------------------
+  # Match the website typography:
+  #   - Fraunces (serif) for headers / display
+  #   - Inter   (sans) for body / footer / main/sans
+  #   - JetBrains Mono for code
+  # Inter is loaded from CTAN (`inter` package). Fraunces and JetBrains
+  # Mono are bundled in cv/fonts/site/ as per-weight static TTFs because
+  # CTAN has no package for either (downloaded from the fontsource CDN
+  # of Google Fonts; SIL OFL 1.1).
+  - \usepackage{fontspec}
+  - \usepackage{inter}
+  # awesome-cv.cls calls \RequirePackage[default,opentype]{sourcesanspro}
+  # which sets Source Sans as \rmfamily / \sffamily. Re-route those to
+  # Inter so nothing falls through to SourceSans3 in the embedded PDF.
+  - \setmainfont{Inter}[Ligatures=TeX, UprightFont=*-Regular, BoldFont=*-SemiBold, ItalicFont=*-Italic, BoldItalicFont=*-SemiBoldItalic]
+  - \setsansfont{Inter}[Ligatures=TeX, UprightFont=*-Regular, BoldFont=*-SemiBold, ItalicFont=*-Italic, BoldItalicFont=*-SemiBoldItalic]
+  # Fraunces (static cuts, Path-loaded)
+  - \renewfontfamily\headerfont[Path=./fonts/site/, Extension=.ttf, UprightFont=Fraunces-Regular, BoldFont=Fraunces-SemiBold, ItalicFont=Fraunces-Italic, BoldItalicFont=Fraunces-SemiBoldItalic, Ligatures=TeX]{Fraunces}
+  - \renewfontfamily\headerfontlight[Path=./fonts/site/, Extension=.ttf, UprightFont=Fraunces-Light, BoldFont=Fraunces-Regular, ItalicFont=Fraunces-LightItalic, BoldItalicFont=Fraunces-Italic, Ligatures=TeX]{Fraunces-Light}
+  # Inter family commands used by the .cls \bodyfont / \bodyfontlight / \footerfont
+  - \newfontfamily\sitebody{Inter}[Ligatures=TeX, UprightFont=*-Regular, BoldFont=*-SemiBold, ItalicFont=*-Italic, BoldItalicFont=*-SemiBoldItalic]
+  - \newfontfamily\sitebodylight{Inter}[Ligatures=TeX, UprightFont=*-Light, BoldFont=*-Regular, ItalicFont=*-LightItalic, BoldItalicFont=*-Italic]
+  - \renewcommand*{\bodyfont}{\sitebody}
+  - \renewcommand*{\bodyfontlight}{\sitebodylight}
+  - \renewcommand*{\footerfont}{\sitebody}
+  # Belt-and-braces: redirect the sourcesanspro package's own commands to
+  # Inter so even places that bypass \bodyfont don't embed SourceSans3.
+  - \renewcommand*{\sourcesanspro}{\sitebody}
+  - \renewcommand*{\sourcesansprolight}{\sitebodylight}
+  # JetBrains Mono for inline code and verbatim
+  - \setmonofont{JetBrains Mono}[Path=./fonts/site/, Extension=.ttf, UprightFont=JetBrainsMono-Regular, BoldFont=JetBrainsMono-Bold, ItalicFont=JetBrainsMono-Italic, BoldItalicFont=JetBrainsMono-BoldItalic, Ligatures=TeX]
 output:
   vitae::awesomecv:
     keep_tex: false

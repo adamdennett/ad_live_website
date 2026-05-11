@@ -585,8 +585,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="st">"One-line description that will replace the GitHub repo description."</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">site</span><span class="kw">:</span><span class="at"> brighton_analysis.html</span><span class="co">  # path under the Pages root (e.g. for repos without an index.html)</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">image</span><span class="kw">:</span><span class="at"> featured.png</span><span class="co">           # relative path in the repo, or a full URL</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>All four keys are optional. If <code>image</code> is omitted, the first <code>![](...)</code> image reference in the README body is used as a fallback. Rebuild the site to refresh.</p>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">type</span><span class="kw">:</span><span class="at"> teaching</span><span class="co">                # routing: project (default) | teaching | talk | blog</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>All keys are optional. If <code>image</code> is omitted, the first <code>![](...)</code> image reference in the README body is used as a fallback.</p>
+<p>The <code>type</code> key controls where a repo appears on this site:</p>
+<ul>
+<li><code>type: project</code> (or no <code>type</code> at all): shows up in this gallery.</li>
+<li><code>type: teaching</code>, <code>type: talk</code>, or <code>type: blog</code>: <strong>hides</strong> the repo from this gallery — those belong in the matching tab in the top nav.</li>
+</ul>
+<p>Rebuild the site (or wait for the daily 05:30 UTC rebuild) to refresh.</p>
 </div>
 </div>
 </div>

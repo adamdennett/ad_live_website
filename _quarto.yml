@@ -4,6 +4,7 @@ project:
   resources:
     - "cv/cv.pdf"
     - "cv/cv.Rmd"
+    - "assets/noise.svg"
   render:
     - "*.qmd"
     - "blog/**/index.qmd"
@@ -58,13 +59,16 @@ website:
 format:
   html:
     theme:
-      light: cosmo
-      dark: darkly
+      light: [cosmo, theme.scss]
+      dark:  [darkly, theme-dark.scss]
     css: styles.css
     toc: true
     code-link: true
+    smooth-scroll: true
+    anchor-sections: true
     grid:
-      sidebar-width: 250px
-      body-width: 900px
+      sidebar-width: 230px
+      body-width: 780px
+      margin-width: 240px
 
 freeze: auto

@@ -1,0 +1,400 @@
+/*-- scss:defaults --*/
+
+// =============================================================================
+// Design tokens — light mode
+// Warm "paper" aesthetic: cream background, inky text, terracotta accent.
+// =============================================================================
+
+// Web fonts: variable Fraunces (display serif), Inter (body), JetBrains Mono.
+// Loaded directly via @import below in the rules block so they're not
+// inlined into every page header.
+
+// Bootstrap variable overrides --------------------------------------------------
+
+// Brand
+$primary:                         #C2542D;   // terracotta accent
+$secondary:                       #5E5E5E;
+$success:                         #4A7B5F;
+$info:                            #2E5266;
+$warning:                         #C28F2D;
+$danger:                          #B53A2D;
+$light:                           #FAF7F0;
+$dark:                            #1A1A1A;
+
+// Surface
+$body-bg:                         #FAF7F0;   // warm off-white "paper"
+$body-color:                      #1A1A1A;   // near-black ink
+$body-secondary:                  #5E5E5E;
+$body-secondary-bg:               #F2EEE3;
+$body-tertiary:                   #6E6862;
+$body-tertiary-bg:                #EFEADD;
+$border-color:                    #E8E2D4;   // subtle hairline
+
+// Links
+$link-color:                      #1A1A1A;   // links read as ink-coloured…
+$link-decoration:                 none;
+$link-hover-color:                $primary;  // …with accent only on hover
+
+// Typography ------------------------------------------------------------------
+
+$font-family-sans-serif:          "Inter", -apple-system, BlinkMacSystemFont,
+                                  "Segoe UI", Roboto, sans-serif;
+$font-family-serif:               "Fraunces", Georgia, "Times New Roman", serif;
+$font-family-monospace:           "JetBrains Mono", "SF Mono", Menlo, Consolas,
+                                  monospace;
+
+$font-family-base:                $font-family-sans-serif;
+$headings-font-family:            $font-family-serif;
+$headings-font-weight:            500;
+$headings-line-height:            1.15;
+$headings-color:                  #111111;
+
+$font-size-base:                  1.0625rem; // 17px — generous body
+$line-height-base:                1.65;
+$font-weight-base:                400;
+
+// Headings — fluid sizes via clamp()
+$h1-font-size:                    clamp(2.25rem, 5vw, 3.75rem);
+$h2-font-size:                    clamp(1.6rem, 3vw, 2.25rem);
+$h3-font-size:                    1.4rem;
+$h4-font-size:                    1.2rem;
+$h5-font-size:                    1.05rem;
+$h6-font-size:                    0.95rem;
+
+// Spacing & shape
+$border-radius:                   2px;       // sharper than default
+$border-radius-sm:                2px;
+$border-radius-lg:                4px;
+
+// Navbar
+$navbar-light-bg:                 $body-bg;
+$navbar-padding-y:                1.25rem;
+$navbar-light-color:              rgba(#1A1A1A, 0.7);
+$navbar-light-hover-color:        $primary;
+$navbar-light-active-color:       $primary;
+$navbar-brand-font-size:          1.1rem;
+
+// Cards
+$card-bg:                         #FFFFFF;
+$card-border-color:               $border-color;
+$card-border-radius:              4px;
+
+// Buttons
+$btn-padding-y:                   0.5rem;
+$btn-padding-x:                   1.1rem;
+$btn-font-weight:                 500;
+$btn-border-radius:               999px;     // pill buttons
+$btn-border-radius-sm:            999px;
+$btn-border-radius-lg:            999px;
+
+// Code
+$code-color:                      #8B3A24;
+$code-bg:                         #F2EEE3;
+
+/*-- scss:rules --*/
+
+// =============================================================================
+// Font imports
+// =============================================================================
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,0..100&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+// =============================================================================
+// Global tone
+// =============================================================================
+html { scroll-behavior: smooth; }
+
+body {
+  font-feature-settings: "ss01" on, "cv11" on;     // Inter stylistic sets
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+// =============================================================================
+// Typography
+// =============================================================================
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: $font-family-serif;
+  font-variation-settings: "opsz" 80, "SOFT" 30;   // Fraunces optical sizing
+  letter-spacing: -0.015em;
+}
+
+h1, .h1 {
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+  letter-spacing: -0.025em;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+h2, .h2 {
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid $border-color;
+  padding-bottom: 0.4rem;
+}
+
+h3, .h3 { margin-top: 1.8rem; }
+
+.subtitle,
+.lead {
+  font-family: $font-family-serif;
+  font-variation-settings: "opsz" 30, "SOFT" 50;
+  font-weight: 300;
+  font-style: italic;
+  color: #4a4a4a;
+  font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+  line-height: 1.45;
+}
+
+p { margin-bottom: 1.1rem; }
+
+// Subtle paragraph drop-cap on the first paragraph of long-form posts
+.quarto-document-content > p:first-of-type::first-letter {
+  // off by default to avoid surprises; opt-in via .drop-cap class instead
+}
+
+a {
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 180ms ease, color 180ms ease;
+}
+a:hover {
+  color: $primary;
+  background-size: 100% 1px;
+}
+
+// =============================================================================
+// Navbar — thin, paper, name in display serif
+// =============================================================================
+.navbar {
+  border-bottom: 1px solid $border-color;
+  backdrop-filter: saturate(180%) blur(8px);
+  background-color: rgba(#FAF7F0, 0.85) !important;
+
+  .navbar-brand,
+  .navbar-title {
+    font-family: $font-family-serif;
+    font-variation-settings: "opsz" 60, "SOFT" 40;
+    font-weight: 500;
+    font-size: 1.25rem;
+    letter-spacing: -0.01em;
+  }
+
+  .nav-link {
+    font-size: 0.92rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    position: relative;
+    padding: 0.4rem 0.85rem !important;
+    background-image: none;          // remove the underline-grow effect on nav
+  }
+
+  .nav-link:hover { color: $primary !important; background-image: none; }
+
+  .nav-link.active {
+    color: $primary !important;
+  }
+}
+
+// =============================================================================
+// Title block (page-level h1 + subtitle)
+// =============================================================================
+.quarto-title-block .title {
+  font-variation-settings: "opsz" 144, "SOFT" 60;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+.quarto-title-block .subtitle {
+  margin-top: 0.5rem;
+  color: #555;
+}
+
+// =============================================================================
+// Buttons — pill, restrained
+// =============================================================================
+.btn {
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  border-width: 1px;
+  transition: all 160ms ease;
+}
+.btn-primary {
+  background-color: $primary;
+  border-color: $primary;
+  color: #FFFFFF;
+}
+.btn-primary:hover {
+  background-color: #A8421F;
+  border-color: #A8421F;
+  transform: translateY(-1px);
+}
+.btn-outline-secondary {
+  border-color: #1A1A1A;
+  color: #1A1A1A;
+}
+.btn-outline-secondary:hover {
+  background-color: #1A1A1A;
+  color: #FAF7F0;
+}
+
+// =============================================================================
+// Code
+// =============================================================================
+code, kbd, pre, samp {
+  font-family: $font-family-monospace;
+  font-feature-settings: "calt" 0;   // no ligatures in code
+}
+:not(pre) > code {
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+  font-size: 0.92em;
+}
+pre.sourceCode {
+  border: 1px solid $border-color;
+  border-radius: 6px;
+}
+
+// =============================================================================
+// About block (used on home page)
+// =============================================================================
+.about-link {
+  margin: 0.2rem 0.35rem;
+  background-image: none;
+  transition: transform 160ms ease, color 160ms ease;
+}
+.about-link:hover { transform: translateY(-1px); }
+
+img.round, img.rounded { border-radius: 999px; }
+.about-entity img { box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+
+// =============================================================================
+// Listing pages (blog/talks/teaching)
+// =============================================================================
+.quarto-listing {
+  margin-top: 1.5rem;
+}
+.quarto-post {
+  border-bottom: 1px solid $border-color;
+  padding: 1.5rem 0;
+  transition: background 160ms ease;
+}
+.quarto-post:hover {
+  background: rgba($primary, 0.03);
+}
+.quarto-post .listing-title {
+  font-family: $font-family-serif;
+  font-variation-settings: "opsz" 80, "SOFT" 40;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  font-size: 1.4rem;
+}
+.quarto-post .listing-date,
+.quarto-post .listing-reading-time {
+  font-family: $font-family-monospace;
+  font-size: 0.8rem;
+  color: #6E6862;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.quarto-post .listing-description {
+  color: #4a4a4a;
+}
+.quarto-grid-item {
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid $border-color;
+  background: #FFFFFF;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+.quarto-grid-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+}
+
+// =============================================================================
+// Tags / categories
+// =============================================================================
+.listing-categories .listing-category {
+  font-family: $font-family-monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.18rem 0.55rem;
+  border: 1px solid $border-color;
+  border-radius: 999px;
+  color: #5E5E5E;
+  background: transparent;
+}
+.listing-categories .listing-category:hover {
+  color: $primary;
+  border-color: $primary;
+}
+
+// =============================================================================
+// Footer
+// =============================================================================
+.nav-footer {
+  border-top: 1px solid $border-color;
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #6E6862;
+}
+
+// =============================================================================
+// Tables
+// =============================================================================
+table {
+  border-collapse: collapse;
+}
+table th,
+table td {
+  border-color: $border-color !important;
+}
+table th {
+  font-family: $font-family-sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  color: #5E5E5E;
+}
+
+// =============================================================================
+// Callouts (subtle, paper-friendly)
+// =============================================================================
+div.callout {
+  border-left-width: 3px;
+  background: #F2EEE3;
+  border-radius: 4px;
+}
+div.callout-tip { border-left-color: #4A7B5F; }
+div.callout-note { border-left-color: $primary; }
+
+// =============================================================================
+// Selection
+// =============================================================================
+::selection {
+  background: rgba($primary, 0.25);
+  color: #1A1A1A;
+}
+
+// =============================================================================
+// Decorative — a subtle paper noise texture
+// =============================================================================
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.03;
+  background-image: url("/assets/noise.svg");
+}
+// Ensure content sits above the noise layer
+main, header, footer, nav { position: relative; z-index: 1; }

@@ -5,14 +5,6 @@ about:
   image: assets/Me2025.jpg
   image-shape: round
   image-width: 12em
-  links:
-    - text: CASA
-      href: https://www.ucl.ac.uk/bartlett/casa/bartlett-centre-advanced-spatial-analysis
-    - text: UCL Profiles
-      href: https://profiles.ucl.ac.uk/28795-adam-dennett
-    - icon: github
-      text: GitHub
-      href: https://github.com/adamdennett/
 ---
 
 ## About me

@@ -7,6 +7,12 @@ about:
   image-shape: round
   image-width: 18em
   links:
+    - icon: building
+      text: CASA
+      href: https://www.ucl.ac.uk/bartlett/casa/bartlett-centre-advanced-spatial-analysis
+    - icon: person-badge
+      text: UCL Profile
+      href: https://profiles.ucl.ac.uk/28795-adam-dennett
     - icon: github
       text: GitHub
       href: https://github.com/adamdennett/

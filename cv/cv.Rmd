@@ -56,6 +56,19 @@ header-includes:
   # Inter so even places that bypass \bodyfont don't embed SourceSans3.
   - \renewcommand*{\sourcesanspro}{\sitebody}
   - \renewcommand*{\sourcesansprolight}{\sitebodylight}
+  # ---- Small caps -> real uppercase ------------------------------------
+  # awesome-cv uses \scshape for the position subtitles, header position,
+  # subsection headings, footer and recipient address. Inter's OpenType
+  # small-caps coverage in the bundled static cuts is incomplete, which
+  # produces a glitchy mix (BARTLeTT CeNTRe foR…). Override those style
+  # commands to apply \MakeUppercase to the argument and drop \scshape —
+  # font-independent, always correct.
+  - \renewcommand*{\headerpositionstyle}[1]{{\fontsize{7.6pt}{1em}\bodyfont\color{awesome}\MakeUppercase{#1}}}
+  - \renewcommand*{\footerstyle}[1]{{\fontsize{8pt}{1em}\footerfont\color{lighttext}\MakeUppercase{#1}}}
+  - \renewcommand*{\subsectionstyle}[1]{{\fontsize{12pt}{1em}\bodyfont\textcolor{text}{\MakeUppercase{#1}}}}
+  - \renewcommand*{\entrypositionstyle}[1]{{\fontsize{8pt}{1em}\bodyfont\color{graytext}\MakeUppercase{#1}}}
+  - \renewcommand*{\subentrypositionstyle}[1]{{\fontsize{7pt}{1em}\bodyfont\color{graytext}\MakeUppercase{#1}}}
+  - \renewcommand*{\recipientaddressstyle}[1]{{\fontsize{9pt}{1em}\bodyfont\color{graytext}\MakeUppercase{#1}}}
   # JetBrains Mono for inline code and verbatim
   - \setmonofont{JetBrains Mono}[Path=./fonts/site/, Extension=.ttf, UprightFont=JetBrainsMono-Regular, BoldFont=JetBrainsMono-Bold, ItalicFont=JetBrainsMono-Italic, BoldItalicFont=JetBrainsMono-BoldItalic, Ligatures=TeX]
 output:

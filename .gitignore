@@ -17,3 +17,5 @@ cv/cv.log
 cv/cv.tex
 cv/cv.knit.md
 .positai
+# Claude Code worktrees (never track these)
+.claude/

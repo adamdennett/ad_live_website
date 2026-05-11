@@ -31,6 +31,8 @@ website:
         text: About
       - href: projects.qmd
         text: Projects
+      - href: publications.qmd
+        text: Publications
       - href: blog/index.qmd
         text: Blog
       - href: talks/index.qmd

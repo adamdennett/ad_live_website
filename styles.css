@@ -175,3 +175,82 @@
 [data-bs-theme="dark"] .project-links { border-top-color: #2A2620; }
 [data-bs-theme="dark"] .project-links a { color: #E8E5DC; }
 [data-bs-theme="dark"] .project-links a:hover { color: #E8784F; }
+
+
+/* ===========================================================================
+   Publications page
+   =========================================================================== */
+
+.pub-year-group { margin-bottom: 2.2rem; }
+
+.pub-entry {
+  padding: 1rem 0;
+  border-bottom: 1px solid #F2EEE3;
+}
+.pub-entry:last-child { border-bottom: none; }
+
+.pub-title {
+  font-family: "Fraunces", Georgia, serif;
+  font-variation-settings: "opsz" 60, "SOFT" 40;
+  font-weight: 500;
+  font-size: 1.08rem;
+  line-height: 1.35;
+  letter-spacing: -0.005em;
+  color: #111;
+}
+.pub-title a {
+  color: inherit;
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 180ms ease, color 180ms ease;
+}
+.pub-title a:hover {
+  color: #C2542D;
+  background-size: 100% 1px;
+}
+
+.pub-meta {
+  font-size: 0.9rem;
+  color: #4a4a4a;
+  margin: 0.3rem 0 0 0;
+  line-height: 1.45;
+}
+.pub-authors { font-weight: 400; }
+.pub-journal {
+  font-style: italic;
+  color: #5e5e5e;
+}
+
+.pub-doi {
+  font-family: "JetBrains Mono", Menlo, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  color: #6E6862;
+  margin: 0.4rem 0 0 0;
+  text-transform: lowercase;
+}
+.pub-doi a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted #C5BFB1;
+}
+.pub-doi a:hover {
+  color: #C2542D;
+  border-bottom-color: #C2542D;
+}
+
+/* Dark-mode publications */
+[data-bs-theme="dark"] .pub-entry { border-bottom-color: #2A2620; }
+[data-bs-theme="dark"] .pub-title { color: #F0EDE5; }
+[data-bs-theme="dark"] .pub-title a:hover { color: #E8784F; }
+[data-bs-theme="dark"] .pub-meta { color: #B5AE9F; }
+[data-bs-theme="dark"] .pub-journal { color: #9A9387; }
+[data-bs-theme="dark"] .pub-doi { color: #9A9387; }
+[data-bs-theme="dark"] .pub-doi a { border-bottom-color: #4A443B; }
+[data-bs-theme="dark"] .pub-doi a:hover {
+  color: #E8784F;
+  border-bottom-color: #E8784F;
+}

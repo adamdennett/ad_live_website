@@ -1,0 +1,199 @@
+---
+title: "Publications"
+description: "Pulled live from my ORCID record on every render — should always be current."
+toc: true
+toc-depth: 2
+toc-title: "Jump to year"
+format:
+  html:
+    page-layout: full
+execute:
+  echo: false
+  warning: false
+  message: false
+  freeze: false   # always re-fetch from ORCID
+---
+
+```{r setup}
+library(httr2)
+library(jsonlite)
+library(dplyr)
+library(purrr)
+library(htmltools)
+library(stringr)
+
+ORCID <- "0000-0001-8036-0185"
+
+# ---- ORCID API helpers -----------------------------------------------------
+
+orcid_req <- function(url) {
+  request(url) |>
+    req_headers(Accept = "application/json",
+                `User-Agent` = "adamdennett.co.uk publications page")
+}
+
+# Fetch the summary list of all works.
+works_summary <- orcid_req(sprintf(
+  "https://pub.orcid.org/v3.0/%s/works", ORCID
+)) |>
+  req_perform() |>
+  resp_body_json()
+
+groups <- works_summary$group
+
+# ORCID groups duplicate submissions of the same work (same DOI) into one
+# group with multiple work-summary entries (one per source — manual,
+# CrossRef, Scopus, ...). Pick the first put-code from each group as the
+# canonical entry, then fetch its full record (which has authors).
+put_codes <- map_chr(groups, ~ as.character(.x$`work-summary`[[1]]$`put-code`))
+
+work_reqs <- map(put_codes, function(pc) {
+  orcid_req(sprintf("https://pub.orcid.org/v3.0/%s/work/%s", ORCID, pc))
+})
+
+work_resps <- req_perform_parallel(work_reqs, on_error = "continue",
+                                   max_active = 8)
+
+# ---- Parse one work record into a tidy row ---------------------------------
+
+parse_work <- function(w) {
+  if (is.null(w)) return(NULL)
+  title <- w$title$title$value %||% NA_character_
+  if (is.na(title) || !nzchar(title)) return(NULL)
+
+  yr <- suppressWarnings(as.integer(
+    (w$`publication-date` %||% list())$year$value
+  ))
+
+  journal <- (w$`journal-title` %||% list())$value %||% ""
+
+  # External IDs — pull out DOI (preferred) or any other URL
+  ext_ids <- (w$`external-ids` %||% list())$`external-id` %||% list()
+  doi <- NA_character_
+  for (eid in ext_ids) {
+    if (identical(eid$`external-id-type`, "doi")) {
+      doi <- eid$`external-id-value`; break
+    }
+  }
+
+  # Work URL (often points at the publisher / DOI landing page)
+  work_url <- (w$url %||% list())$value %||% NA_character_
+
+  # Contributors (authors) — credit-name.value is the display name as
+  # ORCID rendered it. Some works have empty contributor blocks.
+  contributors <- (w$contributors %||% list())$contributor %||% list()
+  authors <- map_chr(contributors, function(c) {
+    (c$`credit-name` %||% list())$value %||% NA_character_
+  })
+  authors <- authors[!is.na(authors) & nzchar(authors)]
+
+  tibble(
+    title    = title,
+    year     = yr,
+    journal  = journal,
+    type     = w$type %||% "",
+    doi      = doi,
+    work_url = work_url,
+    authors  = list(authors)
+  )
+}
+
+pubs <- map_dfr(work_resps, function(r) {
+  if (inherits(r, "error")) return(NULL)
+  if (resp_status(r) != 200) return(NULL)
+  parse_work(resp_body_json(r))
+}) |>
+  # Drop anything without a year (rare, makes grouping impossible)
+  filter(!is.na(year)) |>
+  arrange(desc(year), title)
+
+# ---- Renderer --------------------------------------------------------------
+
+# Format author list as "A, B, C, ..., X & Y"
+fmt_authors <- function(a) {
+  if (length(a) == 0) return("")
+  if (length(a) == 1) return(a)
+  paste0(paste(a[-length(a)], collapse = ", "), " & ", a[length(a)])
+}
+
+pub_entry <- function(row) {
+  doi  <- row$doi
+  url  <- row$work_url
+  href <- if (!is.na(doi) && nzchar(doi))
+            paste0("https://doi.org/", doi)
+          else if (!is.na(url) && nzchar(url)) url
+          else NA_character_
+
+  title_node <- if (!is.na(href)) {
+    a(href = href, target = "_blank", row$title)
+  } else {
+    span(row$title)
+  }
+
+  authors_str <- fmt_authors(row$authors[[1]])
+
+  meta_parts <- c()
+  if (nzchar(authors_str)) meta_parts <- c(meta_parts, authors_str)
+  if (nzchar(row$journal)) meta_parts <- c(meta_parts, sprintf("*%s*", row$journal))
+
+  div(class = "pub-entry",
+      div(class = "pub-title", title_node),
+      if (length(meta_parts) > 0)
+        p(class = "pub-meta",
+          HTML(paste(vapply(meta_parts, function(s) {
+            # Render the italic *journal* markdown manually
+            if (startsWith(s, "*") && endsWith(s, "*")) {
+              sprintf('<em class="pub-journal">%s</em>',
+                      substr(s, 2, nchar(s) - 1))
+            } else {
+              sprintf('<span class="pub-authors">%s</span>', s)
+            }
+          }, character(1)), collapse = ". "))),
+      if (!is.na(doi) && nzchar(doi))
+        p(class = "pub-doi",
+          a(href = paste0("https://doi.org/", doi),
+            target = "_blank",
+            paste0("doi: ", doi)))
+  )
+}
+
+render_year <- function(yr, df) {
+  tagList(
+    h2(as.character(yr)),
+    div(class = "pub-year-group",
+        lapply(split(df, seq_len(nrow(df))), pub_entry))
+  )
+}
+```
+
+::: {.lead}
+**`r nrow(pubs)` publications** indexed in my ORCID record, pulled live on
+every render. The full record (and any work not represented here) lives at
+[ORCID 0000-0001-8036-0185](https://orcid.org/`r ORCID`); citation counts
+are on [Google Scholar](https://scholar.google.co.uk/citations?user=P_sHtmkAAAAJ).
+:::
+
+```{r render}
+#| output: asis
+years_sorted <- sort(unique(pubs$year), decreasing = TRUE)
+sections <- lapply(years_sorted, function(y) {
+  render_year(y, pubs |> filter(year == y))
+})
+
+cat("\n```{=html}\n")
+cat(as.character(htmltools::tagList(sections)))
+cat("\n```\n")
+```
+
+::: {.callout-tip collapse="true"}
+## How this page works
+
+The page makes a single call to ORCID's public API
+(`https://pub.orcid.org/v3.0/<id>/works`) to get the summary list, then
+fetches each work in detail in parallel for authors and DOIs. Nothing is
+manually curated — to add or correct an entry, edit it in
+[ORCID](https://orcid.org/`r ORCID`) and the next render will pick it up.
+
+The site rebuilds automatically on every push and once a day at 05:30 UTC,
+so the page is never more than a day stale even when nothing else changes.
+:::

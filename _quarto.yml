@@ -1,6 +1,15 @@
 project:
   type: website
   output-dir: _site
+  resources:
+    - "cv/cv.pdf"
+    - "cv/cv.Rmd"
+  render:
+    - "*.qmd"
+    - "blog/**/index.qmd"
+    - "talks/**/index.qmd"
+    - "teaching/**/index.qmd"
+    - "!cv/**"
 
 website:
   title: "Adam Dennett"
@@ -26,6 +35,8 @@ website:
         text: Talks
       - href: teaching/index.qmd
         text: Teaching
+      - href: cv.qmd
+        text: CV
     right:
       - icon: github
         href: https://github.com/adamdennett/

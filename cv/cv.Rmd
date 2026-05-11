@@ -1,0 +1,300 @@
+---
+name: Adam
+surname: Dennett
+position: "Professor of Urban Analytics"
+address: "Bartlett Centre for Advanced Spatial Analysis, University College London"
+email: "a.dennett@ucl.ac.uk"
+www: "adamdennett.co.uk"
+github: "adamdennett"
+orcid: "0000-0001-8036-0185"
+twitter: "adam_dennett"
+profilepic: "../assets/MeCrop.jpg"
+headcolor: "1F5FA8"
+date: "`r format(Sys.time(), '%B %Y')`"
+output:
+  vitae::awesomecv:
+    keep_tex: false
+    page_total: true
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(vitae)
+library(tibble)
+```
+
+# Profile
+
+I am Professor of Urban Analytics at the Bartlett Centre for Advanced Spatial
+Analysis (CASA), University College London. My research uses data and
+quantitative methods — frequently in R — to understand cities, migration,
+housing and the systems people create. I publish across migration modelling
+(particularly spatial interaction models), housing and energy, gentrification,
+synthetic data and the geographies of beer and brewing, and have a passion
+for applied work in urban policy contexts.
+
+# Professional History
+
+```{r history}
+tribble(
+  ~start, ~end,        ~role,                                                                  ~place,
+  "2021", "Present",   "Professor of Urban Analytics",                                         "Bartlett Centre for Advanced Spatial Analysis, UCL",
+  "2018", "2023",      "Head of Department and Director",                                      "Bartlett Centre for Advanced Spatial Analysis, UCL",
+  "2017", "2021",      "Associate Professor, Urban Analytics",                                 "Bartlett Centre for Advanced Spatial Analysis, UCL",
+  "2016", "2018",      "Deputy Director",                                                      "Bartlett Centre for Advanced Spatial Analysis, UCL",
+  "2013", "2017",      "Lecturer in Urban Analytics",                                          "Bartlett Centre for Advanced Spatial Analysis, UCL",
+  "2010", "2013",      "Post-doctoral Research Associate",                                     "Bartlett Centre for Advanced Spatial Analysis, UCL",
+  "2006", "2010",      "Research Assistant and part-time PhD student",                         "School of Geography, University of Leeds",
+  "2002", "2005",      "Teacher of Geography and Head of General Studies",                     "Hedingham School, Essex"
+) %>%
+  detailed_entries(
+    what  = role,
+    when  = paste(start, end, sep = "--"),
+    with  = place
+  )
+```
+
+# Education
+
+```{r education}
+tribble(
+  ~start, ~end,    ~degree,                                                                 ~inst,                                                            ~note,
+  "2007", "2011",  "PhD in Quantitative Human Geography",                                   "School of Geography, University of Leeds",                       "Studied part-time",
+  "2005", "2006",  "MA in Human Geography with Geographic Information Systems",             "School of Geography, University of Leeds",                       "Pass with Distinction",
+  "2003", "2003",  "Qualified Teacher Status (QTS)",                                        "National College of Teaching and Leadership, DfE",               NA,
+  "2001", "2002",  "PGCE in Secondary Geography",                                           "Faculty of Education (Homerton College), University of Cambridge", NA,
+  "1998", "2001",  "BSc (Hons) Geography",                                                  "Lancaster University",                                           NA
+) %>%
+  detailed_entries(
+    what  = degree,
+    when  = paste(start, end, sep = "--"),
+    with  = inst,
+    why   = note
+  )
+```
+
+# Appointments and Affiliations
+
+```{r affiliations}
+tribble(
+  ~start, ~end,        ~role,                                                                              ~place,
+  "2024", "Present",   "Member, ESRC Peer Review College",                                                 "ESRC",
+  "2023", "Present",   "External Examiner, MSc Geographical Information Science",                          "University of Manchester",
+  "2017", "2023",      "Editor-in-Chief, Applied Spatial Analysis and Policy (Impact Factor 1.9)",         "Springer",
+  "2021", "Present",   "Fellow of the Academy of Social Sciences (FAcSS) — Elected",                       "Academy of Social Sciences",
+  "2010", "Present",   "Fellow of the Royal Geographical Society (FRGS)",                                  "Royal Geographical Society"
+) %>%
+  detailed_entries(
+    what  = role,
+    when  = paste(start, end, sep = "--"),
+    with  = place
+  )
+```
+
+# Prizes, Awards and Honours
+
+```{r awards}
+tribble(
+  ~year,   ~award,                                                                                                ~where,
+  "2025",  "Best Paper, 33rd Annual GIS Research UK (GISRUK) Conference",                                          "University of Bristol",
+  "2021",  "Elected Fellow of the Academy of Social Sciences (FAcSS)",                                             "Academy of Social Sciences",
+  "2020",  "Cabinet Office Geospatial Commission, Geography in Government Award — Excellence in Local Government", "Awarded with City of Westminster Council for pioneering Urban Lab work",
+  "2019",  "Best Paper, 27th Annual GIS Research UK (GISRUK) Conference (Colouring London Project)",               "University of Newcastle",
+  "2016",  "UCLU Student Choice Teaching Award for Outstanding Teaching",                                          "University College London",
+  "2006",  "Grebenik Prize — best work on any aspect of human population problems",                                "University of Leeds"
+) %>%
+  detailed_entries(
+    what  = award,
+    when  = year,
+    with  = where
+  )
+```
+
+# Grants
+
+External grants total awarded as PI or Co-I since 2012: **£17,491,621.90**.
+
+```{r grants}
+tribble(
+  ~start_year, ~title,                                                                                                        ~role_status,                                                       ~funder_value,
+  "2024",      "Census Innovation at CeLSIUS (ES/Z502741/1)",                                                                  "Co-I; active",                                                     "£384,576",
+  "2024",      "TRACK-UK: Synthesized Census and Small Area Statistics for Transport and Energy (ES/Z50290X/1)",                "Co-I; active",                                                     "£327,680",
+  "2024",      "AI for Collective Intelligence (AI4CI) — UKRI AI Research Hub for Real Data (EP/Y028392/1)",                    "Co-I; Local PI for UCL branch; active",                            "£10,274,279 (UCL portion £980,391.77)",
+  "2023",      "Pathways to socially equitable net-zero cities and regions — ESRC CASE PhD Studentship",                        "PI/Supervisor (Transport East partner); active",                   "£93,633.90",
+  "2023",      "Equity Assessment of Demand-side Flexibility Technologies in Grid Integrated Transport Electrification (PhD)",  "PI/Supervisor (EPSRC CREDS); active",                              "£96,044",
+  "2022",      "NARRATE",                                                                                                       "PI; complete",                                                     "£142,739.24 (Ordnance Survey)",
+  "2020",      "dunnhumby PhD Studentship",                                                                                     "PI/Supervisor (industry-funded); complete",                        "£60,000 (dunnhumby)",
+  "2020",      "CeLSIUS (ES/V003488/1)",                                                                                        "Co-I; active",                                                     "£2,160,348.40 (ESRC)",
+  "2019",      "YOUR.VU.CITY (UKRI 105325)",                                                                                    "Local PI (Co-I on whole project); complete",                       "£620,697 (UCL £159,996; Innovate UK)",
+  "2018",      "CeLSIUS Re-commissioning (ES/R00823X/1)",                                                                       "Co-I; complete",                                                   "£1,020,753 (ESRC)",
+  "2018",      "Colouring London Impact Acceleration Grant",                                                                    "PI; complete",                                                     "£55,200 (EPSRC)",
+  "2016",      "CeLSIUS Extension Grant",                                                                                       "Co-I; complete",                                                   "£247,182.40 (ESRC)",
+  "2016",      "Colouring London",                                                                                              "PI (with Co-PI Polly Hudson); complete",                           "£58,400.74 (Historic England)",
+  "2014",      "RGS Innovative Teaching Grant",                                                                                 "PI (Co-I Paul Turner, Bedales School); complete",                  "£1,000 (RGS)",
+  "2013",      "SYLLS — Synthetic data estimation for the UK Longitudinal Studies",                                             "PI; complete",                                                     "£272,652.73 (ESRC)",
+  "2012",      "CeLSIUS (ES/K000365/1)",                                                                                        "Co-I; complete",                                                   "£1,676,436 (ESRC)"
+) %>%
+  detailed_entries(
+    what  = title,
+    when  = start_year,
+    with  = role_status,
+    why   = funder_value
+  )
+```
+
+# Invited Talks (recent)
+
+```{r talks}
+tribble(
+  ~when,             ~what,                                                                                                                              ~where,
+  "Sept 2025",       "Smart Cities and Collective Intelligence",                                                                                          "UCL Development Planning Unit — talk to Latin American city leaders",
+  "Aug 2025",        "GIS vs The City Council: Data Analytics, Collective Intelligence and Policy Dust-ups (GISRUK 2025 Best Paper)",                    "Royal Geographical Society Annual Conference",
+  "March 2025",      "The Case of the Brighton Secondary School Admissions Consultation",                                                                "Brighton Data Forum (public lecture)",
+  "Feb 2025",        "Data Analytics and the Brighton Secondary School Admissions debate",                                                               "Institute for Spatial Data Science, University of Leeds (departmental seminar)",
+  "Jan 2025",        "Data and evidence missing from the B&H Secondary School Admissions Consultation",                                                  "Parent Support Group, Brighton (online public lecture)",
+  "Dec 2024",        "Early career researcher panel, Urban Analytics meeting",                                                                            "Alan Turing Institute / University of Glasgow",
+  "Sept 2024",       "Housing and Net-Zero",                                                                                                              "Aalto University, Finland",
+  "Feb 2024",        "Evidence against the effects of schools on local house prices in Brighton and Hove",                                               "Geographic Data Science Lab, University of Liverpool (departmental seminar)",
+  "Nov 2023",        "Foundations of Geospatial",                                                                                                          "Carto Spatial Data Science Bootcamp, London (invited back)",
+  "May 2023",        "Careers panel",                                                                                                                     "Carto annual conference, Royal Geographical Society, London",
+  "Feb 2023",        "Foundations of Geospatial",                                                                                                          "Carto Spatial Data Science Bootcamp, London"
+) %>%
+  detailed_entries(
+    what  = what,
+    when  = when,
+    with  = where
+  )
+```
+
+# PhD Supervision
+
+## Current research students
+
+```{r phd-current}
+tribble(
+  ~start_year, ~student_project,                                                                                                                                                  ~role,
+  "2023",      "Maria Wood — Equity assessment of demand-side flexibility technologies in transportation decarbonisation (with Esra Suel, Gerry Casey). Upgrade passed.",          "1st supervisor",
+  "2023",      "Claude Lynch — Pathways to Socially Equitable Net Zero Cities and Regions (with Esra Suel, Gerry Casey). Upgrade passed.",                                          "1st supervisor",
+  "2023",      "Tom Murat — Generative scenarios for getting Transport to an equitable Net Zero (with Esra Suel, Gerry Casey).",                                                    "1st supervisor",
+  "2018",      "Denise Mizzi (PT) — Small Area Estimation of Wheezing prevalence in Maltese School Children (with Jens Kandt, Nicola Shelton). Upgrade passed.",                    "1st supervisor",
+  "2025",      "Roei Yosifof — Application of novel AI methods in the Digital Urban Planning domain. AI4CI Linked PhD.",                                                            "2nd supervisor",
+  "2025",      "AI4CI Linked PhD (Glasgow half of Cities Theme) — candidate appointed.",                                                                                            "2nd supervisor",
+  "2023",      "Chiara Gericke — Role of the Neighbourhood Food Environment in Susceptibility to Obesity (1st sup. Claire Llewellyn, Institute of Epidemiology and Health Care).",  "2nd supervisor"
+) %>%
+  detailed_entries(
+    what  = student_project,
+    when  = start_year,
+    with  = role
+  )
+```
+
+## Completed
+
+```{r phd-completed}
+tribble(
+  ~years,            ~student_project,                                                                                                                                  ~role,
+  "2020 -- 2023",    "Philip Wilkinson — Applications of novel retail modelling methodologies in an evolving grocery sector (2nd sup. Neave O'Clery). Minor corrections.", "1st supervisor",
+  "2016 -- 2022",    "Bonnie Buyuklieva — Understanding London's Residential Metabolism (2nd sup. Hannah Fry). Minor corrections.",                                       "1st supervisor",
+  "2016 -- 2021",    "Bin Chi — Spatial and temporal patterns of residential house prices and affordability in the UK (2nd sup. Thomas Oléron Evans). Passed without corrections.", "1st supervisor",
+  "2016 -- 2020",    "Matthew Ng — The future of Brunei: changes in Brunei-Muara's urban and population landscapes (2nd sup. Elsa Arcaute). Minor corrections.",          "1st supervisor",
+  "2019 -- 2024",    "Yufeng Wu — Dynamics of return migration intention and behaviour in China (1st sup. Rory Coulter).",                                                "2nd supervisor",
+  "2015 -- 2016",    "Lixun Liu — Impacts of rail transit investment on development in Chongqing (1st sup. Robin Hickman). Minor corrections.",                            "2nd supervisor"
+) %>%
+  detailed_entries(
+    what  = student_project,
+    when  = years,
+    with  = role
+  )
+```
+
+## MSc / MRes
+Supervised 45+ dissertations between 2017--2025. Joshua Yee (2019) won the
+RGS-IBG Population Geography Research Group postgraduate dissertation prize.
+
+# Research Staff Line Management
+
+```{r staff}
+tribble(
+  ~years,         ~project,                                                                                       ~staff,
+  "2024-Present", "AI for Collective Intelligence National Research Hub",                                          "Dr Beatrice Taylor; Adham Enaya; Dr Yahya Gamal (Glasgow — oversight)",
+  "2022-2023",    "NARRATE — Ordnance Survey Housing Net Zero R&D Project",                                        "Dr Bonnie Buyuklieva (now Lecturer in Digital Humanities, UCL)",
+  "2018-2020",    "Colouring London (CASA)",                                                                       "Dr Martin de Jode (now Lecturer in CASA); Maciej Ziarkowski; Dominic Humphrey (now UCL Energy Institute)",
+  "2013-2014",    "SYLLS",                                                                                          "Dr Belinda Wu"
+) %>%
+  detailed_entries(
+    what  = project,
+    when  = years,
+    with  = staff
+  )
+```
+
+# Academic Staff Line Management
+
+Currently line-manage 2 academic staff. As Head of Department over a 5-year
+period directly line-managed (seeing several through promotions):
+
+- 3 Professors (one successfully re-banded during period)
+- 6 Associate Professors (2 promoted to Professor during period)
+- 4 Lecturers (2 promoted to Associate Professor during period)
+
+# Selected Publications (since 2020)
+
+A full list is available via [Google Scholar](https://scholar.google.co.uk/citations?user=P_sHtmkAAAAJ&hl=en)
+and [ORCID 0000-0001-8036-0185](http://orcid.org/0000-0001-8036-0185).
+
+```{r pubs-2024-26}
+tribble(
+  ~year, ~authors,                                                                                                                                     ~title_venue,
+  "2026", "Lynch, C.E.H., Casey, G., Suel, E., Dennett, A.",                                                                                          "Is transport modelling 'a bit of a racket'? On the role of transport planning support systems in England. *Transportation Research Interdisciplinary Perspectives* 36. doi:10.1016/j.trip.2026.101876",
+  "2026", "Wood, M., Dennett, A., Casey, G., Suel, E.",                                                                                                "Car dependence in England and Wales: spatial inequalities and implications for a just transition. *Frontiers in Sustainable Cities* 7. doi:10.3389/frsc.2025.1719495",
+  "2025", "Horsfall, L., Kennedy, C., Shelton, N., Taylor, J., Hurst, J.R., Loxham, M., Dennett, A., Hardelid, P.",                                    "High-resolution mapping of residential wood burning heat sources using Energy Performance Certificates. *Environment International* 201. doi:10.1016/j.envint.2025.109537",
+  "2025", "Tan, J., Dennett, A.",                                                                                                                      "Do Good Schools Influence Property Prices? Disentangling School and Neighbourhood Effects with Empirical Evidence from Brighton. In *Digital-Era Urban Transformations* (CUPUM). doi:10.1007/978-3-031-98300-9_17",
+  "2024", "Dennett, A., Bullock, S., Ajmeri, N., Batty, M., Black, M., Cartlidge, J., …, Williams, H.T.P.",                                            "Artificial Intelligence for Collective Intelligence: A National-Scale Research Strategy. *Knowledge Engineering Review*. doi:10.1017/S0269888924000110",
+  "2024", "Buyuklieva, B., Bevilacqua, I., Dennett, A., Reades, J., Hubbard, P.",                                                                     "Life for Rent: Evolving Residential Infrastructure in London and the Rise of Built-to-Rent. *Urban Studies*. doi:10.1177/00420980241277684",
+  "2024", "Suel, E., Lynch, C., Wood, M., Murat, T., Casey, G., Dennett, A.",                                                                          "Measuring transport-associated urban inequalities: Where are we and where do we go from here? *Transport Reviews*. doi:10.1080/01441647.2024.2389800",
+  "2024", "Rowe, F., Lovelace, R., Dennett, A.",                                                                                                       "Spatial interaction modelling: A manifesto. In *A Research Agenda for Spatial Analysis* (Elgar). doi:10.4337/9781802203233",
+  "2024", "Buyuklieva, B., Oléron-Evans, T., Bailey, N., Dennett, A.",                                                                                 "Variations in domestic energy efficiency by property, neighbourhood and local authority type. *Frontiers in Sustainability* 5. doi:10.3389/frsus.2024.1329034",
+  "2024", "Gericke, C., Llewellyn, C., Burgoine, T., Dennett, A.",                                                                                     "From textbooks to takeaways: a geospatial analysis of clustering of takeaway outlets near London schools.",
+) %>%
+  detailed_entries(
+    what  = title_venue,
+    when  = year,
+    with  = authors
+  )
+```
+
+```{r pubs-2023}
+tribble(
+  ~year, ~authors,                                                                       ~title_venue,
+  "2023", "Dennett, A., Gray, S., Wyszomierski, J.",                                    "From the Beer Orders to Last Orders — Legislation, Taxation and the Modern Beer Landscape of London. In *The Geography of Beer* (Springer).",
+  "2023", "Yan, X., Dennett, A.",                                                       "Re-defining transport for London's strategic neighbourhoods from spatial and social perspectives. *Applied Geography*. doi:10.1016/j.apgeog.2023.103116",
+  "2023", "Wu, Y., Coulter, R., Dennett, A.",                                           "Relationships between family structures and destinations of married migrants with children in China. *Applied Geography*. doi:10.1016/j.apgeog.2023.103102",
+  "2023", "Liu, L., Dennett, A., Hickman, R.",                                          "Exploring the spatial differences in travel mode choice of rail transit in Chongqing. *Transportation Planning and Technology*. doi:10.1080/03081060.2023.2228301",
+  "2023", "Dennett, A., Buyuklieva, B.",                                                "Transitioning the residential environment of the UK to net-zero (CASA Working Paper 233).",
+  "2023", "Buyuklieva, B., Dennett, A., Bailey, N., Morley, J.",                        "Energy Efficient Homes: Social and Spatial Patterns of Residential Energy Efficiency in England. *GISRUK proceedings*. doi:10.5281/zenodo.7855112",
+  "2023", "Liu, L., Dennett, A., Hickman, R.",                                          "Social equity impacts of rail transit investments using community perceptions: evidence from Chongqing. *Transportation Planning and Technology*. doi:10.1080/03081060.2022.2152454"
+) %>%
+  detailed_entries(
+    what  = title_venue,
+    when  = year,
+    with  = authors
+  )
+```
+
+```{r pubs-2020-22}
+tribble(
+  ~year, ~authors,                                                                ~title_venue,
+  "2022", "MacLachlan, A., Dennett, A.",                                          "An Applied Geographic Information Systems and Science Course in R. *Journal of Open Source Education* 5(50). doi:10.21105/jose.00141",
+  "2022", "Yee, J., Dennett, A.",                                                 "Stratifying and predicting patterns of neighbourhood change and gentrification: an urban analytics approach. *Transactions of the Institute of British Geographers*. doi:10.1111/tran.12522",
+  "2021", "Spooner, F., Abrams, J.F., Morrissey, K., Shaddick, G., Batty, M., et al.", "A dynamic microsimulation model for epidemics. *Social Science & Medicine* 291. doi:10.1016/j.socscimed.2021.114461",
+  "2021", "Chi, B., Dennett, A., Oléron-Evans, T., Morphet, R.",                  "A new attribute-linked residential property price dataset for England and Wales, 2011--2019. *UCL Open: Environment*. doi:10.14324/111.444/ucloe.000019",
+  "2021", "Clifford, B., Dennett, A., Chi, B.",                                   "Mapping Class E: Understanding the expansion of permitted development. *TCPA report*.",
+  "2021", "Chi, B., Dennett, A., Oléron-Evans, T., Morphet, R.",                  "Delineating the Spatio-Temporal Pattern of House Price Variation by Local Authority in England: 2009 to 2016. *Geographical Analysis*. doi:10.1111/gean.12287",
+  "2020", "Chi, B., Dennett, A., Evans, T., Morphet, R.",                         "Shedding new light on residential property price variation in England: A multi-scale exploration. *Environment and Planning B*. doi:10.1177/2399808320951212"
+) %>%
+  detailed_entries(
+    what  = title_venue,
+    when  = year,
+    with  = authors
+  )
+```

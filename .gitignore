@@ -11,7 +11,9 @@
 
 # vitae build artifacts (regenerated each render; commit cv.pdf only)
 cv/awesome-cv.cls
-cv/fonts/
+cv/fonts/*
+!cv/fonts/site/
 cv/cv.log
 cv/cv.tex
 cv/cv.knit.md
+.positai

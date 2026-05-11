@@ -35,7 +35,13 @@ exclude <- c(
   "BH_Secondary_Admissions_Analysis", # nothing useful published
   "BH_Reoganisation",                 # nothing useful published
   "casa_demo",                        # nothing useful published
-  "ad_live_website"                   # this site itself — no recursive link
+  "ad_live_website",                  # this site itself — no recursive link
+  # Items that live under Teaching or Talks tabs instead of the gallery
+  "QM",
+  "casa0007_qm",
+  "cartosdsbootcamp",
+  "aalto_presentation_2024",
+  "AUM2024"
 )
 
 # Optional manual category tags by repo name — repos not listed here are "Other"
@@ -45,8 +51,6 @@ categories <- list(
   "Local government & policy"      = c("council_tax",
                                        "defibrillator-analysis"),
   "Energy & EPC"                   = c("EPC_Analysis_Website", "EPC_Data_Analysis"),
-  "Teaching"                       = c("QM", "casa0007_qm", "cartosdsbootcamp"),
-  "Talks & presentations"          = c("aalto_presentation_2024", "AUM2024"),
   "Maps & explorers"               = c("BrightonRestaurantsMap"),
   "Data resources & methods"       = c("Synthetic-LS-spines", "SIModelling")
 )

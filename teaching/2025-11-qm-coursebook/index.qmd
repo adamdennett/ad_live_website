@@ -1,0 +1,13 @@
+---
+title: "Quantitative Methods — coursebook"
+description: "Forked CASA0007 Quantitative Methods coursebook; teaching notes and exercises."
+author: "Adam Dennett"
+date: "2025-11-24"
+categories: [teaching, R, statistics, UCL]
+---
+
+Forked from the upstream CASA0007 Quantitative Methods coursebook, kept up
+to date with my own additions and edits.
+
+- [Open the coursebook →](https://adamdennett.github.io/QM/)
+- [Source on GitHub](https://github.com/adamdennett/QM)

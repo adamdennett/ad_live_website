@@ -1,0 +1,14 @@
+---
+title: "CASA0007 Quantitative Methods — materials"
+description: "Module materials repository for CASA0007 Quantitative Methods at UCL CASA."
+author: "Adam Dennett"
+date: "2025-10-09"
+categories: [teaching, R, statistics, UCL]
+---
+
+Working repository of materials related to **CASA0007 Quantitative Methods**,
+a postgraduate methods module I teach at UCL's Bartlett Centre for Advanced
+Spatial Analysis.
+
+- [Open the site →](https://adamdennett.github.io/casa0007_qm/)
+- [Source on GitHub](https://github.com/adamdennett/casa0007_qm)

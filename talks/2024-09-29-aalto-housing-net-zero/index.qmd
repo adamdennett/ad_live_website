@@ -1,0 +1,15 @@
+---
+title: "Housing and Net Zero — Aalto University"
+description: "Invited talk at Aalto University, Finland, on the recently completed Housing and Net Zero research project."
+author: "Adam Dennett"
+date: "2024-09-29"
+categories: [talk, housing, EPC, net zero]
+---
+
+Invited talk delivered at **Aalto University, Finland** in September 2024,
+covering the methods and findings of the Housing and Net Zero research
+project — what EPC data can (and can't) tell us about the residential
+pathway to net zero.
+
+- [Open the presentation →](https://adamdennett.github.io/aalto_presentation_2024/)
+- [Source on GitHub](https://github.com/adamdennett/aalto_presentation_2024)

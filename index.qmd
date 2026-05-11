@@ -1,0 +1,36 @@
+---
+title: "Adam Dennett"
+subtitle: "Professor of Urban Analytics, Bartlett Centre for Advanced Spatial Analysis (CASA), UCL"
+about:
+  template: trestles
+  image: assets/MeCrop.jpg
+  image-shape: round
+  image-width: 18em
+  links:
+    - icon: github
+      text: GitHub
+      href: https://github.com/adamdennett/
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/adam-dennett-b5b3a229/
+    - icon: twitter
+      text: Twitter
+      href: https://twitter.com/adam_dennett
+    - text: "{{< ai orcid >}} ORCID"
+      href: http://orcid.org/0000-0001-8036-0185
+    - text: "{{< ai google-scholar >}} Google Scholar"
+      href: https://scholar.google.co.uk/citations?user=P_sHtmkAAAAJ&hl=en
+    - icon: envelope
+      text: Email
+      href: mailto:a.dennett@ucl.ac.uk
+toc: false
+---
+
+I'm a geographer with an interest in using data and quantitative methods
+to understand how people and the systems they create work — frequently this
+draws me to urban contexts and applied settings. On this site I keep my
+various academic activities, projects and writing.
+
+Head to the [Projects](projects.qmd) page for a live, auto-updating gallery of
+the things I'm currently building on GitHub, or [About](about.qmd) for a bit
+more on me.

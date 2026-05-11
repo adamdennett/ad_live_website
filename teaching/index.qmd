@@ -1,0 +1,15 @@
+---
+title: "Teaching"
+description: "Workshops, modules, and teaching resources."
+listing:
+  contents: "*/index.qmd"
+  type: grid
+  sort: "date desc"
+  categories: true
+  sort-ui: false
+  filter-ui: false
+  fields: [image, date, title, description, categories]
+  image-height: 220px
+page-layout: full
+title-block-banner: false
+---

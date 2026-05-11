@@ -1,0 +1,15 @@
+---
+title: "Housing and Net Zero"
+description: "Talk on housing energy performance and pathways to net zero."
+author: "Adam Dennett"
+date: "2024-03-07"
+categories: [talk, housing, EPC]
+image: featured.jpg
+---
+
+[![Housing and Net Zero — click for the full slides](featured.jpg)](https://adamdennett.github.io/EPC_Data_Analysis/HousingAndNetZero.html)
+
+A presentation on housing stock energy performance and what the EPC data
+can (and can't) tell us about routes to net zero.
+
+[Open the slides →](https://adamdennett.github.io/EPC_Data_Analysis/HousingAndNetZero.html)

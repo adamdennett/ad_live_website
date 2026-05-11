@@ -1,0 +1,14 @@
+---
+title: "Talks"
+description: "Talks, workshops, and presentations."
+listing:
+  contents: "*/index.qmd"
+  type: default
+  sort: "date desc"
+  categories: true
+  sort-ui: false
+  filter-ui: false
+  fields: [date, title, description, categories]
+page-layout: full
+title-block-banner: false
+---

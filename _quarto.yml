@@ -1,0 +1,59 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Adam Dennett"
+  description: "Professor of Urban Analytics, UCL CASA"
+  site-url: https://adamdennett.co.uk
+  favicon: assets/avatar.jpg
+  open-graph: true
+  twitter-card:
+    creator: "@adam_dennett"
+    image: assets/MeCrop.jpg
+  navbar:
+    pinned: true
+    left:
+      - href: index.qmd
+        text: Home
+      - href: about.qmd
+        text: About
+      - href: projects.qmd
+        text: Projects
+      - href: blog/index.qmd
+        text: Blog
+      - href: talks/index.qmd
+        text: Talks
+      - href: teaching/index.qmd
+        text: Teaching
+    right:
+      - icon: github
+        href: https://github.com/adamdennett/
+        aria-label: GitHub
+      - icon: linkedin
+        href: https://www.linkedin.com/in/adam-dennett-b5b3a229/
+        aria-label: LinkedIn
+      - icon: twitter
+        href: https://twitter.com/adam_dennett
+        aria-label: Twitter
+  page-footer:
+    left: "© Adam Dennett"
+    right:
+      - icon: github
+        href: https://github.com/adamdennett/
+      - icon: envelope
+        href: mailto:a.dennett@ucl.ac.uk
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: darkly
+    css: styles.css
+    toc: true
+    code-link: true
+    grid:
+      sidebar-width: 250px
+      body-width: 900px
+
+freeze: auto

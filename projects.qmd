@@ -1,0 +1,161 @@
+---
+title: "Projects"
+description: "A live gallery of projects published as GitHub Pages sites — pulled directly from my GitHub account so it stays current as new things go up."
+toc: true
+toc-depth: 2
+format:
+  html:
+    page-layout: full
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r setup}
+library(httr2)
+library(jsonlite)
+library(dplyr)
+library(purrr)
+library(htmltools)
+library(lubridate)
+
+# Repos that have Pages enabled but aren't worth showcasing
+# (templates, abandoned scaffolds, accidental forks, etc.)
+exclude <- c(
+  "hello-world",
+  "github.io",
+  "adamdennett_test.github.io",
+  "adamdennett.github.io",   # academicpages template – not actively used
+  "Week6Practical",
+  "starter-academic"
+)
+
+# Optional manual category tags by repo name — repos not listed here are "Other"
+categories <- list(
+  "Brighton & Hove schools"        = c("BH_Schools_2", "BH_Schools_Consultation",
+                                       "BH_Secondary_Admissions_Analysis",
+                                       "bh_school_choice", "school_attainment_tool"),
+  "Local government & policy"      = c("BH_Reoganisation", "council_tax",
+                                       "defibrillator-analysis"),
+  "Energy & EPC"                   = c("EPC_Analysis_Website", "EPC_Data_Analysis"),
+  "Teaching"                       = c("QM", "casa0007_qm", "cartosdsbootcamp",
+                                       "casa_demo"),
+  "Talks & presentations"          = c("aalto_presentation_2024", "AUM2024"),
+  "Maps & explorers"               = c("BrightonRestaurantsMap"),
+  "Data resources & methods"       = c("Synthetic-LS-spines", "SIModelling")
+)
+
+fetch_repos <- function(user = "adamdennett") {
+  req <- request("https://api.github.com/users/") |>
+    req_url_path_append(user, "repos") |>
+    req_url_query(per_page = 100, type = "owner", sort = "updated") |>
+    req_headers("Accept" = "application/vnd.github+json",
+                "X-GitHub-Api-Version" = "2022-11-28")
+  pat <- Sys.getenv("GITHUB_PAT", unset = Sys.getenv("GITHUB_TOKEN"))
+  if (nzchar(pat)) req <- req_auth_bearer_token(req, pat)
+  req_perform(req) |> resp_body_json()
+}
+
+repos <- fetch_repos()
+
+repo_df <- map_dfr(repos, function(r) {
+  tibble(
+    name        = r$name,
+    description = r$description %||% "",
+    language    = r$language %||% "",
+    fork        = isTRUE(r$fork),
+    archived    = isTRUE(r$archived),
+    has_pages   = isTRUE(r$has_pages),
+    stars       = r$stargazers_count %||% 0L,
+    updated     = as_date(ymd_hms(r$updated_at)),
+    repo_url    = r$html_url,
+    pages_url   = sprintf("https://adamdennett.github.io/%s/", r$name)
+  )
+}) |>
+  filter(has_pages, !archived, !(name %in% exclude)) |>
+  arrange(desc(updated))
+
+# Attach category
+cat_lookup <- stack(categories) |>
+  setNames(c("name", "category")) |>
+  mutate(across(everything(), as.character))
+repo_df <- repo_df |>
+  left_join(cat_lookup, by = "name") |>
+  mutate(category = ifelse(is.na(category), "Other", category))
+
+card <- function(row) {
+  div(class = "project-card",
+      div(class = "project-card-body",
+          h3(class = "project-title",
+             a(href = row$pages_url, target = "_blank", row$name)),
+          if (nzchar(row$description))
+            p(class = "project-desc", row$description)
+          else
+            p(class = "project-desc project-desc-empty", em("(no description)")),
+          div(class = "project-meta",
+              if (nzchar(row$language))
+                span(class = "badge lang", row$language),
+              span(class = "badge date",
+                   paste0("Updated ", format(row$updated, "%b %Y"))),
+              if (row$stars > 0)
+                span(class = "badge stars", paste0("★ ", row$stars)),
+              if (row$fork)
+                span(class = "badge fork", "fork")
+          ),
+          div(class = "project-links",
+              a(href = row$pages_url, target = "_blank", "Live site →"),
+              a(href = row$repo_url,  target = "_blank", "Source")
+          )
+      )
+  )
+}
+
+render_section <- function(df, heading) {
+  if (nrow(df) == 0) return(NULL)
+  tagList(
+    h2(heading),
+    div(class = "project-grid",
+        lapply(split(df, seq_len(nrow(df))), card)
+    )
+  )
+}
+```
+
+```{r summary}
+htmltools::p(
+  class = "project-summary",
+  sprintf("%d live project sites across %d categories — sorted within each category by most recent activity.",
+          nrow(repo_df),
+          length(unique(repo_df$category)))
+)
+```
+
+```{r render-categories}
+#| output: asis
+# Preserve the manual category order, with "Other" last
+ordered_cats <- c(names(categories), "Other")
+ordered_cats <- ordered_cats[ordered_cats %in% unique(repo_df$category)]
+
+sections <- lapply(ordered_cats, function(cat) {
+  sub <- repo_df |> filter(category == cat)
+  render_section(sub, cat)
+})
+
+# Emit inside a pandoc raw-HTML fence so indented child tags don't get
+# re-interpreted as Markdown indented code blocks.
+cat("\n```{=html}\n")
+cat(as.character(htmltools::tagList(sections)))
+cat("\n```\n")
+```
+
+::: {.callout-tip collapse="true"}
+## How this page works
+
+This page is built from a live call to the GitHub API at render time — it lists
+every repository under [adamdennett](https://github.com/adamdennett) that has
+GitHub Pages enabled, minus a small manual exclude list of templates and
+scaffolds. Categories are assigned by name in the setup chunk at the top of
+`projects.qmd`; anything uncategorised falls into "Other". Rebuild the site
+to refresh.
+:::

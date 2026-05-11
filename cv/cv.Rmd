@@ -85,9 +85,9 @@ tribble(
   "2010", "Present",   "Fellow of the Royal Geographical Society (FRGS)",                                  "Royal Geographical Society"
 ) %>%
   detailed_entries(
-    what  = role,
+    what  = place,            # bottom line (small caps)
     when  = paste(start, end, sep = "--"),
-    with  = place
+    with  = role              # top line (bold)
   )
 ```
 
@@ -104,9 +104,9 @@ tribble(
   "2006",  "Grebenik Prize — best work on any aspect of human population problems",                                "University of Leeds"
 ) %>%
   detailed_entries(
-    what  = award,
+    what  = where,            # bottom line (small caps)
     when  = year,
-    with  = where
+    with  = award             # top line (bold)
   )
 ```
 
@@ -135,9 +135,9 @@ tribble(
   "2012",      "CeLSIUS (ES/K000365/1)",                                                                                        "Co-I; complete",                                                   "£1,676,436 (ESRC)"
 ) %>%
   detailed_entries(
-    what  = title,
+    what  = role_status,      # bottom line (small caps)
     when  = start_year,
-    with  = role_status,
+    with  = title,            # top line (bold)
     why   = funder_value
   )
 ```

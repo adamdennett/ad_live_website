@@ -4,6 +4,7 @@ description: "Module materials repository for CASA0007 Quantitative Methods at U
 author: "Adam Dennett"
 date: "2025-10-09"
 categories: [teaching, R, statistics, UCL]
+image: featured.png
 ---
 
 Working repository of materials related to **CASA0007 Quantitative Methods**,

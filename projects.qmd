@@ -35,13 +35,10 @@ exclude <- c(
   "BH_Secondary_Admissions_Analysis", # nothing useful published
   "BH_Reoganisation",                 # nothing useful published
   "casa_demo",                        # nothing useful published
-  "ad_live_website",                  # this site itself — no recursive link
-  # Items that live under Teaching or Talks tabs instead of the gallery
-  "QM",
-  "casa0007_qm",
-  "cartosdsbootcamp",
-  "aalto_presentation_2024",
-  "AUM2024"
+  "ad_live_website"                   # this site itself — no recursive link
+  # Anything else routed elsewhere (Teaching / Talks / Blog) is excluded
+  # automatically via the README `type:` front-matter convention —
+  # nothing to add here.
 )
 
 # Optional manual category tags by repo name — repos not listed here are "Other"
@@ -160,7 +157,8 @@ enrich <- function(name, full_name, default_branch) {
   readme <- tryCatch(fetch_readme(full_name, default_branch), error = function(e) NULL)
   if (is.null(readme)) {
     return(tibble(meta_title = NA_character_, meta_description = NA_character_,
-                  meta_site = NA_character_, meta_image = NA_character_))
+                  meta_site = NA_character_, meta_image = NA_character_,
+                  meta_type = NA_character_))
   }
   parts <- split_frontmatter(readme)
   meta <- parts$meta
@@ -170,7 +168,11 @@ enrich <- function(name, full_name, default_branch) {
     meta_title       = meta$title       %||% NA_character_,
     meta_description = meta$description %||% NA_character_,
     meta_site        = meta$site        %||% NA_character_,
-    meta_image       = absolutize_image(img, full_name, default_branch)
+    meta_image       = absolutize_image(img, full_name, default_branch),
+    # `type` field routes a repo to a section of the site:
+    #   "project"  (default) -> appears on this Projects gallery
+    #   "teaching" / "talk" / "blog" -> belongs in its own tab; hide here
+    meta_type        = tolower(trimws(meta$type %||% NA_character_))
   )
 }
 
@@ -180,6 +182,9 @@ enriched <- pmap_dfr(
 )
 
 project_df <- bind_cols(base_df, enriched) |>
+  # Auto-route via README front-matter: any repo tagged as teaching, talk,
+  # or blog belongs in its own tab, not the Projects gallery.
+  filter(is.na(meta_type) | !meta_type %in% c("teaching", "talk", "blog")) |>
   mutate(
     display_title       = coalesce(meta_title, name),
     display_description = coalesce(na_if(meta_description, ""), na_if(description, "")),
@@ -293,9 +298,18 @@ title: "A more readable project title"
 description: "One-line description that will replace the GitHub repo description."
 site: brighton_analysis.html  # path under the Pages root (e.g. for repos without an index.html)
 image: featured.png           # relative path in the repo, or a full URL
+type: teaching                # routing: project (default) | teaching | talk | blog
 ---
 ```
 
-All four keys are optional. If `image` is omitted, the first `![](...)` image
-reference in the README body is used as a fallback. Rebuild the site to refresh.
+All keys are optional. If `image` is omitted, the first `![](...)` image
+reference in the README body is used as a fallback.
+
+The `type` key controls where a repo appears on this site:
+
+- `type: project` (or no `type` at all): shows up in this gallery.
+- `type: teaching`, `type: talk`, or `type: blog`: **hides** the repo from
+  this gallery — those belong in the matching tab in the top nav.
+
+Rebuild the site (or wait for the daily 05:30 UTC rebuild) to refresh.
 :::

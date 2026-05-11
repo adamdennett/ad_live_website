@@ -4,6 +4,7 @@ description: "Invited talk at Aalto University, Finland, on the recently complet
 author: "Adam Dennett"
 date: "2024-09-29"
 categories: [talk, housing, EPC, net zero]
+image: featured.png
 ---
 
 Invited talk delivered at **Aalto University, Finland** in September 2024,

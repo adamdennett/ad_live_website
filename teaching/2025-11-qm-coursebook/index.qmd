@@ -4,6 +4,7 @@ description: "Forked CASA0007 Quantitative Methods coursebook; teaching notes an
 author: "Adam Dennett"
 date: "2025-11-24"
 categories: [teaching, R, statistics, UCL]
+image: featured.png
 ---
 
 Forked from the upstream CASA0007 Quantitative Methods coursebook, kept up

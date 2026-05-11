@@ -170,6 +170,9 @@ a:hover {
 // =============================================================================
 // Navbar — thin, paper, name in display serif
 // =============================================================================
+// Light-mode navbar: force dark text so it reads on the cream background.
+// Quarto applies a `navbar-dark` class by default which would otherwise
+// give us near-white nav links — override that explicitly.
 .navbar {
   border-bottom: 1px solid $border-color;
   backdrop-filter: saturate(180%) blur(8px);
@@ -182,7 +185,10 @@ a:hover {
     font-weight: 500;
     font-size: 1.25rem;
     letter-spacing: -0.01em;
+    color: #1A1A1A !important;
   }
+  .navbar-brand:hover,
+  .navbar-title:hover { color: $primary !important; }
 
   .nav-link {
     font-size: 0.92rem;
@@ -190,13 +196,32 @@ a:hover {
     letter-spacing: 0.01em;
     position: relative;
     padding: 0.4rem 0.85rem !important;
+    color: #4a4a4a !important;       // readable charcoal on cream
     background-image: none;          // remove the underline-grow effect on nav
   }
 
-  .nav-link:hover { color: $primary !important; background-image: none; }
+  .nav-link:hover,
+  .nav-link:focus {
+    color: $primary !important;
+    background-image: none;
+  }
 
   .nav-link.active {
     color: $primary !important;
+  }
+
+  // Right-side social icons inherit the same charcoal
+  .quarto-navbar-tools .nav-link,
+  .navbar-nav .nav-item .nav-link i { color: inherit; }
+
+  // Hamburger / collapse toggler on small screens
+  .navbar-toggler {
+    border-color: $border-color;
+    color: #1A1A1A;
+  }
+  .navbar-toggler-icon {
+    // Bootstrap embeds the icon as a dark SVG via a CSS variable; force ours
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2826, 26, 26, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
   }
 }
 

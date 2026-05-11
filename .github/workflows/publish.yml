@@ -36,6 +36,8 @@ jobs:
             any::purrr
             any::htmltools
             any::lubridate
+            any::yaml
+            any::stringr
             any::knitr
             any::rmarkdown
 

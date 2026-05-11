@@ -19,6 +19,8 @@ library(dplyr)
 library(purrr)
 library(htmltools)
 library(lubridate)
+library(yaml)
+library(stringr)
 
 # Repos that have Pages enabled but aren't worth showcasing
 # (templates, abandoned scaffolds, accidental forks, etc.)
@@ -46,51 +48,161 @@ categories <- list(
   "Data resources & methods"       = c("Synthetic-LS-spines", "SIModelling")
 )
 
-fetch_repos <- function(user = "adamdennett") {
-  req <- request("https://api.github.com/users/") |>
-    req_url_path_append(user, "repos") |>
-    req_url_query(per_page = 100, type = "owner", sort = "updated") |>
-    req_headers("Accept" = "application/vnd.github+json",
-                "X-GitHub-Api-Version" = "2022-11-28")
-  pat <- Sys.getenv("GITHUB_PAT", unset = Sys.getenv("GITHUB_TOKEN"))
-  if (nzchar(pat)) req <- req_auth_bearer_token(req, pat)
-  req_perform(req) |> resp_body_json()
+# ----------------------------------------------------------------------------
+# GitHub API helpers
+# ----------------------------------------------------------------------------
+
+gh_token <- function() {
+  Sys.getenv("GITHUB_PAT", unset = Sys.getenv("GITHUB_TOKEN"))
 }
+
+gh_req <- function(url) {
+  req <- request(url) |>
+    req_headers("Accept" = "application/vnd.github+json",
+                "X-GitHub-Api-Version" = "2022-11-28") |>
+    req_error(is_error = function(resp) FALSE)
+  pat <- gh_token()
+  if (nzchar(pat)) req <- req_auth_bearer_token(req, pat)
+  req
+}
+
+fetch_repos <- function(user = "adamdennett") {
+  gh_req(sprintf("https://api.github.com/users/%s/repos?per_page=100&type=owner&sort=updated", user)) |>
+    req_perform() |>
+    resp_body_json()
+}
+
+# Pull README.md from the repo's default branch and return its raw text
+# (NULL if the repo has no README).
+fetch_readme <- function(repo_full_name, default_branch) {
+  url <- sprintf("https://raw.githubusercontent.com/%s/%s/README.md",
+                 repo_full_name, default_branch)
+  resp <- gh_req(url) |> req_perform()
+  if (resp_status(resp) != 200) return(NULL)
+  resp_body_string(resp)
+}
+
+# Extract YAML front-matter (if any) and remaining body from a markdown string.
+# Front-matter must start at line 1 with `---` and end with `---`.
+split_frontmatter <- function(text) {
+  if (is.null(text) || !nzchar(text)) return(list(meta = list(), body = ""))
+  # `(?s)` puts the perl regex into dot-all mode so `.` matches newlines.
+  m <- regmatches(text,
+                  regexec("(?s)^---[ \t]*\r?\n(.*?)\r?\n---[ \t]*\r?\n(.*)$",
+                          text, perl = TRUE))[[1]]
+  if (length(m) < 3) return(list(meta = list(), body = text))
+  meta <- tryCatch(yaml::yaml.load(m[2]), error = function(e) list())
+  if (!is.list(meta)) meta <- list()
+  list(meta = meta, body = m[3])
+}
+
+# Find the first ![alt](path) image reference in a markdown body
+first_image_in_body <- function(body) {
+  if (!nzchar(body)) return(NULL)
+  m <- regmatches(body, regexec("(?s)!\\[[^\\]]*\\]\\(([^)\\s]+)",
+                                body, perl = TRUE))[[1]]
+  if (length(m) >= 2) m[2] else NULL
+}
+
+# Turn a relative image path into an absolute GitHub raw URL.
+# Pass-through if already an absolute URL.
+absolutize_image <- function(image, repo_full_name, default_branch) {
+  if (is.null(image) || !nzchar(image)) return(NA_character_)
+  if (grepl("^https?://", image)) return(image)
+  image <- sub("^\\./", "", image)
+  sprintf("https://raw.githubusercontent.com/%s/%s/%s",
+          repo_full_name, default_branch, image)
+}
+
+# ----------------------------------------------------------------------------
+# Pull repos and enrich with README front-matter
+# ----------------------------------------------------------------------------
 
 repos <- fetch_repos()
 
-repo_df <- map_dfr(repos, function(r) {
+base_df <- map_dfr(repos, function(r) {
   tibble(
-    name        = r$name,
-    description = r$description %||% "",
-    language    = r$language %||% "",
-    fork        = isTRUE(r$fork),
-    archived    = isTRUE(r$archived),
-    has_pages   = isTRUE(r$has_pages),
-    stars       = r$stargazers_count %||% 0L,
-    updated     = as_date(ymd_hms(r$updated_at)),
-    repo_url    = r$html_url,
-    pages_url   = sprintf("https://adamdennett.github.io/%s/", r$name)
+    name           = r$name,
+    full_name      = r$full_name,
+    default_branch = r$default_branch %||% "main",
+    description    = r$description %||% "",
+    language       = r$language %||% "",
+    fork           = isTRUE(r$fork),
+    archived       = isTRUE(r$archived),
+    has_pages      = isTRUE(r$has_pages),
+    stars          = r$stargazers_count %||% 0L,
+    updated        = as_date(ymd_hms(r$updated_at)),
+    repo_url       = r$html_url,
+    pages_root     = sprintf("https://adamdennett.github.io/%s/", r$name)
   )
 }) |>
   filter(has_pages, !archived, !(name %in% exclude)) |>
   arrange(desc(updated))
 
+# For each project, fetch the README and parse optional front-matter.
+# Returns a tibble row with optional `title`, `description`, `site`, `image`.
+enrich <- function(name, full_name, default_branch) {
+  readme <- tryCatch(fetch_readme(full_name, default_branch), error = function(e) NULL)
+  if (is.null(readme)) {
+    return(tibble(meta_title = NA_character_, meta_description = NA_character_,
+                  meta_site = NA_character_, meta_image = NA_character_))
+  }
+  parts <- split_frontmatter(readme)
+  meta <- parts$meta
+  # Image fallback: first ![](...) in README body if no front-matter image
+  img <- meta$image %||% first_image_in_body(parts$body)
+  tibble(
+    meta_title       = meta$title       %||% NA_character_,
+    meta_description = meta$description %||% NA_character_,
+    meta_site        = meta$site        %||% NA_character_,
+    meta_image       = absolutize_image(img, full_name, default_branch)
+  )
+}
+
+enriched <- pmap_dfr(
+  list(base_df$name, base_df$full_name, base_df$default_branch),
+  enrich
+)
+
+project_df <- bind_cols(base_df, enriched) |>
+  mutate(
+    display_title       = coalesce(meta_title, name),
+    display_description = coalesce(na_if(meta_description, ""), na_if(description, "")),
+    pages_url           = ifelse(!is.na(meta_site) & nzchar(meta_site),
+                                 paste0(pages_root, sub("^/", "", meta_site)),
+                                 pages_root),
+    image_url           = meta_image
+  )
+
 # Attach category
 cat_lookup <- stack(categories) |>
   setNames(c("name", "category")) |>
   mutate(across(everything(), as.character))
-repo_df <- repo_df |>
+project_df <- project_df |>
   left_join(cat_lookup, by = "name") |>
   mutate(category = ifelse(is.na(category), "Other", category))
 
+# ----------------------------------------------------------------------------
+# Card renderer
+# ----------------------------------------------------------------------------
+
 card <- function(row) {
-  div(class = "project-card",
+  has_image <- !is.na(row$image_url) && nzchar(row$image_url)
+  has_desc  <- !is.na(row$display_description) && nzchar(row$display_description)
+
+  image_block <- if (has_image) {
+    a(href = row$pages_url, target = "_blank", class = "project-image-link",
+      tags$img(src = row$image_url, alt = row$display_title,
+               loading = "lazy", class = "project-image"))
+  }
+
+  div(class = paste("project-card", if (has_image) "with-image" else "no-image"),
+      image_block,
       div(class = "project-card-body",
           h3(class = "project-title",
-             a(href = row$pages_url, target = "_blank", row$name)),
-          if (nzchar(row$description))
-            p(class = "project-desc", row$description)
+             a(href = row$pages_url, target = "_blank", row$display_title)),
+          if (has_desc)
+            p(class = "project-desc", row$display_description)
           else
             p(class = "project-desc project-desc-empty", em("(no description)")),
           div(class = "project-meta",
@@ -123,39 +235,52 @@ render_section <- function(df, heading) {
 ```
 
 ```{r summary}
+n_with_image <- sum(!is.na(project_df$image_url) & nzchar(project_df$image_url))
 htmltools::p(
   class = "project-summary",
-  sprintf("%d live project sites across %d categories — sorted within each category by most recent activity.",
-          nrow(repo_df),
-          length(unique(repo_df$category)))
+  sprintf("%d live project sites across %d categories — sorted within each category by most recent activity. %d have a featured image.",
+          nrow(project_df),
+          length(unique(project_df$category)),
+          n_with_image)
 )
 ```
 
 ```{r render-categories}
 #| output: asis
-# Preserve the manual category order, with "Other" last
 ordered_cats <- c(names(categories), "Other")
-ordered_cats <- ordered_cats[ordered_cats %in% unique(repo_df$category)]
+ordered_cats <- ordered_cats[ordered_cats %in% unique(project_df$category)]
 
 sections <- lapply(ordered_cats, function(cat) {
-  sub <- repo_df |> filter(category == cat)
+  sub <- project_df |> filter(category == cat)
   render_section(sub, cat)
 })
 
-# Emit inside a pandoc raw-HTML fence so indented child tags don't get
-# re-interpreted as Markdown indented code blocks.
 cat("\n```{=html}\n")
 cat(as.character(htmltools::tagList(sections)))
 cat("\n```\n")
 ```
 
 ::: {.callout-tip collapse="true"}
-## How this page works
+## How this page works (and how to customise per-project)
 
 This page is built from a live call to the GitHub API at render time — it lists
 every repository under [adamdennett](https://github.com/adamdennett) that has
 GitHub Pages enabled, minus a small manual exclude list of templates and
-scaffolds. Categories are assigned by name in the setup chunk at the top of
-`projects.qmd`; anything uncategorised falls into "Other". Rebuild the site
-to refresh.
+scaffolds. Categories are assigned by name in the setup chunk of
+`projects.qmd`; anything uncategorised falls into "Other".
+
+To override what shows up for a given repo, add a YAML front-matter block at
+the top of that repo's `README.md`:
+
+```yaml
+---
+title: "A more readable project title"
+description: "One-line description that will replace the GitHub repo description."
+site: brighton_analysis.html  # path under the Pages root (e.g. for repos without an index.html)
+image: featured.png           # relative path in the repo, or a full URL
+---
+```
+
+All four keys are optional. If `image` is omitted, the first `![](...)` image
+reference in the README body is used as a fallback. Rebuild the site to refresh.
 :::

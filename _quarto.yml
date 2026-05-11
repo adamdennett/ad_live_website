@@ -5,6 +5,7 @@ project:
     - "cv/cv.pdf"
     - "cv/cv.Rmd"
     - "assets/noise.svg"
+    - "CNAME"
   render:
     - "*.qmd"
     - "blog/**/index.qmd"

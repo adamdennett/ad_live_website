@@ -229,8 +229,11 @@ a:hover {
   .quarto-color-scheme-toggle i,
   .quarto-search-button i,
   #quarto-search i,
-  .aa-DetachedSearchButtonIcon {
+  .aa-DetachedSearchButtonIcon,
+  .aa-DetachedSearchButtonIcon svg,
+  .aa-SubmitIcon {
     color: #4a4a4a !important;
+    fill: #4a4a4a !important;          // SVGs that respect fill attribute
   }
   .quarto-navigation-tool:hover,
   .quarto-color-scheme-toggle:hover,
@@ -239,8 +242,28 @@ a:hover {
   .aa-DetachedSearchButton:hover {
     color: $primary !important;
     i { color: $primary !important; }
+    svg, .aa-SubmitIcon { fill: $primary !important; }
   }
   .aa-DetachedSearchButtonPlaceholder { color: #6E6862 !important; }
+
+  // The dark-mode toggle renders as background-image on .bi::before with
+  // the fill baked into the SVG (rgba(254,253,253,...) — near-white).
+  // Override the background-image with charcoal-fill versions.
+  // toggle-off (default state, "light mode active, click to go dark")
+  .quarto-color-scheme-toggle:not(.alternate) .bi::before {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='rgba(74,74,74,1)' viewBox='0 0 16 16'%3e%3cpath d='M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z'/%3e%3c/svg%3e") !important;
+  }
+  // toggle-on (alternate state, "dark mode active, click to go light")
+  .quarto-color-scheme-toggle.alternate .bi::before {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='rgba(74,74,74,1)' viewBox='0 0 16 16'%3e%3cpath d='M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10H5zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8z'/%3e%3c/svg%3e") !important;
+  }
+  // hover state — terracotta fill
+  .quarto-color-scheme-toggle:hover:not(.alternate) .bi::before {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='rgba(194,84,45,1)' viewBox='0 0 16 16'%3e%3cpath d='M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z'/%3e%3c/svg%3e") !important;
+  }
+  .quarto-color-scheme-toggle:hover.alternate .bi::before {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='rgba(194,84,45,1)' viewBox='0 0 16 16'%3e%3cpath d='M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10H5zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8z'/%3e%3c/svg%3e") !important;
+  }
 
   // Hamburger / collapse toggler on small screens
   .navbar-toggler {

@@ -9,8 +9,22 @@ github: "adamdennett"
 orcid: "0000-0001-8036-0185"
 twitter: "adam_dennett"
 profilepic: "../assets/MeCrop.jpg"
-headcolor: "1F5FA8"
+# Accent colour — matches the website's terracotta primary (#C2542D).
+# `headcolor` maps to awesome-cv's `\color{awesome}` and is used for the
+# header position line, section underline highlights, and location text.
+headcolor: "C2542D"
 date: "`r format(Sys.time(), '%B %Y')`"
+# Redefine the rest of awesome-cv's named colours to match the website
+# palette (ink #1A1A1A, secondary #5E5E5E, muted #6E6862). These have
+# to happen after the .cls loads, hence header-includes.
+header-includes:
+  - \definecolor{adwebink}{HTML}{1A1A1A}
+  - \definecolor{adwebsecondary}{HTML}{5E5E5E}
+  - \definecolor{adwebmuted}{HTML}{6E6862}
+  - \colorlet{text}{adwebink}
+  - \colorlet{darktext}{adwebink}
+  - \colorlet{graytext}{adwebsecondary}
+  - \colorlet{lighttext}{adwebmuted}
 output:
   vitae::awesomecv:
     keep_tex: false

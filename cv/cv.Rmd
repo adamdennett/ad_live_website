@@ -66,9 +66,9 @@ tribble(
   "1998", "2001",  "BSc (Hons) Geography",                                                  "Lancaster University",                                           NA
 ) %>%
   detailed_entries(
-    what  = degree,
+    what  = inst,             # awesomecv: #1 (small caps, gray, bottom line)
     when  = paste(start, end, sep = "--"),
-    with  = inst,
+    with  = degree,           # awesomecv: #2 (bold, dark, top line)
     why   = note
   )
 ```

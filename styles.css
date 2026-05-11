@@ -24,8 +24,28 @@
   background: #FFFFFF;
   transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
   display: flex;
+  flex-direction: column;
   position: relative;
   overflow: hidden;
+}
+
+/* Image sits above the body in cards that have one */
+.project-card.with-image .project-image-link {
+  display: block;
+  background: #F2EEE3;
+  border-bottom: 1px solid #E8E2D4;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+.project-card.with-image .project-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 280ms ease, opacity 280ms ease;
+}
+.project-card.with-image:hover .project-image {
+  transform: scale(1.03);
 }
 
 /* A subtle terracotta sliver on the left, revealed on hover */
@@ -131,6 +151,10 @@
 [data-bs-theme="dark"] .project-card {
   background: #1F1B16;
   border-color: #2A2620;
+}
+[data-bs-theme="dark"] .project-card.with-image .project-image-link {
+  background: #2A2620;
+  border-bottom-color: #2A2620;
 }
 [data-bs-theme="dark"] .project-card::before { background: #E8784F; }
 [data-bs-theme="dark"] .project-card:hover {

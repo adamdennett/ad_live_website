@@ -24,6 +24,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -358,12 +393,12 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="cell">
 <div class="cell-output-display">
-<p class="project-summary">15 live project sites across 7 categories — sorted within each category by most recent activity.</p>
+<p class="project-summary">16 live project sites across 8 categories — sorted within each category by most recent activity. 1 have a featured image.</p>
 </div>
 </div>
 <h2 class="anchored">Brighton &amp; Hove schools</h2>
 <div class="project-grid">
-  <div class="project-card">
+  <div class="project-card no-image">
     <div class="project-card-body">
       <h3 class="project-title anchored">
         <a href="https://adamdennett.github.io/school_attainment_tool/" target="_blank">school_attainment_tool</a>
@@ -381,7 +416,7 @@ ul.task-list li input[type="checkbox"] {
       </div>
     </div>
   </div>
-  <div class="project-card">
+  <div class="project-card no-image">
     <div class="project-card-body">
       <h3 class="project-title anchored">
         <a href="https://adamdennett.github.io/BH_Schools_2/" target="_blank">BH_Schools_2</a>
@@ -400,7 +435,7 @@ ul.task-list li input[type="checkbox"] {
       </div>
     </div>
   </div>
-  <div class="project-card">
+  <div class="project-card no-image">
     <div class="project-card-body">
       <h3 class="project-title anchored">
         <a href="https://adamdennett.github.io/BH_Secondary_Admissions_Analysis/" target="_blank">BH_Secondary_Admissions_Analysis</a>
@@ -419,7 +454,7 @@ ul.task-list li input[type="checkbox"] {
       </div>
     </div>
   </div>
-  <div class="project-card">
+  <div class="project-card no-image">
     <div class="project-card-body">
       <h3 class="project-title anchored">
         <a href="https://adamdennett.github.io/BH_Schools_Consultation/" target="_blank">BH_Schools_Consultation</a>
@@ -441,22 +476,22 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <h2 class="anchored">Local government &amp; policy</h2>
 <div class="project-grid">
-  <div class="project-card">
+  <div class="project-card no-image">
     <div class="project-card-body">
       <h3 class="project-title anchored">
-        <a href="https://adamdennett.github.io/defibrillator-analysis/" target="_blank">defibrillator-analysis</a>
+        <a href="https://adamdennett.github.io/defibrillator-analysis/brighton_analysis.html" target="_blank">Defibrillator coverage in Brighton &amp; Hove</a>
       </h3>
-      <p class="project-desc">Repo to contain code for defibrillator-analysis</p>
+      <p class="project-desc">Mapping where publicly registered AEDs are, who they reach, and where additional coverage would do most good — including a Maximum Coverage Location Problem allocation.</p>
       <div class="project-meta">
         <span class="badge date">Updated Feb 2026</span>
       </div>
       <div class="project-links">
-        <a href="https://adamdennett.github.io/defibrillator-analysis/" target="_blank">Live site →</a>
+        <a href="https://adamdennett.github.io/defibrillator-analysis/brighton_analysis.html" target="_blank">Live site →</a>
         <a href="https://github.com/adamdennett/defibrillator-analysis" target="_blank">Source</a>
       </div>
     </div>
   </div>
-  <div class="project-card">
+  <div class="project-card no-image">
     <div class="project-card-body">
       <h3 class="project-title anchored">
         <a href="https://adamdennett.github.io/BH_Reoganisation/" target="_blank">BH_Reoganisation</a>
@@ -475,7 +510,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <h2 class="anchored">Energy &amp; EPC</h2>
 <div class="project-grid">
-  <div class="project-card">
+  <div class="project-card no-image">
     <div class="project-card-body">
       <h3 class="project-title anchored">
         <a href="https://adamdennett.github.io/EPC_Data_Analysis/" target="_blank">EPC_Data_Analysis</a>
@@ -492,7 +527,7 @@ ul.task-list li input[type="checkbox"] {
       </div>
     </div>
   </div>
-  <div class="project-card">
+  <div class="project-card no-image">
     <div class="project-card-body">
       <h3 class="project-title anchored">
         <a href="https://adamdennett.github.io/EPC_Analysis_Website/" target="_blank">EPC_Analysis_Website</a>
@@ -513,7 +548,10 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <h2 class="anchored">Teaching</h2>
 <div class="project-grid">
-  <div class="project-card">
+  <div class="project-card with-image">
+    <a href="https://adamdennett.github.io/QM/" target="_blank" class="project-image-link">
+      <img src="https://raw.githubusercontent.com/adamdennett/QM/main/img/1.1-Repo_Created.png" alt="QM" loading="lazy" class="project-image">
+    </a>
     <div class="project-card-body">
       <h3 class="project-title anchored">
         <a href="https://adamdennett.github.io/QM/" target="_blank">QM</a>
@@ -530,7 +568,7 @@ ul.task-list li input[type="checkbox"] {
       </div>
     </div>
   </div>
-  <div class="project-card">
+  <div class="project-card no-image">
     <div class="project-card-body">
       <h3 class="project-title anchored">
         <a href="https://adamdennett.github.io/casa_demo/" target="_blank">casa_demo</a>
@@ -548,7 +586,7 @@ ul.task-list li input[type="checkbox"] {
       </div>
     </div>
   </div>
-  <div class="project-card">
+  <div class="project-card no-image">
     <div class="project-card-body">
       <h3 class="project-title anchored">
         <a href="https://adamdennett.github.io/cartosdsbootcamp/" target="_blank">cartosdsbootcamp</a>
@@ -568,7 +606,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <h2 class="anchored">Talks &amp; presentations</h2>
 <div class="project-grid">
-  <div class="project-card">
+  <div class="project-card no-image">
     <div class="project-card-body">
       <h3 class="project-title anchored">
         <a href="https://adamdennett.github.io/aalto_presentation_2024/" target="_blank">aalto_presentation_2024</a>
@@ -584,7 +622,7 @@ ul.task-list li input[type="checkbox"] {
       </div>
     </div>
   </div>
-  <div class="project-card">
+  <div class="project-card no-image">
     <div class="project-card-body">
       <h3 class="project-title anchored">
         <a href="https://adamdennett.github.io/AUM2024/" target="_blank">AUM2024</a>
@@ -604,7 +642,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <h2 class="anchored">Maps &amp; explorers</h2>
 <div class="project-grid">
-  <div class="project-card">
+  <div class="project-card no-image">
     <div class="project-card-body">
       <h3 class="project-title anchored">
         <a href="https://adamdennett.github.io/BrightonRestaurantsMap/" target="_blank">BrightonRestaurantsMap</a>
@@ -625,7 +663,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <h2 class="anchored">Data resources &amp; methods</h2>
 <div class="project-grid">
-  <div class="project-card">
+  <div class="project-card no-image">
     <div class="project-card-body">
       <h3 class="project-title anchored">
         <a href="https://adamdennett.github.io/Synthetic-LS-spines/" target="_blank">Synthetic-LS-spines</a>
@@ -642,19 +680,46 @@ ul.task-list li input[type="checkbox"] {
     </div>
   </div>
 </div>
+<h2 class="anchored">Other</h2>
+<div class="project-grid">
+  <div class="project-card no-image">
+    <div class="project-card-body">
+      <h3 class="project-title anchored">
+        <a href="https://adamdennett.github.io/ad_live_website/" target="_blank">ad_live_website</a>
+      </h3>
+      <p class="project-desc">Quarto Live Personal Website</p>
+      <div class="project-meta">
+        <span class="badge lang">SCSS</span>
+        <span class="badge date">Updated May 2026</span>
+      </div>
+      <div class="project-links">
+        <a href="https://adamdennett.github.io/ad_live_website/" target="_blank">Live site →</a>
+        <a href="https://github.com/adamdennett/ad_live_website" target="_blank">Source</a>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>How this page works
+<span class="screen-reader-only">Tip</span>How this page works (and how to customise per-project)
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>This page is built from a live call to the GitHub API at render time — it lists every repository under <a href="https://github.com/adamdennett">adamdennett</a> that has GitHub Pages enabled, minus a small manual exclude list of templates and scaffolds. Categories are assigned by name in the setup chunk at the top of <code>projects.qmd</code>; anything uncategorised falls into “Other”. Rebuild the site to refresh.</p>
+<p>This page is built from a live call to the GitHub API at render time — it lists every repository under <a href="https://github.com/adamdennett">adamdennett</a> that has GitHub Pages enabled, minus a small manual exclude list of templates and scaffolds. Categories are assigned by name in the setup chunk of <code>projects.qmd</code>; anything uncategorised falls into “Other”.</p>
+<p>To override what shows up for a given repo, add a YAML front-matter block at the top of that repo’s <code>README.md</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"A more readable project title"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="st">"One-line description that will replace the GitHub repo description."</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">site</span><span class="kw">:</span><span class="at"> brighton_analysis.html</span><span class="co">  # path under the Pages root (e.g. for repos without an index.html)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">image</span><span class="kw">:</span><span class="at"> featured.png</span><span class="co">           # relative path in the repo, or a full URL</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>All four keys are optional. If <code>image</code> is omitted, the first <code>![](...)</code> image reference in the README body is used as a fallback. Rebuild the site to refresh.</p>
 </div>
 </div>
 </div>

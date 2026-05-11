@@ -252,17 +252,52 @@ render_section <- function(df, heading) {
     )
   )
 }
-```
 
-```{r summary}
-n_with_image <- sum(!is.na(project_df$image_url) & nzchar(project_df$image_url))
-htmltools::p(
-  class = "project-summary",
-  sprintf("%d live project sites across %d categories — sorted within each category by most recent activity. %d have a featured image.",
-          nrow(project_df),
-          length(unique(project_df$category)),
-          n_with_image)
+# ----------------------------------------------------------------------------
+# Featured (non-GitHub) research projects — manual list, big hero cards
+# ----------------------------------------------------------------------------
+
+featured <- tibble::tribble(
+  ~title,
+  ~description,
+  ~url,
+  ~image,
+  ~image_class,
+
+  "City Modelling Lab (CASA / Arup)",
+  "Collaboration between Arup, UCL Bartlett Centre for Advanced Spatial Analysis, and the University of Zürich. We tackle pressing urban challenges — social inequality, transport, climate — by developing methods, data and tools that help decision makers act.",
+  "https://www.citymodellinglab.uk/",
+  "assets/featured/cml-welcome.jpg",
+  "featured-image-photo",
+
+  "AI for Collective Intelligence (AI4CI)",
+  "UKRI-funded National Research Hub bringing together six universities to advance AI methods for collective intelligence problems — at scale, on real data, across cities, health, climate, environment and security. I lead the UCL branch of the Cities theme.",
+  "https://ai4ci.ac.uk/",
+  "assets/featured/ai4ci-logo.svg",
+  "featured-image-logo"
 )
+
+featured_card <- function(row) {
+  a(href = row$url, target = "_blank", class = "featured-card",
+    div(class = paste("featured-image-wrap", row$image_class),
+        tags$img(src = row$image, alt = row$title,
+                 loading = "lazy", class = "featured-image")),
+    div(class = "featured-body",
+        h3(class = "featured-title", row$title),
+        p(class = "featured-desc", row$description),
+        span(class = "featured-cta", "Visit site →")
+    )
+  )
+}
+
+render_featured <- function(df) {
+  if (nrow(df) == 0) return(NULL)
+  tagList(
+    h2("Featured research projects"),
+    div(class = "featured-grid",
+        lapply(split(df, seq_len(nrow(df))), featured_card))
+  )
+}
 ```
 
 ```{r render-categories}
@@ -275,8 +310,21 @@ sections <- lapply(ordered_cats, function(cat) {
   render_section(sub, cat)
 })
 
+n_with_image <- sum(!is.na(project_df$image_url) & nzchar(project_df$image_url))
+
+# Featured first, then a "GitHub projects" header + brief summary to
+# introduce the auto-pulled gallery beneath.
+output <- tagList(
+  render_featured(featured),
+  h2("GitHub projects", class = "github-projects-heading"),
+  p(class = "github-projects-subtitle",
+    sprintf("Auto-pulled from my GitHub account on every render: %d live project sites across %d categories. Code, analyses and small tools published as GitHub Pages sites.",
+            nrow(project_df), length(unique(project_df$category)))),
+  sections
+)
+
 cat("\n```{=html}\n")
-cat(as.character(htmltools::tagList(sections)))
+cat(as.character(output))
 cat("\n```\n")
 ```
 

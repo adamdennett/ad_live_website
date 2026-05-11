@@ -8,7 +8,7 @@ www: "adamdennett.co.uk"
 github: "adamdennett"
 orcid: "0000-0001-8036-0185"
 twitter: "adam_dennett"
-profilepic: "../assets/MeCrop.jpg"
+profilepic: "../assets/Me2025.jpg"
 # Accent colour — matches the website's terracotta primary (#C2542D).
 # `headcolor` maps to awesome-cv's `\color{awesome}` and is used for the
 # header position line, section underline highlights, and location text.

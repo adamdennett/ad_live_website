@@ -1,0 +1,79 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Adam Dennett",
+    "section": "",
+    "text": "I’m a geographer with an interest in using data and quantitative methods to understand how people and the systems they create work — frequently this draws me to urban contexts and applied settings. On this site I keep my various academic activities, projects and writing.\nHead to the Projects page for a live, auto-updating gallery of the things I’m currently building on GitHub, or About for a bit more on me."
+  },
+  {
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "Projects",
+    "section": "",
+    "text": "15 live project sites across 7 categories — sorted within each category by most recent activity.\n\n\nBrighton & Hove schools\n\n  \n    \n      \n        school_attainment_tool\n      \n      \n        (no description)\n      \n      \n        HTML\n        Updated May 2026\n      \n      \n        Live site →\n        Source\n      \n    \n  \n  \n    \n      \n        BH_Schools_2\n      \n      \n        (no description)\n      \n      \n        JavaScript\n        Updated Apr 2026\n        ★ 1\n      \n      \n        Live site →\n        Source\n      \n    \n  \n  \n    \n      \n        BH_Secondary_Admissions_Analysis\n      \n      \n        (no description)\n      \n      \n        HTML\n        Updated Jul 2025\n        ★ 1\n      \n      \n        Live site →\n        Source\n      \n    \n  \n  \n    \n      \n        BH_Schools_Consultation\n      \n      \n        (no description)\n      \n      \n        JavaScript\n        Updated Jun 2025\n        ★ 1\n      \n      \n        Live site →\n        Source\n      \n    \n  \n\nLocal government & policy\n\n  \n    \n      \n        defibrillator-analysis\n      \n      Repo to contain code for defibrillator-analysis\n      \n        Updated Feb 2026\n      \n      \n        Live site →\n        Source\n      \n    \n  \n  \n    \n      \n        BH_Reoganisation\n      \n      Repo related to the proposed local government reorganisation of Brighton and Hove\n      \n        HTML\n        Updated Jul 2025\n      \n      \n        Live site →\n        Source\n      \n    \n  \n\nEnergy & EPC\n\n  \n    \n      \n        EPC_Data_Analysis\n      \n      Repository containing various analysis and presentation materials for analysing EPC data\n      \n        HTML\n        Updated Feb 2025\n        ★ 1\n      \n      \n        Live site →\n        Source\n      \n    \n  \n  \n    \n      \n        EPC_Analysis_Website\n      \n      \n        (no description)\n      \n      \n        QML\n        Updated Oct 2024\n      \n      \n        Live site →\n        Source\n      \n    \n  \n\nTeaching\n\n  \n    \n      \n        QM\n      \n      Forked Repo for CASA0007 Quantitative Methods\n      \n        HTML\n        Updated Nov 2025\n        fork\n      \n      \n        Live site →\n        Source\n      \n    \n  \n  \n    \n      \n        casa_demo\n      \n      \n        (no description)\n      \n      \n        JavaScript\n        Updated Mar 2024\n      \n      \n        Live site →\n        Source\n      \n    \n  \n  \n    \n      \n        cartosdsbootcamp\n      \n      Slides for Carto SDS Bootcamp - Foundations of Geospatial\n      \n        HTML\n        Updated Nov 2023\n        ★ 1\n      \n      \n        Live site →\n        Source\n      \n    \n  \n\nTalks & presentations\n\n  \n    \n      \n        aalto_presentation_2024\n      \n      Presentation at Aalto University\n      \n        JavaScript\n        Updated Aug 2024\n      \n      \n        Live site →\n        Source\n      \n    \n  \n  \n    \n      \n        AUM2024\n      \n      Repo Containing the CML Joint Presentation for AUM2024\n      \n        JavaScript\n        Updated Jun 2024\n        ★ 1\n      \n      \n        Live site →\n        Source\n      \n    \n  \n\nMaps & explorers\n\n  \n    \n      \n        BrightonRestaurantsMap\n      \n      \n        (no description)\n      \n      \n        HTML\n        Updated May 2026\n      \n      \n        Live site →\n        Source\n      \n    \n  \n\nData resources & methods\n\n  \n    \n      \n        Synthetic-LS-spines\n      \n      Created by CALLS Hub - Source for downloading synthetic LS spines and related documentation\n      \n        Updated Oct 2021\n        ★ 2\n      \n      \n        Live site →\n        Source\n      \n    \n  \n\n\n\n\n\n\n\nTipHow this page works\n\n\n\n\n\nThis page is built from a live call to the GitHub API at render time — it lists every repository under adamdennett that has GitHub Pages enabled, minus a small manual exclude list of templates and scaffolds. Categories are assigned by name in the setup chunk at the top of projects.qmd; anything uncategorised falls into “Other”. Rebuild the site to refresh."
+  },
+  {
+    "objectID": "talks/index.html",
+    "href": "talks/index.html",
+    "title": "Talks",
+    "section": "",
+    "text": "Housing and Net Zero\n\n\n\ntalk\n\nhousing\n\nEPC\n\n\n\nTalk on housing energy performance and pathways to net zero.\n\n\n\n\n\nMar 7, 2024\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "teaching/index.html",
+    "href": "teaching/index.html",
+    "title": "Teaching",
+    "section": "",
+    "text": "EPC Data Analysis and Mapping\n\n\n\nworkshop\n\nEPC\n\nR\n\nmapping\n\n\n\nA walk-through for downloading and mapping EPC data in R.\n\n\n\nMar 18, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\nFoundations of Geospatial — Carto SDS Bootcamp\n\n\n\nworkshop\n\nGIS\n\nCarto\n\n\n\nPresentation on the foundations of geospatial analysis.\n\n\n\nOct 17, 2023\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "teaching/2024-03-18-epc-data-analysis-and-mapping/index.html",
+    "href": "teaching/2024-03-18-epc-data-analysis-and-mapping/index.html",
+    "title": "EPC Data Analysis and Mapping",
+    "section": "",
+    "text": "This is a basic walk-through exercise which will enable participants to download Energy Performance Certificate data for a local authority of their choice and then plot the property locations and colour those properties according to variables within the dataset such as age or energy efficiency.\nOpen the walk-through →"
+  },
+  {
+    "objectID": "teaching/2023-10-17-cartobootcamp/index.html",
+    "href": "teaching/2023-10-17-cartobootcamp/index.html",
+    "title": "Foundations of Geospatial — Carto SDS Bootcamp",
+    "section": "",
+    "text": "A presentation on the Foundations of Geospatial Analysis that I gave at the Carto Spatial Data Science Bootcamp in London on 22nd February 2023.\n\nOpen the presentation →\nSource code on GitHub"
+  },
+  {
+    "objectID": "talks/2024-03-07-housing-and-net-zero/index.html",
+    "href": "talks/2024-03-07-housing-and-net-zero/index.html",
+    "title": "Housing and Net Zero",
+    "section": "",
+    "text": "Housing and Net Zero — click for the full slides\n\n\nA presentation on housing stock energy performance and what the EPC data can (and can’t) tell us about routes to net zero.\nOpen the slides →"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "I am Professor of Urban Analytics at the Bartlett Centre for Advanced Spatial Analysis, University College London, where I have been based since 2010, first as a post-doc and then as a Lecturer and Senior Lecturer / Associate Professor. I became Professor in 2021. From 2018 to 2023 I was Head of Department and I am an Elected Fellow of the Academy of Social Sciences as well as a Fellow of the Royal Geographical Society.\nMy academic interests are broad and in the past I have described myself as a bit of a ‘magpie’; however, I have published on topics such as migration and residential mobility (and particularly modelling migration using spatial interaction models), housing, gentrification, geographies of beer and brewing, synthetic data and longitudinal analysis.\nTying all of these themes together is a focus on data and quantitative methods — especially if I can use R — and a passion for applied work which often finds a home in urban settings."
+  },
+  {
+    "objectID": "about.html#about-me",
+    "href": "about.html#about-me",
+    "title": "About",
+    "section": "",
+    "text": "I am Professor of Urban Analytics at the Bartlett Centre for Advanced Spatial Analysis, University College London, where I have been based since 2010, first as a post-doc and then as a Lecturer and Senior Lecturer / Associate Professor. I became Professor in 2021. From 2018 to 2023 I was Head of Department and I am an Elected Fellow of the Academy of Social Sciences as well as a Fellow of the Royal Geographical Society.\nMy academic interests are broad and in the past I have described myself as a bit of a ‘magpie’; however, I have published on topics such as migration and residential mobility (and particularly modelling migration using spatial interaction models), housing, gentrification, geographies of beer and brewing, synthetic data and longitudinal analysis.\nTying all of these themes together is a focus on data and quantitative methods — especially if I can use R — and a passion for applied work which often finds a home in urban settings."
+  },
+  {
+    "objectID": "about.html#affiliations",
+    "href": "about.html#affiliations",
+    "title": "About",
+    "section": "Affiliations",
+    "text": "Affiliations\n\nProfessor of Urban Analytics, UCL Bartlett Centre for Advanced Spatial Analysis (CASA)\nFellow, Academy of Social Sciences\nFellow, Royal Geographical Society"
+  },
+  {
+    "objectID": "blog/index.html",
+    "href": "blog/index.html",
+    "title": "Blog",
+    "section": "",
+    "text": "No matching items"
+  }
+]

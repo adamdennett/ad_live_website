@@ -48,9 +48,12 @@ website:
       - icon: linkedin
         href: https://www.linkedin.com/in/adam-dennett-b5b3a229/
         aria-label: LinkedIn
-      - icon: twitter
+      - icon: twitter-x
         href: https://twitter.com/adam_dennett
-        aria-label: Twitter
+        aria-label: X
+      - icon: bluesky
+        href: https://bsky.app/profile/adamdennett.bsky.social
+        aria-label: Bluesky
   page-footer:
     left: "© Adam Dennett"
     right:

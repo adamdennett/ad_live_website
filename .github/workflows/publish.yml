@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    # Daily rebuild at 05:30 UTC (06:30 BST / 05:30 GMT). Picks up
+    # README changes in upstream project repos without needing a push.
+    - cron: "30 5 * * *"
 
 permissions:
   contents: write

@@ -10,6 +10,7 @@ execute:
   echo: false
   warning: false
   message: false
+  freeze: false   # always re-fetch from GitHub on every render
 ---
 
 ```{r setup}
@@ -104,10 +105,18 @@ first_image_in_body <- function(body) {
   if (length(m) >= 2) m[2] else NULL
 }
 
-# Turn a relative image path into an absolute GitHub raw URL.
-# Pass-through if already an absolute URL.
+# Turn an image reference into a directly-loadable URL.
+# - Relative path  -> https://raw.githubusercontent.com/<repo>/<branch>/<path>
+# - github.com blob URL -> rewrite to raw.githubusercontent.com (common
+#   gotcha: people paste the URL of the image's page on GitHub, not the
+#   raw image, and the page URL won't load as an <img src>)
+# - Other absolute URL -> pass through
 absolutize_image <- function(image, repo_full_name, default_branch) {
   if (is.null(image) || !nzchar(image)) return(NA_character_)
+  if (grepl("^https?://github\\.com/[^/]+/[^/]+/blob/", image)) {
+    return(sub("^https?://github\\.com/([^/]+)/([^/]+)/blob/",
+               "https://raw.githubusercontent.com/\\1/\\2/", image))
+  }
   if (grepl("^https?://", image)) return(image)
   image <- sub("^\\./", "", image)
   sprintf("https://raw.githubusercontent.com/%s/%s/%s",

@@ -48,9 +48,9 @@ tribble(
   "2002", "2005",      "Teacher of Geography and Head of General Studies",                     "Hedingham School, Essex"
 ) %>%
   detailed_entries(
-    what  = role,
+    what  = place,            # awesomecv: #1 (small caps, gray, bottom line)
     when  = paste(start, end, sep = "--"),
-    with  = place
+    with  = role              # awesomecv: #2 (bold, dark, top line)
   )
 ```
 

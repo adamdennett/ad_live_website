@@ -11,4 +11,19 @@ listing:
   fields: [date, title, description, categories]
 page-layout: full
 title-block-banner: false
+execute:
+  echo: false
+  warning: false
+  message: false
+  freeze: false
 ---
+
+## GitHub talks
+
+Auto-pulled from repos whose README front-matter includes `type: talk`.
+
+```{r github-talks}
+#| output: asis
+source("../_helpers/gh_type_cards.R")
+render_gh_type_cards("talk")
+```

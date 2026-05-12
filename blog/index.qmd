@@ -12,4 +12,19 @@ listing:
   fields: [date, title, description, categories, reading-time]
 page-layout: full
 title-block-banner: false
+execute:
+  echo: false
+  warning: false
+  message: false
+  freeze: false
 ---
+
+## GitHub blog posts
+
+Auto-pulled from repos whose README front-matter includes `type: blog`.
+
+```{r github-blog}
+#| output: asis
+source("../_helpers/gh_type_cards.R")
+render_gh_type_cards("blog")
+```

@@ -2,6 +2,7 @@
 title: "Teaching"
 description: "Workshops, modules, and teaching resources."
 listing:
+  id: teaching-items
   contents: "*/index.qmd"
   type: grid
   sort: "date desc"
@@ -12,4 +13,101 @@ listing:
   image-height: 220px
 page-layout: full
 title-block-banner: false
+execute:
+  echo: false
+  warning: false
+  message: false
+  freeze: false   # always re-scrape RPubs in case items are added
 ---
+
+::: {#teaching-items}
+:::
+
+## RPubs archive
+
+Older R Markdown documents published on [RPubs](https://rpubs.com/adam_dennett),
+mostly practical notes and lecture supplements from 2014–2018 — scraped live
+from my RPubs profile so the list stays current if I post anything new.
+
+```{r rpubs}
+#| output: asis
+
+library(httr2)
+library(stringr)
+library(htmltools)
+library(dplyr)
+library(purrr)
+
+# Decode the handful of HTML entities that appear in attribute values
+# (mainly &amp; in thumbnail URLs).
+unescape_html <- function(x) {
+  if (is.na(x)) return(x)
+  x |>
+    str_replace_all("&amp;",  "&") |>
+    str_replace_all("&quot;", "\"") |>
+    str_replace_all("&#39;",  "'") |>
+    str_replace_all("&lt;",   "<") |>
+    str_replace_all("&gt;",   ">")
+}
+
+raw <- tryCatch(
+  request("https://rpubs.com/adam_dennett") |>
+    req_user_agent("adamdennett.co.uk teaching page") |>
+    req_perform() |>
+    resp_body_string(),
+  error = function(e) NULL
+)
+
+if (is.null(raw)) {
+  cat("\n*Couldn't reach RPubs to fetch the archive — try the ",
+      "[profile page directly](https://rpubs.com/adam_dennett).*\n")
+} else {
+  # Each publication is wrapped in <div class="pubtile"> ... </div>.
+  # Split on the opening tag (drop the first chunk before any tile).
+  tiles <- str_split(raw, '<div class="pubtile">', simplify = FALSE)[[1]][-1]
+
+  rpubs <- map_dfr(tiles, function(t) {
+    url   <- str_match(t, '<h5>\\s*<a href="(https://rpubs\\.com/adam_dennett/[0-9]+)"')[,2]
+    title <- str_match(t, '<h5>\\s*<a href="[^"]+">([^<]+)</a>')[,2]
+    thumb <- str_match(t, 'class="pubthumb"[^>]*src="([^"]+)"')[,2]
+    dt    <- str_match(t, '<time datetime="([^"]+)"')[,2]
+    tibble(url = url, title = unescape_html(title),
+           thumb = unescape_html(thumb),
+           date = suppressWarnings(as.Date(dt)))
+  }) |>
+    filter(!is.na(url)) |>
+    arrange(desc(date))
+
+  if (nrow(rpubs) == 0) {
+    cat("\n*No RPubs documents found in the profile.*\n")
+  } else {
+    cards <- lapply(seq_len(nrow(rpubs)), function(i) {
+      r <- rpubs[i, ]
+      has_thumb <- !is.na(r$thumb) && nzchar(r$thumb)
+      div(class = "project-card with-image",
+        if (has_thumb) {
+          a(href = r$url, target = "_blank", class = "project-image-link",
+            tags$img(src = r$thumb, alt = r$title,
+                     loading = "lazy", class = "project-image"))
+        },
+        div(class = "project-card-body",
+          h3(class = "project-title",
+             a(href = r$url, target = "_blank", r$title)),
+          div(class = "project-meta",
+              span(class = "badge date",
+                   if (!is.na(r$date)) format(r$date, "%b %Y") else "—"),
+              span(class = "badge lang", "RPubs")
+          ),
+          div(class = "project-links",
+              a(href = r$url, target = "_blank", "Open →")
+          )
+        )
+      )
+    })
+
+    cat("\n```{=html}\n")
+    cat(as.character(div(class = "project-grid", cards)))
+    cat("\n```\n")
+  }
+}
+```

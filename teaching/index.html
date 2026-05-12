@@ -80,7 +80,7 @@ ul.task-list li input[type="checkbox"] {
 <script>
 
   window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    const listingTargetEl = window.document.querySelector('#listing-teaching-items .list');
     if (!listingTargetEl) {
       // No listing discovered, do not attach.
       return; 
@@ -93,7 +93,7 @@ ul.task-list li input[type="checkbox"] {
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+    window['quarto-listings']['listing-teaching-items'] = new List('listing-teaching-items', options);
 
     if (window['quarto-listing-loaded']) {
       window['quarto-listing-loaded']();
@@ -394,7 +394,13 @@ window.Quarto = {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#rpubs-archive" id="toc-rpubs-archive" class="nav-link active" data-scroll-target="#rpubs-archive">RPubs archive</a></li>
+  </ul>
+</nav>
     <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Q2FydG8=">Carto <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RVBD">EPC <span class="quarto-category-count">(1)</span></div><div class="category" data-category="R0lT">GIS <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bWFwcGluZw==">mapping <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(3)</span></div><div class="category" data-category="c3RhdGlzdGljcw==">statistics <span class="quarto-category-count">(2)</span></div><div class="category" data-category="dGVhY2hpbmc=">teaching <span class="quarto-category-count">(2)</span></div><div class="category" data-category="VUNM">UCL <span class="quarto-category-count">(2)</span></div><div class="category" data-category="d29ya3Nob3A=">workshop <span class="quarto-category-count">(2)</span></div></div></div>
 <!-- main -->
 <main class="content column-page-left" id="quarto-document-content">
@@ -424,13 +430,9 @@ window.Quarto = {
 </header>
 
 
-
-
-
-
-<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
+<div id="listing-teaching-items" class="quarto-listing quarto-listing-container-grid">
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="dGVhY2hpbmclMkNSJTJDc3RhdGlzdGljcyUyQ1VDTA==" data-listing-date-sort="1763942400000" data-listing-file-modified-sort="1778535485753" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="24">
+<div class="g-col-1" data-index="0" data-categories="dGVhY2hpbmclMkNSJTJDc3RhdGlzdGljcyUyQ1VDTA==" data-listing-date-sort="1763942400000" data-listing-file-modified-sort="1778567963489" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="24">
 <a href="../teaching/2025-11-qm-coursebook/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -462,7 +464,7 @@ Nov 24, 2025
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="1" data-categories="dGVhY2hpbmclMkNSJTJDc3RhdGlzdGljcyUyQ1VDTA==" data-listing-date-sort="1759968000000" data-listing-file-modified-sort="1778535485749" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="28">
+<div class="g-col-1" data-index="1" data-categories="dGVhY2hpbmclMkNSJTJDc3RhdGlzdGljcyUyQ1VDTA==" data-listing-date-sort="1759968000000" data-listing-file-modified-sort="1778567963485" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="28">
 <a href="../teaching/2025-10-casa0007-quantitative-methods/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -494,7 +496,7 @@ Oct 9, 2025
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="2" data-categories="d29ya3Nob3AlMkNFUEMlMkNSJTJDbWFwcGluZw==" data-listing-date-sort="1710720000000" data-listing-file-modified-sort="1778535485748" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="45">
+<div class="g-col-1" data-index="2" data-categories="d29ya3Nob3AlMkNFUEMlMkNSJTJDbWFwcGluZw==" data-listing-date-sort="1710720000000" data-listing-file-modified-sort="1778567963484" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="45">
 <a href="../teaching/2024-03-18-epc-data-analysis-and-mapping/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -526,7 +528,7 @@ Mar 18, 2024
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="3" data-categories="d29ya3Nob3AlMkNHSVMlMkNDYXJ0bw==" data-listing-date-sort="1697500800000" data-listing-file-modified-sort="1778535485738" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="30">
+<div class="g-col-1" data-index="3" data-categories="d29ya3Nob3AlMkNHSVMlMkNDYXJ0bw==" data-listing-date-sort="1697500800000" data-listing-file-modified-sort="1778567963474" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="30">
 <a href="../teaching/2023-10-17-cartobootcamp/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -558,7 +560,307 @@ Oct 17, 2023
 </div>
 </div>
 <div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</div>
+<section id="rpubs-archive" class="level2">
+<h2 class="anchored" data-anchor-id="rpubs-archive">RPubs archive</h2>
+<p>Older R Markdown documents published on <a href="https://rpubs.com/adam_dennett">RPubs</a>, mostly practical notes and lecture supplements from 2014–2018 — scraped live from my RPubs profile so the list stays current if I post anything new.</p>
+<div class="project-grid">
+  <div class="project-card with-image">
+    <a href="https://rpubs.com/adam_dennett/443357" target="_blank" class="project-image-link">
+      <img src="https://d38j8069scdbm5.cloudfront.net/v6/P5441C759E0FFE/c9c852e9102c94f51a3e1ef20a0e766e/png/?thumbnail_max_width=200&amp;unique=1543335440&amp;url=http%3A%2F%2Frstudio-pubs-static.s3.amazonaws.com%2F443357_b86d66038737416dbabe7396cbcf461f.html&amp;viewport=960x960" alt="Practical 8 - Spatial Descriptive Statistics" loading="lazy" class="project-image">
+    </a>
+    <div class="project-card-body">
+      <h3 class="project-title anchored">
+        <a href="https://rpubs.com/adam_dennett/443357" target="_blank">Practical 8 - Spatial Descriptive Statistics</a>
+      </h3>
+      <div class="project-meta">
+        <span class="badge date">Nov 2018</span>
+        <span class="badge lang">RPubs</span>
+      </div>
+      <div class="project-links">
+        <a href="https://rpubs.com/adam_dennett/443357" target="_blank">Open →</a>
+      </div>
+    </div>
+  </div>
+  <div class="project-card with-image">
+    <a href="https://rpubs.com/adam_dennett/430188" target="_blank" class="project-image-link">
+      <img src="https://d38j8069scdbm5.cloudfront.net/v6/P5441C759E0FFE/c442ce1676252af5084ac1f917468680/png/?thumbnail_max_width=200&amp;unique=1539771762&amp;url=http%3A%2F%2Frstudio-pubs-static.s3.amazonaws.com%2F430188_a35e18349c924b578fc8a40ffd5076af.html&amp;viewport=960x960" alt="Producing Reproducible Research Using RMarkdown and Github" loading="lazy" class="project-image">
+    </a>
+    <div class="project-card-body">
+      <h3 class="project-title anchored">
+        <a href="https://rpubs.com/adam_dennett/430188" target="_blank">Producing Reproducible Research Using RMarkdown and Github</a>
+      </h3>
+      <div class="project-meta">
+        <span class="badge date">Oct 2018</span>
+        <span class="badge lang">RPubs</span>
+      </div>
+      <div class="project-links">
+        <a href="https://rpubs.com/adam_dennett/430188" target="_blank">Open →</a>
+      </div>
+    </div>
+  </div>
+  <div class="project-card with-image">
+    <a href="https://rpubs.com/adam_dennett/427207" target="_blank" class="project-image-link">
+      <img src="https://d38j8069scdbm5.cloudfront.net/v6/P5441C759E0FFE/56d90ac12fe36d7e84be04883d5de70f/png/?thumbnail_max_width=200&amp;unique=1539002491&amp;url=http%3A%2F%2Frstudio-pubs-static.s3.amazonaws.com%2F427207_c0a245962f244370bda11f05496e821f.html&amp;viewport=960x960" alt="Practical 3 - Introduction to using R as a GIS" loading="lazy" class="project-image">
+    </a>
+    <div class="project-card-body">
+      <h3 class="project-title anchored">
+        <a href="https://rpubs.com/adam_dennett/427207" target="_blank">Practical 3 - Introduction to using R as a GIS</a>
+      </h3>
+      <div class="project-meta">
+        <span class="badge date">Oct 2018</span>
+        <span class="badge lang">RPubs</span>
+      </div>
+      <div class="project-links">
+        <a href="https://rpubs.com/adam_dennett/427207" target="_blank">Open →</a>
+      </div>
+    </div>
+  </div>
+  <div class="project-card with-image">
+    <a href="https://rpubs.com/adam_dennett/376877" target="_blank" class="project-image-link">
+      <img src="https://d38j8069scdbm5.cloudfront.net/v6/P5441C759E0FFE/b7f5f83123f3fa8bdaa5a7d3943d9fdb/png/?thumbnail_max_width=200&amp;unique=1522872604&amp;url=http%3A%2F%2Frstudio-pubs-static.s3.amazonaws.com%2F376877_9a11aada60d14fdabcd69fac123c5b3e.html&amp;viewport=960x960" alt="Australian Population Studies - Spatial Interaction Modelling" loading="lazy" class="project-image">
+    </a>
+    <div class="project-card-body">
+      <h3 class="project-title anchored">
+        <a href="https://rpubs.com/adam_dennett/376877" target="_blank">Australian Population Studies - Spatial Interaction Modelling</a>
+      </h3>
+      <div class="project-meta">
+        <span class="badge date">Apr 2018</span>
+        <span class="badge lang">RPubs</span>
+      </div>
+      <div class="project-links">
+        <a href="https://rpubs.com/adam_dennett/376877" target="_blank">Open →</a>
+      </div>
+    </div>
+  </div>
+  <div class="project-card with-image">
+    <a href="https://rpubs.com/adam_dennett/374132" target="_blank" class="project-image-link">
+      <img src="https://d38j8069scdbm5.cloudfront.net/v6/P5441C759E0FFE/3082a0beb6b2d11a2f789f54fed46bd9/png/?thumbnail_max_width=200&amp;unique=1522164650&amp;url=http%3A%2F%2Frstudio-pubs-static.s3.amazonaws.com%2F374132_942a9d3553604377bc89c7dd3954eb55.html&amp;viewport=960x960" alt="An Introduction to Analysing Longitudinal Study Data Using the SYLLS Synthetic Spine Dataset" loading="lazy" class="project-image">
+    </a>
+    <div class="project-card-body">
+      <h3 class="project-title anchored">
+        <a href="https://rpubs.com/adam_dennett/374132" target="_blank">An Introduction to Analysing Longitudinal Study Data Using the SYLLS Synthetic Spine Dataset</a>
+      </h3>
+      <div class="project-meta">
+        <span class="badge date">Mar 2018</span>
+        <span class="badge lang">RPubs</span>
+      </div>
+      <div class="project-links">
+        <a href="https://rpubs.com/adam_dennett/374132" target="_blank">Open →</a>
+      </div>
+    </div>
+  </div>
+  <div class="project-card with-image">
+    <a href="https://rpubs.com/adam_dennett/334459" target="_blank" class="project-image-link">
+      <img src="https://d38j8069scdbm5.cloudfront.net/v6/P5441C759E0FFE/e2e29cb87fdba2928a5ba98e35c55f9b/png/?thumbnail_max_width=200&amp;unique=1511790654&amp;url=http%3A%2F%2Frstudio-pubs-static.s3.amazonaws.com%2F334459_d87aadec0ff44146a5ad3c7f62754280.html&amp;viewport=960x960" alt="Practical 8 - Spatial Inferential Statistics" loading="lazy" class="project-image">
+    </a>
+    <div class="project-card-body">
+      <h3 class="project-title anchored">
+        <a href="https://rpubs.com/adam_dennett/334459" target="_blank">Practical 8 - Spatial Inferential Statistics</a>
+      </h3>
+      <div class="project-meta">
+        <span class="badge date">Nov 2017</span>
+        <span class="badge lang">RPubs</span>
+      </div>
+      <div class="project-links">
+        <a href="https://rpubs.com/adam_dennett/334459" target="_blank">Open →</a>
+      </div>
+    </div>
+  </div>
+  <div class="project-card with-image">
+    <a href="https://rpubs.com/adam_dennett/324491" target="_blank" class="project-image-link">
+      <img src="https://d38j8069scdbm5.cloudfront.net/v6/P5441C759E0FFE/141790e5a4a3b441ab84fb3524636189/png/?thumbnail_max_width=200&amp;unique=1509382768&amp;url=http%3A%2F%2Frstudio-pubs-static.s3.amazonaws.com%2F324491_35ca70b9087b46b7b27ae13cc7372ce7.html&amp;viewport=960x960" alt="Practical 5 - Spatial Analysis Methodologies Challenge" loading="lazy" class="project-image">
+    </a>
+    <div class="project-card-body">
+      <h3 class="project-title anchored">
+        <a href="https://rpubs.com/adam_dennett/324491" target="_blank">Practical 5 - Spatial Analysis Methodologies Challenge</a>
+      </h3>
+      <div class="project-meta">
+        <span class="badge date">Oct 2017</span>
+        <span class="badge lang">RPubs</span>
+      </div>
+      <div class="project-links">
+        <a href="https://rpubs.com/adam_dennett/324491" target="_blank">Open →</a>
+      </div>
+    </div>
+  </div>
+  <div class="project-card with-image">
+    <a href="https://rpubs.com/adam_dennett/318636" target="_blank" class="project-image-link">
+      <img src="https://d38j8069scdbm5.cloudfront.net/v6/P5441C759E0FFE/da8cfc12daf1aa91824b8f425884271c/png/?thumbnail_max_width=200&amp;unique=1508095986&amp;url=http%3A%2F%2Frstudio-pubs-static.s3.amazonaws.com%2F318636_e5f34258a10c4b92acf5fc23ebd03e2d.html&amp;viewport=960x960" alt="BENVGSA3 - Practical 3" loading="lazy" class="project-image">
+    </a>
+    <div class="project-card-body">
+      <h3 class="project-title anchored">
+        <a href="https://rpubs.com/adam_dennett/318636" target="_blank">BENVGSA3 - Practical 3</a>
+      </h3>
+      <div class="project-meta">
+        <span class="badge date">Oct 2017</span>
+        <span class="badge lang">RPubs</span>
+      </div>
+      <div class="project-links">
+        <a href="https://rpubs.com/adam_dennett/318636" target="_blank">Open →</a>
+      </div>
+    </div>
+  </div>
+  <div class="project-card with-image">
+    <a href="https://rpubs.com/adam_dennett/259068" target="_blank" class="project-image-link">
+      <img src="https://d38j8069scdbm5.cloudfront.net/v6/P5441C759E0FFE/d341bd3eb604deea2ee7b543a82b9f58/png/?thumbnail_max_width=200&amp;unique=1489618970&amp;url=http%3A%2F%2Frstudio-pubs-static.s3.amazonaws.com%2F259068_5fad5601fe6a4669b8a497f258a5ef1f.html&amp;viewport=960x960" alt="Dr D’s Idiots’ Guide to Spatial Interaction Modelling for Dummies - Part 2: Constrained Models" loading="lazy" class="project-image">
+    </a>
+    <div class="project-card-body">
+      <h3 class="project-title anchored">
+        <a href="https://rpubs.com/adam_dennett/259068" target="_blank">Dr D’s Idiots’ Guide to Spatial Interaction Modelling for Dummies - Part 2: Constrained Models</a>
+      </h3>
+      <div class="project-meta">
+        <span class="badge date">Mar 2017</span>
+        <span class="badge lang">RPubs</span>
+      </div>
+      <div class="project-links">
+        <a href="https://rpubs.com/adam_dennett/259068" target="_blank">Open →</a>
+      </div>
+    </div>
+  </div>
+  <div class="project-card with-image">
+    <a href="https://rpubs.com/adam_dennett/257231" target="_blank" class="project-image-link">
+      <img src="https://d38j8069scdbm5.cloudfront.net/v6/P5441C759E0FFE/c8dc2211b6ca386394b51c915587e711/png/?thumbnail_max_width=200&amp;unique=1489088000&amp;url=https%3A%2F%2Frstudio-pubs-static.s3.amazonaws.com%2F257231_762568c527434a638661c63574a23615.html&amp;viewport=960x960" alt="Dr D’s Idiots’ Guide to Spatial Interaction Modelling for Dummies - Part 1: The Unconstrained (Total Constrained) Model" loading="lazy" class="project-image">
+    </a>
+    <div class="project-card-body">
+      <h3 class="project-title anchored">
+        <a href="https://rpubs.com/adam_dennett/257231" target="_blank">Dr D’s Idiots’ Guide to Spatial Interaction Modelling for Dummies - Part 1: The Unconstrained (Total Constrained) Model</a>
+      </h3>
+      <div class="project-meta">
+        <span class="badge date">Mar 2017</span>
+        <span class="badge lang">RPubs</span>
+      </div>
+      <div class="project-links">
+        <a href="https://rpubs.com/adam_dennett/257231" target="_blank">Open →</a>
+      </div>
+    </div>
+  </div>
+  <div class="project-card with-image">
+    <a href="https://rpubs.com/adam_dennett/228756" target="_blank" class="project-image-link">
+      <img src="https://d38j8069scdbm5.cloudfront.net/v6/P5441C759E0FFE/1f8bba79144053dae5c7ac4131cf9e81/png/?thumbnail_max_width=200&amp;unique=1479680904&amp;url=http%3A%2F%2Frstudio-pubs-static.s3.amazonaws.com%2F228756_aa7553c3658e48648e9ee98bf5af6987.html&amp;viewport=960x960" alt="Practical 7 - Spatial Descriptive Statistics" loading="lazy" class="project-image">
+    </a>
+    <div class="project-card-body">
+      <h3 class="project-title anchored">
+        <a href="https://rpubs.com/adam_dennett/228756" target="_blank">Practical 7 - Spatial Descriptive Statistics</a>
+      </h3>
+      <div class="project-meta">
+        <span class="badge date">Nov 2016</span>
+        <span class="badge lang">RPubs</span>
+      </div>
+      <div class="project-links">
+        <a href="https://rpubs.com/adam_dennett/228756" target="_blank">Open →</a>
+      </div>
+    </div>
+  </div>
+  <div class="project-card with-image">
+    <a href="https://rpubs.com/adam_dennett/126356" target="_blank" class="project-image-link">
+      <img src="https://d38j8069scdbm5.cloudfront.net/v6/P5441C759E0FFE/afcfa800505e183a90adfd3c421d6467/png/?thumbnail_max_width=200&amp;unique=1447691988&amp;url=http%3A%2F%2Frstudio-pubs-static.s3.amazonaws.com%2F126356_ef7961b3ac164cd080982bc743b9777e.html&amp;viewport=960x960" alt="Intro to Point Pattern Analysis" loading="lazy" class="project-image">
+    </a>
+    <div class="project-card-body">
+      <h3 class="project-title anchored">
+        <a href="https://rpubs.com/adam_dennett/126356" target="_blank">Intro to Point Pattern Analysis</a>
+      </h3>
+      <div class="project-meta">
+        <span class="badge date">Nov 2015</span>
+        <span class="badge lang">RPubs</span>
+      </div>
+      <div class="project-links">
+        <a href="https://rpubs.com/adam_dennett/126356" target="_blank">Open →</a>
+      </div>
+    </div>
+  </div>
+  <div class="project-card with-image">
+    <a href="https://rpubs.com/adam_dennett/86240" target="_blank" class="project-image-link">
+      <img src="https://d38j8069scdbm5.cloudfront.net/v6/P5441C759E0FFE/8704fc715dc6c29ce3a8628c91c11a02/png/?thumbnail_max_width=200&amp;unique=1434447909&amp;url=http%3A%2F%2Frstudio-pubs-static.s3.amazonaws.com%2F86240_0823612251b1484cba29a1ce71ef29f0.html&amp;viewport=960x960" alt="sankey" loading="lazy" class="project-image">
+    </a>
+    <div class="project-card-body">
+      <h3 class="project-title anchored">
+        <a href="https://rpubs.com/adam_dennett/86240" target="_blank">sankey</a>
+      </h3>
+      <div class="project-meta">
+        <span class="badge date">Jun 2015</span>
+        <span class="badge lang">RPubs</span>
+      </div>
+      <div class="project-links">
+        <a href="https://rpubs.com/adam_dennett/86240" target="_blank">Open →</a>
+      </div>
+    </div>
+  </div>
+  <div class="project-card with-image">
+    <a href="https://rpubs.com/adam_dennett/80649" target="_blank" class="project-image-link">
+      <img src="https://d38j8069scdbm5.cloudfront.net/v6/P5441C759E0FFE/316c8f8c332ef0642c1d7e0d0e1a474c/png/?thumbnail_max_width=200&amp;unique=1432037782&amp;url=http%3A%2F%2Frstudio-pubs-static.s3.amazonaws.com%2F80649_d411d7fe4c584c98b197fe13b16a9722.html&amp;viewport=960x960" alt="SYLLS Workshop" loading="lazy" class="project-image">
+    </a>
+    <div class="project-card-body">
+      <h3 class="project-title anchored">
+        <a href="https://rpubs.com/adam_dennett/80649" target="_blank">SYLLS Workshop</a>
+      </h3>
+      <div class="project-meta">
+        <span class="badge date">May 2015</span>
+        <span class="badge lang">RPubs</span>
+      </div>
+      <div class="project-links">
+        <a href="https://rpubs.com/adam_dennett/80649" target="_blank">Open →</a>
+      </div>
+    </div>
+  </div>
+  <div class="project-card with-image">
+    <a href="https://rpubs.com/adam_dennett/46259" target="_blank" class="project-image-link">
+      <img src="https://d38j8069scdbm5.cloudfront.net/v6/P5441C759E0FFE/a8c1e29f5d0e9ff5eadb12498faee733/png/?thumbnail_max_width=200&amp;unique=1417535931&amp;url=http%3A%2F%2Frstudio-pubs-static.s3.amazonaws.com%2F46259_d328295794034414944deea60552a942.html&amp;viewport=960x960" alt="Surface Interpolation in R - 2014" loading="lazy" class="project-image">
+    </a>
+    <div class="project-card-body">
+      <h3 class="project-title anchored">
+        <a href="https://rpubs.com/adam_dennett/46259" target="_blank">Surface Interpolation in R - 2014</a>
+      </h3>
+      <div class="project-meta">
+        <span class="badge date">Dec 2014</span>
+        <span class="badge lang">RPubs</span>
+      </div>
+      <div class="project-links">
+        <a href="https://rpubs.com/adam_dennett/46259" target="_blank">Open →</a>
+      </div>
+    </div>
+  </div>
+  <div class="project-card with-image">
+    <a href="https://rpubs.com/adam_dennett/44975" target="_blank" class="project-image-link">
+      <img src="https://d38j8069scdbm5.cloudfront.net/v6/P5441C759E0FFE/bfafacd466fc083cf80f0b7fde31352d/png/?thumbnail_max_width=200&amp;unique=1416921745&amp;url=http%3A%2F%2Frstudio-pubs-static.s3.amazonaws.com%2F44975_0342ec49f925426fa16ebcdc28210118.html&amp;viewport=960x960" alt="GWR Walk Through" loading="lazy" class="project-image">
+    </a>
+    <div class="project-card-body">
+      <h3 class="project-title anchored">
+        <a href="https://rpubs.com/adam_dennett/44975" target="_blank">GWR Walk Through</a>
+      </h3>
+      <div class="project-meta">
+        <span class="badge date">Nov 2014</span>
+        <span class="badge lang">RPubs</span>
+      </div>
+      <div class="project-links">
+        <a href="https://rpubs.com/adam_dennett/44975" target="_blank">Open →</a>
+      </div>
+    </div>
+  </div>
+  <div class="project-card with-image">
+    <a href="https://rpubs.com/adam_dennett/8955" target="_blank" class="project-image-link">
+      <img src="https://d38j8069scdbm5.cloudfront.net/v6/P5441C759E0FFE/8718616a034827f289a42e49f1258463/png/?thumbnail_max_width=200&amp;unique=1380124885&amp;url=http%3A%2F%2Frstudio-pubs-static.s3.amazonaws.com%2F8955_871d064627354ed489b8c28b78ef1d0b.html&amp;viewport=960x960" alt="Mapping Data from Eurostat using R" loading="lazy" class="project-image">
+    </a>
+    <div class="project-card-body">
+      <h3 class="project-title anchored">
+        <a href="https://rpubs.com/adam_dennett/8955" target="_blank">Mapping Data from Eurostat using R</a>
+      </h3>
+      <div class="project-meta">
+        <span class="badge date">Sep 2013</span>
+        <span class="badge lang">RPubs</span>
+      </div>
+      <div class="project-links">
+        <a href="https://rpubs.com/adam_dennett/8955" target="_blank">Open →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

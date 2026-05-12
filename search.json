@@ -7,6 +7,13 @@
     "text": "teaching\n\nR\n\nstatistics\n\nUCL\n\n\n\nForked CASA0007 Quantitative Methods coursebook; teaching notes and exercises.\n\n\n\nNov 24, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nteaching\n\nR\n\nstatistics\n\nUCL\n\n\n\nModule materials repository for CASA0007 Quantitative Methods at UCL CASA.\n\n\n\nOct 9, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nworkshop\n\nEPC\n\nR\n\nmapping\n\n\n\nA walk-through for downloading and mapping EPC data in R.\n\n\n\nMar 18, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nworkshop\n\nGIS\n\nCarto\n\n\n\nPresentation on the foundations of geospatial analysis.\n\n\n\nOct 17, 2023\n\n\n\n\n\n\nNo matching items"
   },
   {
+    "objectID": "teaching/index.html#github-teaching-resources",
+    "href": "teaching/index.html#github-teaching-resources",
+    "title": "Teaching",
+    "section": "GitHub teaching resources",
+    "text": "GitHub teaching resources\nAuto-pulled from repos whose README front-matter includes type: teaching.\n\n  \n    \n      \n    \n    \n      \n        Local Analysis of EPC Data\n      \n      This is a walk through (which might now be broken as EPCs have change the way data is accessed) to allow you to map and analyse EPC data using QGIS\n      \n        Updated May 2026\n      \n      \n        Live site →\n        Source\n      \n    \n  \n  \n    \n      \n        Foundations of Geospatial — Carto SDS Bootcamp\n      \n      Slides for the Foundations of Geospatial session at the Carto Spatial Data Science Bootcamp.\n      \n        Updated May 2026\n      \n      \n        Live site →\n        Source\n      \n    \n  \n  \n    \n      \n    \n    \n      \n        Cloned CASA0007 module repo\n      \n      Lectures and Practical Content for CASA0007\n      \n        Updated May 2026\n      \n      \n        Live site →\n        Source"
+  },
+  {
     "objectID": "teaching/index.html#rpubs-archive",
     "href": "teaching/index.html#rpubs-archive",
     "title": "Teaching",

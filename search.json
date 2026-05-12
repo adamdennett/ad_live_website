@@ -67,7 +67,14 @@
     "href": "blog/index.html",
     "title": "Blog",
     "section": "",
-    "text": "No matching items"
+    "text": "Auto-pulled from repos whose README front-matter includes type: blog.\nNo GitHub repos tagged type: blog found."
+  },
+  {
+    "objectID": "blog/index.html#github-blog-posts",
+    "href": "blog/index.html#github-blog-posts",
+    "title": "Blog",
+    "section": "",
+    "text": "Auto-pulled from repos whose README front-matter includes type: blog.\nNo GitHub repos tagged type: blog found."
   },
   {
     "objectID": "about.html",
@@ -116,7 +123,14 @@
     "href": "talks/index.html",
     "title": "Talks",
     "section": "",
-    "text": "Housing and Net Zero — Aalto University\n\n\n\ntalk\n\nhousing\n\nEPC\n\nnet zero\n\n\n\nInvited talk at Aalto University, Finland, on the recently completed Housing and Net Zero research project.\n\n\n\n\n\nSep 29, 2024\n\n\n\n\n\n\n\nCML at AUM 2024\n\n\n\ntalk\n\nurban modelling\n\n\n\nJoint City Modelling Lab presentation for Applied Urban Modelling 2024.\n\n\n\n\n\nJun 26, 2024\n\n\n\n\n\n\n\nHousing and Net Zero\n\n\n\ntalk\n\nhousing\n\nEPC\n\n\n\nTalk on housing energy performance and pathways to net zero.\n\n\n\n\n\nMar 7, 2024\n\n\n\n\n\nNo matching items"
+    "text": "Auto-pulled from repos whose README front-matter includes type: talk.\n\n  \n    \n      \n      City Modelling Lab joint presentation for Applied Urban Modelling 2024.\n      \n        Updated May 2026\n      \n      \n        Live site →\n        Source\n      \n    \n  \n  \n    \n      \n      Invited talk at Aalto University on the Housing and Net Zero research project.\n      \n        Updated May 2026\n      \n      \n        Live site →\n        Source"
+  },
+  {
+    "objectID": "talks/index.html#github-talks",
+    "href": "talks/index.html#github-talks",
+    "title": "Talks",
+    "section": "",
+    "text": "Auto-pulled from repos whose README front-matter includes type: talk.\n\n  \n    \n      \n      City Modelling Lab joint presentation for Applied Urban Modelling 2024.\n      \n        Updated May 2026\n      \n      \n        Live site →\n        Source\n      \n    \n  \n  \n    \n      \n      Invited talk at Aalto University on the Housing and Net Zero research project.\n      \n        Updated May 2026\n      \n      \n        Live site →\n        Source"
   },
   {
     "objectID": "teaching/2024-03-18-epc-data-analysis-and-mapping/index.html",

@@ -46,7 +46,7 @@ categories <- list(
   "Brighton & Hove schools"        = c("BH_Schools_2", "BH_Schools_Consultation",
                                        "bh_school_choice", "school_attainment_tool"),
   "Local government & policy"      = c("council_tax",
-                                       "defibrillator-analysis"),
+                                       "defibrillator-analysis", "west_london_alliance"),
   "Energy & EPC"                   = c("EPC_Analysis_Website", "EPC_Data_Analysis"),
   "Maps & explorers"               = c("BrightonRestaurantsMap"),
   "Data resources & methods"       = c("Synthetic-LS-spines", "SIModelling")

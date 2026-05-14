@@ -1,13 +1,11 @@
 ---
-title: "About"
+title: "About me"
 about:
   template: solana
   image: assets/Me2025.jpg
   image-shape: round
   image-width: 12em
 ---
-
-## About me
 
 I am Professor of Urban Analytics at the
 [Bartlett Centre for Advanced Spatial Analysis](https://www.ucl.ac.uk/bartlett/casa/bartlett-centre-advanced-spatial-analysis),

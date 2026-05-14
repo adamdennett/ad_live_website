@@ -51,21 +51,14 @@
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "I am Professor of Urban Analytics at the Bartlett Centre for Advanced Spatial Analysis, University College London, where I have been based since 2010, first as a post-doc and then as a Lecturer and Senior Lecturer / Associate Professor. I became Professor in 2021. From 2018 to 2023 I was Head of Department and I am an Elected Fellow of the Academy of Social Sciences as well as a Fellow of the Royal Geographical Society.\nMy academic interests are broad and in the past I have described myself as a bit of a ‘magpie’; however, I have published on topics such as migration and residential mobility (and particularly modelling migration using spatial interaction models), housing, gentrification, geographies of beer and brewing, synthetic data and longitudinal analysis.\nTying all of these themes together is a focus on data and quantitative methods — especially if I can use R — and a passion for applied work which often finds a home in urban settings."
-  },
-  {
-    "objectID": "about.html#about-me",
-    "href": "about.html#about-me",
-    "title": "About",
+    "title": "About me",
     "section": "",
     "text": "I am Professor of Urban Analytics at the Bartlett Centre for Advanced Spatial Analysis, University College London, where I have been based since 2010, first as a post-doc and then as a Lecturer and Senior Lecturer / Associate Professor. I became Professor in 2021. From 2018 to 2023 I was Head of Department and I am an Elected Fellow of the Academy of Social Sciences as well as a Fellow of the Royal Geographical Society.\nMy academic interests are broad and in the past I have described myself as a bit of a ‘magpie’; however, I have published on topics such as migration and residential mobility (and particularly modelling migration using spatial interaction models), housing, gentrification, geographies of beer and brewing, synthetic data and longitudinal analysis.\nTying all of these themes together is a focus on data and quantitative methods — especially if I can use R — and a passion for applied work which often finds a home in urban settings."
   },
   {
     "objectID": "about.html#affiliations",
     "href": "about.html#affiliations",
-    "title": "About",
+    "title": "About me",
     "section": "Affiliations",
     "text": "Affiliations\n\nProfessor of Urban Analytics, UCL Bartlett Centre for Advanced Spatial Analysis (CASA)\nFellow, Academy of Social Sciences\nFellow, Royal Geographical Society"
   },

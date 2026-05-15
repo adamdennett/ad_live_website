@@ -4,23 +4,23 @@ name: Render blog posts
 # Template: auto-render blog*.qmd in any of Adam's project repos.
 # Drop this file in any repo as .github/workflows/render-blogs.yml.
 # On every push that touches a blog*.qmd at the repo root, GitHub Actions
-# will render it via Quarto and commit the resulting HTML to docs/, where
-# GitHub Pages picks it up. The adamdennett.co.uk Blog page then discovers
-# the rendered output on its next render.
+# renders it via Quarto, applies the adamdennett.co.uk styling via
+# `_blog-format.yml` (which references `_blog-style.css`), and commits
+# the resulting HTML to docs/, where GitHub Pages picks it up. The
+# adamdennett.co.uk Blog page then discovers the rendered output on its
+# next render.
 #
-# Prerequisites:
-# - Repo has Pages enabled, serving from `main/docs` (the default Quarto
-#   project layout assumes output-dir: docs in _quarto.yml).
-# - Blog posts are pure prose (no R code chunks). If you want code
-#   chunks, see the "with R" section at the bottom.
-# - .gitignore does NOT exclude docs/.
+# Prerequisites in the target repo (see templates/README.md for the
+# full checklist):
+# - Pages enabled, source = main/docs
+# - _quarto.yml has `output-dir: docs`
+# - _blog-style.css and _blog-format.yml at repo root (copied from
+#   ad_live_website/templates/)
+# - docs/.nojekyll exists (so files starting with `_` aren't filtered)
+# - .gitignore does NOT exclude docs/
 #
-# Behaviour:
-# - Triggers on push when blog*.qmd or this workflow itself changes,
-#   plus on manual workflow_dispatch.
-# - Renders each blog*.qmd individually (so it doesn't touch the big
-#   project qmds that need R + data).
-# - Commits with "[skip ci]" so the auto-commit doesn't re-trigger.
+# If a blog post uses R code chunks, uncomment the `setup-r` /
+# `setup-r-dependencies` steps below and list the packages it needs.
 # ---------------------------------------------------------------------------
 
 on:
@@ -28,6 +28,8 @@ on:
     branches: [main]
     paths:
       - 'blog*.qmd'
+      - '_blog-style.css'
+      - '_blog-format.yml'
       - '.github/workflows/render-blogs.yml'
   workflow_dispatch:
 
@@ -43,8 +45,7 @@ jobs:
 
       - uses: quarto-dev/quarto-actions/setup@v2
 
-      # If you want R chunks in blog posts, uncomment these two steps
-      # and list the packages your code needs.
+      # Uncomment if any blog post uses R code chunks.
       #
       # - uses: r-lib/actions/setup-r@v2
       #   with:
@@ -63,16 +64,22 @@ jobs:
           shopt -s nullglob
           for f in blog*.qmd; do
             echo "::group::Rendering $f"
-            quarto render "$f"
+            # --metadata-file layers the site styling on top of the qmd's
+            # own front-matter — only blog posts pick it up, other qmds
+            # in the project are unaffected.
+            quarto render "$f" --metadata-file _blog-format.yml
             echo "::endgroup::"
           done
 
-      - name: Commit rendered HTML
+      - name: Commit rendered HTML + style assets
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # Use find rather than shell glob for robustness across shells.
-          find docs -maxdepth 2 \( -name 'blog*.html' -o -name 'blog*_files' \) -print 2>/dev/null | while read f; do
+          # Stage rendered HTML, any _files dir Quarto created, and the
+          # CSS Quarto copied alongside (so Pages serves it).
+          find docs -maxdepth 3 \
+            \( -name 'blog*.html' -o -name 'blog*_files' -o -name '_blog-style.css' \) \
+            -print 2>/dev/null | while read f; do
             git add "$f"
           done
           if ! git diff --staged --quiet; then

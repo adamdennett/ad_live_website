@@ -45,9 +45,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-87f7908b905bb60864be3ee8ff803566.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-e79ad082fd811a859610ddcf56f23dbb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-e382c649e176b119176f6fb657dc9be9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-e79ad082fd811a859610ddcf56f23dbb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-c4c3c9f5166240c5cd92973ff9d76f32.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-405376afca1233544b975362eb2fbbe6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-c4c3c9f5166240c5cd92973ff9d76f32.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/quarto-contrib/fontawesome6-6.7.2/all.min.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/fontawesome6-6.7.2/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -363,6 +363,82 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<!-- =====================================================================
+     MAINTAINER NOTES — how to tweak the publications page
+     =====================================================================
+
+     This page fetches every paper from ORCID at render time and
+     classifies each into a research theme by keyword rule. Themes
+     drive a coloured left-bar on each entry, a small theme badge
+     near the DOI, and a clickable filter-chip legend at the top.
+
+     There are three editorial knobs, all in the `{r setup}` chunk
+     below. After any change: render locally to preview, then
+     `git add publications.qmd && git commit && git push`. CI
+     rebuilds the live site within ~90 seconds. The daily 05:30 UTC
+     cron also rebuilds, so new ORCID entries are picked up
+     automatically.
+
+     ---------------------------------------------------------------
+     1. PIN A SPECIFIC PAPER TO A DIFFERENT THEME (override)
+     ---------------------------------------------------------------
+     Find the `overrides` tribble in the setup chunk and add a row.
+     The override is applied AFTER the keyword pass, so it always
+     wins over whatever the regex would have picked.
+
+       overrides <- tribble(
+         ~match_doi,           ~match_title,           ~theme,
+         "10.xxxx/your-doi",   NA_character_,          "Housing & Energy"
+       )
+
+     - match_doi    The DOI string. Easiest to copy from the
+                    "doi:" line on the rendered card. Either field
+                    can be NA_character_.
+     - match_title  A perl-style regex matched case-insensitively
+                    against the paper's title. Useful when there's
+                    no DOI, or as belt-and-braces alongside the DOI.
+                    Remember to escape regex specials (e.g. \\.).
+     - theme        Must EXACTLY match a theme name in the `themes`
+                    tribble — including the ampersand, e.g.
+                    "Gentrification & Neighbourhoods". A typo here
+                    leaves the card with a grey fallback colour
+                    (visible at a glance, easy to spot).
+
+     ---------------------------------------------------------------
+     2. ADD A NEW THEME (or rename / recolour / re-keyword one)
+     ---------------------------------------------------------------
+     Find the `themes` tribble in the setup chunk and add a row.
+
+       "New Theme Name", "#7A4F2B", "keyword1|keyword2|\\bABBR\\b"
+
+     - theme    Display name. Will appear in the legend chip strip,
+                the small badge on each card, and as the value to
+                use in `overrides$theme`.
+     - colour   Any CSS hex code (six chars). Used for the chip,
+                badge border, and the entry's left-bar accent. Try
+                to pick something visually distinct from the other
+                themes so legend chips stay distinguishable.
+     - pattern  A perl-style regex matched case-insensitively
+                against paper titles. ORDER MATTERS — first match
+                wins. Put more specific themes above more general
+                ones (that's why Methods sits above Migration: the
+                manifesto paper would otherwise hit `spatial
+                interaction` first). Keep "Other" as the last row;
+                its `NA_character_` pattern is the catch-all.
+
+     To remove a theme: just delete the row. Anything that was
+     classified there will fall through to the next matching theme
+     (or land in Other).
+
+     ---------------------------------------------------------------
+     3. FIND PAPERS THAT NEED ATTENTION
+     ---------------------------------------------------------------
+     The "X untagged paper(s)" callout at the bottom of the
+     rendered page auto-lists everything currently classified as
+     "Other". That's your visible audit signal — add a keyword to
+     the right theme's pattern, or pin via an override.
+
+     ===================================================================== -->
 <div class="lead">
 <p><strong>88 publications</strong> indexed in my ORCID record, pulled live on every render. The full record (and any work not represented here) lives at <a href="https://orcid.org/0000-0001-8036-0185">ORCID 0000-0001-8036-0185</a>; citation counts are on <a href="https://scholar.google.co.uk/citations?user=P_sHtmkAAAAJ">Google Scholar</a>.</p>
 </div>
@@ -385,12 +461,12 @@ ul.task-list li input[type="checkbox"] {
   <span class="pub-legend-chip" style="--theme-colour: #C2542D;" data-theme="Housing &amp; Energy">
     <span class="pub-legend-swatch"></span>
     <span class="pub-legend-label">Housing &amp; Energy</span>
-    <span class="pub-legend-count"> (9)</span>
+    <span class="pub-legend-count"> (10)</span>
   </span>
   <span class="pub-legend-chip" style="--theme-colour: #4A7B5F;" data-theme="Schools &amp; Education">
     <span class="pub-legend-swatch"></span>
     <span class="pub-legend-label">Schools &amp; Education</span>
-    <span class="pub-legend-count"> (2)</span>
+    <span class="pub-legend-count"> (1)</span>
   </span>
   <span class="pub-legend-chip" style="--theme-colour: #8B3A8F;" data-theme="Transport &amp; Mobility">
     <span class="pub-legend-swatch"></span>
@@ -467,7 +543,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <h2 class="anchored">2025</h2>
 <div class="pub-year-group">
-  <div class="pub-entry" style="--theme-colour: #4A7B5F;" data-theme="Schools &amp; Education">
+  <div class="pub-entry" style="--theme-colour: #C2542D;" data-theme="Housing &amp; Energy">
     <div class="pub-title">
       <a href="https://doi.org/10.1007/978-3-031-98300-9_17" target="_blank">Do Good Schools Influence Property Prices? Disentangling School and Neighbourhood Effects with Empirical Evidence from Brighton</a>
     </div>
@@ -476,7 +552,7 @@ ul.task-list li input[type="checkbox"] {
       <p class="pub-doi">
         <a href="https://doi.org/10.1007/978-3-031-98300-9_17" target="_blank">doi: 10.1007/978-3-031-98300-9_17</a>
       </p>
-      <span class="pub-theme-badge">Schools &amp; Education</span>
+      <span class="pub-theme-badge">Housing &amp; Energy</span>
     </div>
   </div>
   <div class="pub-entry" style="--theme-colour: #C2542D;" data-theme="Housing &amp; Energy">

@@ -474,7 +474,7 @@ window.Quarto = {
 <div class="project-grid">
   <div class="project-card with-image">
     <a href="https://adamdennett.github.io/defibrillator-analysis/blog1.html" target="_blank" class="project-image-link">
-      <img src="https://raw.githubusercontent.com/adamdennett/defibrillator-analysis/main/thumb.png" alt="A short writeup on mapping Brighton's AEDs" loading="lazy" class="project-image">
+      <img src="https://raw.githubusercontent.com/adamdennett/defibrillator-analysis/main/docs/brighton_analysis_files/figure-html/map-priority-1.png" alt="A short writeup on mapping Brighton's AEDs" loading="lazy" class="project-image">
     </a>
     <div class="project-card-body">
       <h3 class="project-title anchored">
@@ -504,20 +504,37 @@ window.Quarto = {
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Drop a file named <code>blog.qmd</code>, <code>blog1.qmd</code>, <code>blog2.qmd</code> … at the <strong>root</strong> of any of my GitHub repos that has Pages enabled. Give it a YAML front-matter block like:</p>
+<section id="the-short-version" class="level3">
+<h3 class="anchored" data-anchor-id="the-short-version">The short version</h3>
+<p>In any of your Pages-enabled repos, create a file at the <strong>repo root</strong> named <code>blog.qmd</code>, <code>blog1.qmd</code>, <code>blog2.qmd</code>, … with a YAML front-matter block like:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"A short writeup on mapping Brighton's AEDs"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="st">"What we found when we joined OS AED data to population vulnerability."</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> 2026-05-20</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">image</span><span class="kw">:</span><span class="at"> thumb.png</span><span class="co">        # optional; relative path inside the repo or a full URL</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># site: blog1.html      # optional override of the rendered URL — only needed</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">                        # if the project ships into a non-default location</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># draft: true           # uncomment to hide while drafting</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">Body of the post goes here…</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Render the project (most Quarto repos pick up new top-level <code>.qmd</code> files automatically — just run <code>quarto render</code>), commit both the <code>.qmd</code> and the rendered <code>.html</code>, and push. The next site rebuild discovers the post via the GitHub Trees API, parses the front-matter, and surfaces a card here linking to the live HTML at <code>https://adamdennett.github.io/{repo}/{filename}.html</code>.</p>
-<p>The daily 05:30 UTC cron means posts appear within 24 hours even if nothing else is pushed to the website repo.</p>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># site: blog1.html      # optional override of the rendered URL</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># draft: true           # uncomment to hide while drafting</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">Body of the post goes here…</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If the repo has the <code>render-blogs.yml</code> workflow installed (see below), that’s it — write directly in github.com’s web editor, commit, and the post auto-renders and appears here on the next site rebuild. Otherwise you’ll need to render locally (<code>quarto render</code>) and commit both the <code>.qmd</code> and the <code>.html</code>.</p>
+</section>
+<section id="auto-render-workflow-recommended" class="level3">
+<h3 class="anchored" data-anchor-id="auto-render-workflow-recommended">Auto-render workflow (recommended)</h3>
+<p>The repo <code>defibrillator-analysis</code> is set up as the reference example. The workflow file lives at <code>.github/workflows/render-blogs.yml</code> in that repo. A copy of the workflow lives in <a href="https://github.com/adamdennett/ad_live_website/blob/main/templates/render-blogs.yml"><code>templates/render-blogs.yml</code></a> in this site repo as a drop-in template.</p>
+<p><strong>To enable auto-render in a new project repo:</strong></p>
+<ol type="1">
+<li>Copy <code>templates/render-blogs.yml</code> from <code>ad_live_website</code> into the target repo at <code>.github/workflows/render-blogs.yml</code>.</li>
+<li>Confirm Pages is enabled on <code>main</code>/<code>docs</code> and that <code>_quarto.yml</code> has <code>output-dir: docs</code>.</li>
+<li>Make sure <code>.gitignore</code> doesn’t exclude <code>docs/</code>.</li>
+<li>Push the workflow file. From then on, any push that touches a <code>blog*.qmd</code> triggers a render → docs/ → Pages → live URL.</li>
+</ol>
+<p>The workflow only renders single <code>blog*.qmd</code> files, so it won’t try to re-execute the project’s bigger qmd files (which need R + data). If you want R code chunks inside a blog post, uncomment the <code>setup-r</code> steps in the workflow template and list the packages you need.</p>
+</section>
+<section id="how-adamdennett.co.uk-picks-it-up" class="level3">
+<h3 class="anchored" data-anchor-id="how-adamdennett.co.uk-picks-it-up">How adamdennett.co.uk picks it up</h3>
+<p>Every time this site renders (push, manual trigger, or the daily 05:30 UTC cron), it walks every Pages-enabled owner-repo via the GitHub Trees API, finds any <code>blog*.qmd</code> at the root, parses the front-matter, and links a card here to <code>https://adamdennett.github.io/{repo}/{filename}.html</code>.</p>
+</section>
 </div>
 </div>
 </div>

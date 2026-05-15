@@ -324,10 +324,81 @@
 .pub-year-group { margin-bottom: 2.2rem; }
 
 .pub-entry {
-  padding: 1rem 0;
+  padding: 1rem 0 1rem 0.9rem;
   border-bottom: 1px solid #F2EEE3;
+  /* Theme accent: a coloured left bar driven by --theme-colour set per entry. */
+  border-left: 3px solid var(--theme-colour, #E8E2D4);
+  transition: background 180ms ease;
 }
 .pub-entry:last-child { border-bottom: none; }
+
+/* Bottom row of each entry: doi on the left, theme badge on the right. */
+.pub-bottom {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-top: 0.4rem;
+}
+.pub-bottom .pub-doi { margin-top: 0; }
+
+.pub-theme-badge {
+  font-family: "JetBrains Mono", Menlo, monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid var(--theme-colour, #E8E2D4);
+  color: var(--theme-colour, #5E5E5E);
+  background: color-mix(in srgb, var(--theme-colour, #6E6862) 6%, transparent);
+  white-space: nowrap;
+}
+
+/* ----- Legend / filter chip strip ------------------------------------------ */
+
+.pub-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0 1.75rem;
+}
+
+.pub-legend-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--theme-colour, #E8E2D4);
+  background: transparent;
+  font-family: "Inter", sans-serif;
+  font-size: 0.82rem;
+  color: #2a2a2a;
+  cursor: pointer;
+  user-select: none;
+  transition: background 160ms ease, transform 120ms ease;
+}
+.pub-legend-chip:hover {
+  background: color-mix(in srgb, var(--theme-colour) 12%, transparent);
+}
+.pub-legend-chip.is-active {
+  background: color-mix(in srgb, var(--theme-colour) 22%, transparent);
+}
+.pub-legend-chip:active { transform: translateY(1px); }
+
+.pub-legend-swatch {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: var(--theme-colour);
+  flex: 0 0 auto;
+}
+.pub-legend-count {
+  color: #6e6862;
+  font-variant-numeric: tabular-nums;
+}
 
 .pub-title {
   font-family: "Fraunces", Georgia, serif;
@@ -394,3 +465,8 @@
   color: #E8784F;
   border-bottom-color: #E8784F;
 }
+[data-bs-theme="dark"] .pub-theme-badge {
+  background: color-mix(in srgb, var(--theme-colour, #6E6862) 14%, transparent);
+}
+[data-bs-theme="dark"] .pub-legend-chip { color: #E8E5DC; }
+[data-bs-theme="dark"] .pub-legend-count { color: #9A9387; }

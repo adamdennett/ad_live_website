@@ -107,6 +107,73 @@ pubs <- map_dfr(work_resps, function(r) {
   filter(!is.na(year)) |>
   arrange(desc(year), title)
 
+# ---- Deduplicate -----------------------------------------------------------
+# ORCID groups the same work submitted by multiple sources (manual,
+# CrossRef, Scopus, ...) — but if titles differ in casing or whitespace,
+# they slip through and appear twice. Collapse same-title-same-year
+# duplicates, keeping the entry with the strongest link
+# (DOI > work URL > none).
+pubs <- pubs |>
+  mutate(
+    .norm = tolower(trimws(gsub("\\s+", " ", title))),
+    .lnk  = ifelse(!is.na(doi) & nzchar(doi),       2L,
+            ifelse(!is.na(work_url) & nzchar(work_url), 1L, 0L))
+  ) |>
+  group_by(.norm, year) |>
+  slice_max(.lnk, n = 1, with_ties = FALSE) |>
+  ungroup() |>
+  select(-.norm, -.lnk) |>
+  arrange(desc(year), title)
+
+# ---- Theme classification --------------------------------------------------
+# Keyword-rule classifier. First matching theme wins; "Other" is the
+# catch-all (NA pattern, always last). To recategorise a paper, edit a
+# pattern here — the tribble is the single source of truth.
+themes <- tribble(
+  ~theme,                            ~colour,   ~pattern,
+  # Methods is checked first so the manifesto paper (which also matches
+  # `spatial interaction` in Migration) lands here. Narrow regex by design:
+  # only papers whose titles explicitly call themselves a manifesto or a
+  # methodological/teaching artefact.
+  "Methods & Manifestos",            "#B53A2D", "manifesto|applied geographic|course in R",
+  # Explicit-title overrides at the end (^preface$, demographic case study,
+  # consistency over time) hard-classify chapters whose titles are too
+  # generic for keyword matching alone.
+  "Migration",                       "#1F5FA8", "migration|migrant|residential mobility|spatial interaction|inter-regional|inter regional|return migration|DEMIFER|demographic.{0,20}migrat|migratory flow|population dynamic|demographic case study|consistency over time|^preface$",
+  "Housing & Energy",                "#C2542D", "\\bEPC\\b|energy performance|housing|residential (?!mobility)|dwelling|net[ -]zero|building stock|carbon|wood burning|energy efficien",
+  "Schools & Education",             "#4A7B5F", "school|admission|attainment|catchment|education|takeaway|childhood",
+  "Transport & Mobility",            "#8B3A8F", "transport|mobility|car dependence|\\brail\\b|\\bbus\\b|travel|commuting|trip|cycling",
+  "Gentrification & Neighbourhoods", "#C28F2D", "gentrification|neighbourhood|displacement|property price|house price|urban change|residential metabolism|built[ -]to[ -]rent",
+  "Planning & Policy",               "#5E4B8B", "permitted development|\\bclass[ ]?E\\b|high street|town centre|\\bTCPA\\b|planning policy",
+  "Climate & Health",                "#588157", "climate disadvantage|heat vulnerab|climate vulnerab|care provision|public health|wheezing|asthma|defibrillator|\\bAED\\b",
+  "Smart Cities & AI",               "#006D77", "digital twin|smart cit|colouring london|\\bAI\\b|artificial intelligence|collective intelligence|machine learning|deep learning|\\bIoT\\b|mixed reality",
+  "Beer & Brewing",                  "#8A6D00", "beer|brewing|brewer|\\bpub\\b|brewery",
+  "Synthetic Data & Longitudinal",   "#2E5266", "synthetic|longitudinal|\\bLS\\b|census|microsimulation|cohort|interaction data|confidentiality",
+  "Politics",                        "#6B2737", "\\bBNP\\b|British National Party|electoral|\\belection|political party|right[ -]wing|voting",
+  "Other",                           "#6E6862", NA_character_
+)
+
+classify_one <- function(text) {
+  if (is.null(text) || is.na(text) || !nzchar(text)) return("Other")
+  for (i in seq_len(nrow(themes))) {
+    p <- themes$pattern[i]
+    if (!is.na(p) && grepl(p, text, ignore.case = TRUE, perl = TRUE)) {
+      return(themes$theme[i])
+    }
+  }
+  "Other"
+}
+
+pubs <- pubs |>
+  mutate(
+    # Match on title only. The journal field carried too much noise (book
+    # chapters whose journals are unrelated book titles, papers in
+    # journals named "X Review" being tagged as method reviews, etc.).
+    # Titles for academic papers are usually descriptive enough.
+    theme        = vapply(title, classify_one, character(1)),
+    theme_colour = themes$colour[match(theme, themes$theme)]
+  )
+
 # ---- Renderer --------------------------------------------------------------
 
 # Format author list as "A, B, C, ..., X & Y"
@@ -137,6 +204,10 @@ pub_entry <- function(row) {
   if (nzchar(row$journal)) meta_parts <- c(meta_parts, sprintf("*%s*", row$journal))
 
   div(class = "pub-entry",
+      # CSS variable feeds the left-border colour and the theme badge;
+      # data-theme is what the legend chips filter on.
+      style = sprintf("--theme-colour: %s;", row$theme_colour %||% "#6E6862"),
+      `data-theme` = row$theme %||% "Other",
       div(class = "pub-title", title_node),
       if (length(meta_parts) > 0)
         p(class = "pub-meta",
@@ -149,11 +220,14 @@ pub_entry <- function(row) {
               sprintf('<span class="pub-authors">%s</span>', s)
             }
           }, character(1)), collapse = ". "))),
-      if (!is.na(doi) && nzchar(doi))
-        p(class = "pub-doi",
-          a(href = paste0("https://doi.org/", doi),
-            target = "_blank",
-            paste0("doi: ", doi)))
+      div(class = "pub-bottom",
+        if (!is.na(doi) && nzchar(doi))
+          p(class = "pub-doi",
+            a(href = paste0("https://doi.org/", doi),
+              target = "_blank",
+              paste0("doi: ", doi))),
+        span(class = "pub-theme-badge", row$theme %||% "Other")
+      )
   )
 }
 
@@ -177,14 +251,88 @@ are on [Google Scholar](https://scholar.google.co.uk/citations?user=P_sHtmkAAAAJ
 
 ```{r render}
 #| output: asis
+
+# Build the legend strip — one chip per theme that's actually represented,
+# plus an "All" chip that resets the filter. Counts are computed from the
+# classified pubs frame so they stay in sync.
+counts <- vapply(themes$theme, function(t) sum(pubs$theme == t), integer(1))
+
+legend <- div(class = "pub-legend",
+  span(class = "pub-legend-chip pub-legend-all is-active",
+    style = "--theme-colour: #1A1A1A;",
+    `data-theme` = "__all",
+    span(class = "pub-legend-label", "All"),
+    span(class = "pub-legend-count", paste0(" (", nrow(pubs), ")"))
+  ),
+  lapply(seq_len(nrow(themes)), function(i) {
+    n <- counts[i]
+    if (n == 0) return(NULL)
+    span(class = "pub-legend-chip",
+      style = sprintf("--theme-colour: %s;", themes$colour[i]),
+      `data-theme` = themes$theme[i],
+      span(class = "pub-legend-swatch"),
+      span(class = "pub-legend-label", themes$theme[i]),
+      span(class = "pub-legend-count", paste0(" (", n, ")"))
+    )
+  })
+)
+
 years_sorted <- sort(unique(pubs$year), decreasing = TRUE)
-sections <- lapply(years_sorted, function(y) {
+year_sections <- lapply(years_sorted, function(y) {
   render_year(y, pubs |> filter(year == y))
 })
 
 cat("\n```{=html}\n")
-cat(as.character(htmltools::tagList(sections)))
+cat(as.character(htmltools::tagList(legend, year_sections)))
 cat("\n```\n")
+```
+
+```{=html}
+<script>
+(function() {
+  const chips   = document.querySelectorAll(".pub-legend-chip");
+  const entries = document.querySelectorAll(".pub-entry");
+
+  chips.forEach(chip => {
+    chip.addEventListener("click", () => {
+      const t = chip.dataset.theme;
+      chips.forEach(c => c.classList.remove("is-active"));
+      chip.classList.add("is-active");
+      entries.forEach(e => {
+        e.style.display = (t === "__all" || e.dataset.theme === t)
+          ? ""
+          : "none";
+      });
+      // Hide year groups (and their h2 heading) whose entries are now all hidden
+      document.querySelectorAll(".pub-year-group").forEach(g => {
+        const anyVisible = Array.from(g.querySelectorAll(".pub-entry"))
+          .some(e => e.style.display !== "none");
+        const heading = g.previousElementSibling;
+        g.style.display = anyVisible ? "" : "none";
+        if (heading && heading.tagName === "H2")
+          heading.style.display = anyVisible ? "" : "none";
+      });
+    });
+  });
+})();
+</script>
+```
+
+```{r untagged-audit}
+#| output: asis
+others <- pubs |> filter(theme == "Other") |> select(year, title) |> arrange(desc(year))
+if (nrow(others) > 0) {
+  cat("\n::: {.callout-tip collapse=\"true\"}\n")
+  cat(sprintf("## %d untagged paper%s\n\n", nrow(others),
+              if (nrow(others) == 1) "" else "s"))
+  cat("These titles didn't match any keyword rule and landed in *Other*.\n")
+  cat("To classify them, edit the `themes` tribble at the top of ")
+  cat("`publications.qmd` — add a keyword to an existing theme or add a new one.\n\n")
+  for (i in seq_len(nrow(others))) {
+    cat(sprintf("- **%d** — %s\n", others$year[i], others$title[i]))
+  }
+  cat(":::\n\n")
+}
 ```
 
 ::: {.callout-tip collapse="true"}

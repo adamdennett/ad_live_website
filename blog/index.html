@@ -24,6 +24,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -396,6 +431,7 @@ window.Quarto = {
    
   <ul>
   <li><a href="#github-blog-posts" id="toc-github-blog-posts" class="nav-link active" data-scroll-target="#github-blog-posts">GitHub blog posts</a></li>
+  <li><a href="#posts-from-across-my-repos" id="toc-posts-from-across-my-repos" class="nav-link" data-scroll-target="#posts-from-across-my-repos">Posts from across my repos</a></li>
   </ul>
 </nav>
     <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(0)</span></div></div></div>
@@ -431,6 +467,40 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="github-blog-posts">GitHub blog posts</h2>
 <p>Auto-pulled from repos whose README front-matter includes <code>type: blog</code>.</p>
 <p><em>No GitHub repos tagged <code>type: blog</code> found.</em></p>
+</section>
+<section id="posts-from-across-my-repos" class="level2">
+<h2 class="anchored" data-anchor-id="posts-from-across-my-repos">Posts from across my repos</h2>
+<p>Auto-discovered: any of my Pages-enabled repos that contains a file matching <code>blog*.qmd</code> at its root (e.g.&nbsp;<code>blog.qmd</code>, <code>blog1.qmd</code>, <code>blog2.qmd</code>) is scanned on every render, and each post appears below.</p>
+<p><em>Nothing here yet — drop a <code>blog*.qmd</code> at the root of any of my Pages-enabled repos with a YAML front-matter block (title, date, description, image), render the project, and it will appear here on the next site rebuild.</em></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>How to add a blog post to this section
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Drop a file named <code>blog.qmd</code>, <code>blog1.qmd</code>, <code>blog2.qmd</code> … at the <strong>root</strong> of any of my GitHub repos that has Pages enabled. Give it a YAML front-matter block like:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"A short writeup on mapping Brighton's AEDs"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="st">"What we found when we joined OS AED data to population vulnerability."</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> 2026-05-20</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">image</span><span class="kw">:</span><span class="at"> thumb.png</span><span class="co">        # optional; relative path inside the repo or a full URL</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># site: blog1.html      # optional override of the rendered URL — only needed</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">                        # if the project ships into a non-default location</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># draft: true           # uncomment to hide while drafting</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">Body of the post goes here…</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Render the project (most Quarto repos pick up new top-level <code>.qmd</code> files automatically — just run <code>quarto render</code>), commit both the <code>.qmd</code> and the rendered <code>.html</code>, and push. The next site rebuild discovers the post via the GitHub Trees API, parses the front-matter, and surfaces a card here linking to the live HTML at <code>https://adamdennett.github.io/{repo}/{filename}.html</code>.</p>
+<p>The daily 05:30 UTC cron means posts appear within 24 hours even if nothing else is pushed to the website repo.</p>
+</div>
+</div>
+</div>
 
 
 

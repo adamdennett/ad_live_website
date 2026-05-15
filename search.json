@@ -77,6 +77,13 @@
     "text": "Auto-pulled from repos whose README front-matter includes type: blog.\nNo GitHub repos tagged type: blog found."
   },
   {
+    "objectID": "blog/index.html#posts-from-across-my-repos",
+    "href": "blog/index.html#posts-from-across-my-repos",
+    "title": "Blog",
+    "section": "Posts from across my repos",
+    "text": "Posts from across my repos\nAuto-discovered: any of my Pages-enabled repos that contains a file matching blog*.qmd at its root (e.g. blog.qmd, blog1.qmd, blog2.qmd) is scanned on every render, and each post appears below.\nNothing here yet — drop a blog*.qmd at the root of any of my Pages-enabled repos with a YAML front-matter block (title, date, description, image), render the project, and it will appear here on the next site rebuild.\n\n\n\n\n\n\nTipHow to add a blog post to this section\n\n\n\n\n\nDrop a file named blog.qmd, blog1.qmd, blog2.qmd … at the root of any of my GitHub repos that has Pages enabled. Give it a YAML front-matter block like:\n---\ntitle: \"A short writeup on mapping Brighton's AEDs\"\ndescription: \"What we found when we joined OS AED data to population vulnerability.\"\ndate: 2026-05-20\nimage: thumb.png        # optional; relative path inside the repo or a full URL\n# site: blog1.html      # optional override of the rendered URL — only needed\n                        # if the project ships into a non-default location\n# draft: true           # uncomment to hide while drafting\n---\n\nBody of the post goes here…\nRender the project (most Quarto repos pick up new top-level .qmd files automatically — just run quarto render), commit both the .qmd and the rendered .html, and push. The next site rebuild discovers the post via the GitHub Trees API, parses the front-matter, and surfaces a card here linking to the live HTML at https://adamdennett.github.io/{repo}/{filename}.html.\nThe daily 05:30 UTC cron means posts appear within 24 hours even if nothing else is pushed to the website repo."
+  },
+  {
     "objectID": "cv.html",
     "href": "cv.html",
     "title": "Curriculum Vitae",

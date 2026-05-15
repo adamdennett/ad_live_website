@@ -1,0 +1,83 @@
+name: Render blog posts
+
+# ---------------------------------------------------------------------------
+# Template: auto-render blog*.qmd in any of Adam's project repos.
+# Drop this file in any repo as .github/workflows/render-blogs.yml.
+# On every push that touches a blog*.qmd at the repo root, GitHub Actions
+# will render it via Quarto and commit the resulting HTML to docs/, where
+# GitHub Pages picks it up. The adamdennett.co.uk Blog page then discovers
+# the rendered output on its next render.
+#
+# Prerequisites:
+# - Repo has Pages enabled, serving from `main/docs` (the default Quarto
+#   project layout assumes output-dir: docs in _quarto.yml).
+# - Blog posts are pure prose (no R code chunks). If you want code
+#   chunks, see the "with R" section at the bottom.
+# - .gitignore does NOT exclude docs/.
+#
+# Behaviour:
+# - Triggers on push when blog*.qmd or this workflow itself changes,
+#   plus on manual workflow_dispatch.
+# - Renders each blog*.qmd individually (so it doesn't touch the big
+#   project qmds that need R + data).
+# - Commits with "[skip ci]" so the auto-commit doesn't re-trigger.
+# ---------------------------------------------------------------------------
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'blog*.qmd'
+      - '.github/workflows/render-blogs.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: quarto-dev/quarto-actions/setup@v2
+
+      # If you want R chunks in blog posts, uncomment these two steps
+      # and list the packages your code needs.
+      #
+      # - uses: r-lib/actions/setup-r@v2
+      #   with:
+      #     r-version: '4.5.2'
+      #     use-public-rspm: true
+      #
+      # - uses: r-lib/actions/setup-r-dependencies@v2
+      #   with:
+      #     packages: |
+      #       any::tidyverse
+      #       any::knitr
+      #       any::rmarkdown
+
+      - name: Render every blog*.qmd
+        run: |
+          shopt -s nullglob
+          for f in blog*.qmd; do
+            echo "::group::Rendering $f"
+            quarto render "$f"
+            echo "::endgroup::"
+          done
+
+      - name: Commit rendered HTML
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Use find rather than shell glob for robustness across shells.
+          find docs -maxdepth 2 \( -name 'blog*.html' -o -name 'blog*_files' \) -print 2>/dev/null | while read f; do
+            git add "$f"
+          done
+          if ! git diff --staged --quiet; then
+            git commit -m "Auto-render blog posts [skip ci]"
+            git push
+          else
+            echo "Nothing staged — nothing to commit."
+          fi

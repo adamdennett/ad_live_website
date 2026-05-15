@@ -28,3 +28,47 @@ Auto-pulled from repos whose README front-matter includes `type: blog`.
 source("../_helpers/gh_type_cards.R")
 render_gh_type_cards("blog")
 ```
+
+## Posts from across my repos
+
+Auto-discovered: any of my Pages-enabled repos that contains a file
+matching `blog*.qmd` at its root (e.g. `blog.qmd`, `blog1.qmd`,
+`blog2.qmd`) is scanned on every render, and each post appears below.
+
+```{r cross-repo-blog}
+#| output: asis
+source("../_helpers/gh_type_cards.R")
+render_blog_qmds_across_repos()
+```
+
+::: {.callout-tip collapse="true"}
+## How to add a blog post to this section
+
+Drop a file named `blog.qmd`, `blog1.qmd`, `blog2.qmd` … at the **root**
+of any of my GitHub repos that has Pages enabled. Give it a YAML
+front-matter block like:
+
+```yaml
+---
+title: "A short writeup on mapping Brighton's AEDs"
+description: "What we found when we joined OS AED data to population vulnerability."
+date: 2026-05-20
+image: thumb.png        # optional; relative path inside the repo or a full URL
+# site: blog1.html      # optional override of the rendered URL — only needed
+                        # if the project ships into a non-default location
+# draft: true           # uncomment to hide while drafting
+---
+
+Body of the post goes here…
+```
+
+Render the project (most Quarto repos pick up new top-level `.qmd`
+files automatically — just run `quarto render`), commit both the
+`.qmd` and the rendered `.html`, and push. The next site rebuild
+discovers the post via the GitHub Trees API, parses the front-matter,
+and surfaces a card here linking to the live HTML at
+`https://adamdennett.github.io/{repo}/{filename}.html`.
+
+The daily 05:30 UTC cron means posts appear within 24 hours even if
+nothing else is pushed to the website repo.
+:::

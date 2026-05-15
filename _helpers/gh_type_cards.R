@@ -72,6 +72,136 @@ absolutize_image <- function(image, repo_full_name, default_branch) {
           repo_full_name, default_branch, image)
 }
 
+# ---------------------------------------------------------------------------
+# Cross-repo blog post discovery
+# ---------------------------------------------------------------------------
+# Scans every non-archived, non-fork, Pages-enabled owner repo for files
+# matching `blog*.qmd` at the repo root (case-insensitive). For each
+# match, fetches the raw .qmd, parses its YAML front-matter, and returns
+# a card-shaped tibble.
+#
+# Conventions:
+# - The .qmd must be rendered to HTML in its host repo before the link
+#   works. Default URL is {pages_root}/{filename}.html; override via a
+#   `site:` field in the .qmd's front-matter.
+# - Front-matter fields used: title, description, date, image, draft, site
+# - Drafts (front-matter `draft: true`) are skipped.
+
+find_blog_qmds_across_repos <- function(user = "adamdennett") {
+  repos <- fetch_repos(user)
+  repos <- keep(repos, function(r) {
+    isTRUE(r$has_pages) && !isTRUE(r$archived) && !isTRUE(r$fork)
+  })
+
+  cards <- list()
+
+  for (r in repos) {
+    branch   <- r$default_branch %||% "main"
+    tree_url <- sprintf("https://api.github.com/repos/%s/git/trees/%s",
+                        r$full_name, branch)
+
+    tree_resp <- tryCatch(gh_req(tree_url) |> req_perform(),
+                          error = function(e) NULL)
+    if (is.null(tree_resp) || resp_status(tree_resp) != 200) next
+
+    tree <- resp_body_json(tree_resp)$tree
+    blog_files <- keep(tree, function(t) {
+      identical(t$type, "blob") &&
+        grepl("^blog\\d*\\.qmd$", t$path, ignore.case = TRUE)
+    })
+    if (length(blog_files) == 0) next
+
+    pages_root <- sprintf("https://adamdennett.github.io/%s/", r$name)
+
+    for (bf in blog_files) {
+      raw_url <- sprintf("https://raw.githubusercontent.com/%s/%s/%s",
+                         r$full_name, branch, bf$path)
+      raw <- tryCatch(
+        request(raw_url) |> req_perform() |> resp_body_string(),
+        error = function(e) ""
+      )
+      if (!nzchar(raw)) next
+
+      parts <- split_frontmatter(raw)
+      fm    <- parts$meta
+
+      if (isTRUE(fm$draft)) next   # respect draft flag
+
+      base  <- tools::file_path_sans_ext(bf$path)
+      live_url <- if (!is.null(fm$site) && nzchar(fm$site)) {
+        paste0(pages_root, sub("^/", "", fm$site))
+      } else {
+        sprintf("%s%s.html", pages_root, base)
+      }
+
+      img      <- fm$image %||% first_image_in_body(parts$body)
+      img_url  <- absolutize_image(img, r$full_name, branch)
+
+      cards[[length(cards) + 1]] <- tibble(
+        title       = fm$title       %||% bf$path,
+        description = fm$description %||% "",
+        date        = suppressWarnings(as.Date(fm$date %||% NA)),
+        url         = live_url,
+        image_url   = img_url,
+        repo        = r$name,
+        repo_url    = r$html_url
+      )
+    }
+  }
+
+  if (length(cards) == 0) return(tibble())
+  bind_rows(cards) |> arrange(desc(date))
+}
+
+render_blog_qmds_across_repos <- function(user = "adamdennett") {
+  cards <- find_blog_qmds_across_repos(user)
+
+  if (nrow(cards) == 0) {
+    cat("\n*Nothing here yet — drop a `blog*.qmd` at the root of any of ",
+        "my Pages-enabled repos with a YAML front-matter block ",
+        "(title, date, description, image), render the project, and it ",
+        "will appear here on the next site rebuild.*\n", sep = "")
+    return(invisible())
+  }
+
+  render_card <- function(row) {
+    has_image <- !is.na(row$image_url) && nzchar(row$image_url)
+    has_desc  <- !is.na(row$description) && nzchar(row$description)
+
+    image_block <- if (has_image) {
+      a(href = row$url, target = "_blank", class = "project-image-link",
+        tags$img(src = row$image_url, alt = row$title,
+                 loading = "lazy", class = "project-image"))
+    }
+
+    div(class = paste("project-card",
+                      if (has_image) "with-image" else "no-image"),
+        image_block,
+        div(class = "project-card-body",
+            h3(class = "project-title",
+               a(href = row$url, target = "_blank", row$title)),
+            if (has_desc)
+              p(class = "project-desc", row$description),
+            div(class = "project-meta",
+                if (!is.na(row$date))
+                  span(class = "badge date", format(row$date, "%b %Y")),
+                span(class = "badge lang", row$repo)
+            ),
+            div(class = "project-links",
+                a(href = row$url,      target = "_blank", "Read →"),
+                a(href = row$repo_url, target = "_blank", "Source")
+            )
+        )
+    )
+  }
+
+  rendered <- lapply(split(cards, seq_len(nrow(cards))), render_card)
+  cat("\n```{=html}\n")
+  cat(as.character(div(class = "project-grid", rendered)))
+  cat("\n```\n")
+  invisible()
+}
+
 render_gh_type_cards <- function(type_filter) {
   repos <- fetch_repos()
 

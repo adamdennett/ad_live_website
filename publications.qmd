@@ -164,15 +164,42 @@ classify_one <- function(text) {
   "Other"
 }
 
+# ---- Manual overrides ------------------------------------------------------
+# Per-paper overrides for cases where the keyword rule picks the wrong
+# theme. Match on DOI (preferred — stable, unique) and/or on a title
+# regex (case-insensitive). Either field may be NA. The override theme
+# must exist in `themes` above, otherwise the card renders with a grey
+# fallback colour.
+#
+# To add an override: insert a new row. Find the paper's DOI in the
+# rendered card's "doi:" line (or on ORCID), and the right theme name
+# from the legend chip strip at the top of the page.
+overrides <- tribble(
+  ~match_doi,                     ~match_title,                                          ~theme,
+  "10.1016/j.apgeog.2023.103116", "Re-defining [Tt]ransport for London's strategic",     "Gentrification & Neighbourhoods",
+)
+
+apply_overrides <- function(df, ov) {
+  if (nrow(ov) == 0) return(df)
+  for (i in seq_len(nrow(ov))) {
+    mask <- rep(FALSE, nrow(df))
+    if (!is.na(ov$match_doi[i]) && nzchar(ov$match_doi[i])) {
+      mask <- mask | (!is.na(df$doi) &
+                      tolower(df$doi) == tolower(ov$match_doi[i]))
+    }
+    if (!is.na(ov$match_title[i]) && nzchar(ov$match_title[i])) {
+      mask <- mask | grepl(ov$match_title[i], df$title,
+                           ignore.case = TRUE, perl = TRUE)
+    }
+    df$theme[mask] <- ov$theme[i]
+  }
+  df
+}
+
 pubs <- pubs |>
-  mutate(
-    # Match on title only. The journal field carried too much noise (book
-    # chapters whose journals are unrelated book titles, papers in
-    # journals named "X Review" being tagged as method reviews, etc.).
-    # Titles for academic papers are usually descriptive enough.
-    theme        = vapply(title, classify_one, character(1)),
-    theme_colour = themes$colour[match(theme, themes$theme)]
-  )
+  mutate(theme = vapply(title, classify_one, character(1))) |>
+  apply_overrides(overrides) |>
+  mutate(theme_colour = themes$colour[match(theme, themes$theme)])
 
 # ---- Renderer --------------------------------------------------------------
 

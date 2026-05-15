@@ -177,6 +177,7 @@ classify_one <- function(text) {
 overrides <- tribble(
   ~match_doi,                     ~match_title,                                          ~theme,
   "10.1016/j.apgeog.2023.103116", "Re-defining [Tt]ransport for London's strategic",     "Gentrification & Neighbourhoods",
+  "10.1007/978-3-031-98300-9_17", "Do Good Schools Influence Property Prices? Disentangling School and Neighbourhood Effects with Empirical Evidence from Brighton", "Housing & Energy"
 )
 
 apply_overrides <- function(df, ov) {

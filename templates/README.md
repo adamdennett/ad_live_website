@@ -3,6 +3,19 @@
 Drop-in files for sister repos that want to auto-render and surface
 blog posts on adamdennett.co.uk.
 
+## Already installed
+
+The blog-post auto-render template is installed in all of Adam's
+Pages-enabled featured-project repos: `BH_Schools_2`,
+`BH_Schools_Consultation`, `school_attainment_tool`,
+`BrightonRestaurantsMap`, `defibrillator-analysis`,
+`west_london_alliance`, `EPC_Analysis_Website`,
+`EPC_Data_Analysis`, `Synthetic-LS-spines`, `SIModelling`. To
+install it into a new repo, follow the checklist below — or run
+[`_install_blog_template.py`](../_install_blog_template.py) (an
+ad-hoc script we used for the bulk install) with the target repo
+added to the `TARGETS` list.
+
 ## Setting up auto-render in a new repo
 
 To enable in a project repo (say, `widget-analysis`) so you can write
@@ -13,21 +26,28 @@ blog posts directly on github.com without rendering locally:
    - `_blog-style.css` ← from `templates/_blog-style.css`
    - `_blog-format.yml` ← from `templates/_blog-format.yml`
 
-2. **Add `docs/.nojekyll`** in the target repo. It can be empty —
-   just needs to exist. Stops GitHub Pages' Jekyll from filtering
-   files starting with `_` (which would otherwise hide
-   `_blog-style.css`).
+2. **Add `.nojekyll`** in the target repo at the **Pages-served root**:
+   - If Pages serves from `main/docs`: file at `docs/.nojekyll`
+   - If Pages serves from `main/` (repo root): file at `.nojekyll`
 
-3. **Confirm Pages is enabled** and serving from `main/docs`
-   (`gh api repos/adamdennett/widget-analysis/pages` to check). If the
-   repo uses `build_type: workflow`, switch to legacy:
+   It can be empty. Without it, GitHub Pages' Jekyll filters out
+   `_blog-style.css` (since it starts with `_`) and posts render
+   unstyled.
+
+3. **Confirm Pages is enabled** with `build_type: legacy`
+   (`gh api repos/adamdennett/widget-analysis/pages` to check).
+   If it says `build_type: workflow`, switch:
    `gh api -X PUT repos/adamdennett/widget-analysis/pages -f build_type=legacy`.
 
-4. **Confirm `_quarto.yml` has `output-dir: docs`** (Quarto's
-   default project layout for this purpose).
+4. **`_quarto.yml` doesn't need to change.** The workflow uses
+   whatever the repo's existing Quarto setup says — if the repo
+   has `output-dir: docs`, the rendered blog post lands in `docs/`;
+   if not, it lands at the repo root next to the `.qmd`. Either
+   way Pages serves it.
 
-5. **Confirm `.gitignore` doesn't exclude `docs/`** — easy thing to
-   miss; without it, the auto-commit step silently does nothing.
+5. **Confirm `.gitignore` doesn't exclude the Pages-served
+   directory** (`docs/` or the repo root). Without that, the
+   auto-commit step silently stages nothing.
 
 Then to write a blog post: in the target repo on github.com, click
 **Add file → Create new file**, name it `blog1.qmd` (or `blog2.qmd`,

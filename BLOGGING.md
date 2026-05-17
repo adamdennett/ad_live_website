@@ -5,11 +5,28 @@ discovers them automatically — drop a `blog*.qmd` file at the repo root,
 push, and within ~24 hours the post appears on
 [adamdennett.co.uk/blog/](https://adamdennett.co.uk/blog/).
 
-## TL;DR — write a post in 30 seconds (in a repo that's already set up)
+## TL;DR — write a post in 30 seconds
 
-The reference repo is
-[**defibrillator-analysis**](https://github.com/adamdennett/defibrillator-analysis)
-— it has the auto-render workflow + theme files already installed.
+**All 10 repos featured on the [Projects page](https://adamdennett.co.uk/projects.html)
+are blog-ready right now.** They each have the auto-render workflow
+and theme files installed:
+
+| Project | Pages serves from |
+|---|---|
+| `BH_Schools_2`            | `/docs` |
+| `BH_Schools_Consultation` | `/docs` |
+| `school_attainment_tool`  | `/docs` |
+| `BrightonRestaurantsMap`  | `/docs` |
+| `defibrillator-analysis`  | `/docs` |
+| `west_london_alliance`    | `/`     |
+| `EPC_Analysis_Website`    | `/`     |
+| `EPC_Data_Analysis`       | `/`     |
+| `Synthetic-LS-spines`     | `/`     |
+| `SIModelling`             | `/`     |
+
+The two featured repos not yet set up are `bh_school_choice` and
+`council_tax` — neither has GitHub Pages enabled. Enable Pages on
+either of them and re-run the install script to add them too.
 
 1. On github.com, open the repo. Click **Add file → Create new file**.
 2. Name the file `blog1.qmd` at the repo root (or `blog2.qmd`,

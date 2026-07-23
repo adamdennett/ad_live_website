@@ -35,6 +35,13 @@
     "text": "Auto-pulled from repos whose README front-matter includes type: talk.\n\n  \n    \n      \n    \n    \n      \n      Invited talk at Aalto University on the Housing and Net Zero research project.\n      \n        Updated May 2026\n      \n      \n        Live site →\n        Source\n      \n    \n  \n  \n    \n      \n    \n    \n      \n      City Modelling Lab joint presentation for Applied Urban Modelling 2024.\n      \n        Updated May 2026\n      \n      \n        Live site →\n        Source"
   },
   {
+    "objectID": "talks/2025-03-26-bh-secondary-school-admissions-consultation/index.html",
+    "href": "talks/2025-03-26-bh-secondary-school-admissions-consultation/index.html",
+    "title": "The Case of the Brighton Secondary School Admissions Consultation",
+    "section": "",
+    "text": "Presented to the Brighton Data Forum, this talk walks through the evidence base behind Brighton & Hove City Council’s secondary school admissions consultation — who lives where, who goes where, and what the proposed changes to catchment areas would (and wouldn’t) do.\nRelated project code and analysis:\n\nBH_Schools_2\nBH_Schools_Consultation"
+  },
+  {
     "objectID": "publications.html",
     "href": "publications.html",
     "title": "Publications",
@@ -103,6 +110,13 @@
     "title": "Housing and Net Zero",
     "section": "",
     "text": "Housing and Net Zero — click for the full slides\n\n\nA presentation on housing stock energy performance and what the EPC data can (and can’t) tell us about routes to net zero.\nOpen the slides →"
+  },
+  {
+    "objectID": "talks/2026-07-21-how-to-pull-the-right-lever/index.html",
+    "href": "talks/2026-07-21-how-to-pull-the-right-lever/index.html",
+    "title": "How to Pull the Right Lever",
+    "section": "",
+    "text": "Given at BHASVIC (Brighton & Hove Sixth Form College), this is a follow-up to the earlier Brighton Data Forum talk on Brighton & Hove secondary school admissions: which of the levers available to the council actually shift the outcomes parents and policymakers care about, and which just move numbers around on paper.\nRelated project code and analysis:\n\nBH_Schools_2\nBH_Schools_Consultation\nschool_attainment_tool"
   },
   {
     "objectID": "teaching/2025-10-casa0007-quantitative-methods/index.html",

@@ -1,0 +1,20 @@
+---
+title: "The Case of the Brighton Secondary School Admissions Consultation"
+description: "A Brighton Data Forum talk on what the data says about the proposed changes to Brighton & Hove's secondary school admissions arrangements."
+author: "Adam Dennett"
+date: "2025-03-26"
+categories: [talk, education, schools, "Brighton and Hove"]
+image: featured.jpg
+---
+
+{{< video https://www.youtube.com/watch?v=B7VXdal8_OU >}}
+
+Presented to the [Brighton Data Forum](https://www.meetup.com/brighton-data-forum/),
+this talk walks through the evidence base behind Brighton & Hove City Council's
+secondary school admissions consultation — who lives where, who goes where,
+and what the proposed changes to catchment areas would (and wouldn't) do.
+
+Related project code and analysis:
+
+- [BH_Schools_2](https://github.com/adamdennett/BH_Schools_2)
+- [BH_Schools_Consultation](https://github.com/adamdennett/BH_Schools_Consultation)

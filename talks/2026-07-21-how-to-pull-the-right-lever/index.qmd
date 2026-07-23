@@ -1,0 +1,23 @@
+---
+title: "How to Pull the Right Lever"
+description: "Talk at BHASVIC (Brighton & Hove Sixth Form College) — which policy levers actually shift the outcomes people care about in the Brighton & Hove schools work."
+author: "Adam Dennett"
+date: "2026-07-21"
+categories: [talk, education, schools, "Brighton and Hove"]
+image: featured.jpg
+---
+
+{{< video https://www.youtube.com/watch?v=Qaqm8vkppI0 >}}
+
+Given at [BHASVIC](https://www.bhasvic.ac.uk/) (Brighton & Hove Sixth Form
+College), this is a follow-up to the earlier
+[Brighton Data Forum talk](../2025-03-26-bh-secondary-school-admissions-consultation/)
+on Brighton & Hove secondary school admissions: which of the levers available
+to the council actually shift the outcomes parents and policymakers care
+about, and which just move numbers around on paper.
+
+Related project code and analysis:
+
+- [BH_Schools_2](https://github.com/adamdennett/BH_Schools_2)
+- [BH_Schools_Consultation](https://github.com/adamdennett/BH_Schools_Consultation)
+- [school_attainment_tool](https://github.com/adamdennett/school_attainment_tool)

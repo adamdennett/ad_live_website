@@ -30,7 +30,7 @@ TARGETS = [
     "defibrillator-analysis",  # already set up; upgrade workflow + ensure consistency
 ]
 
-ROOT = r"E:\ad_live_website\templates"
+ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "templates")
 LOCAL_FILES = {
     ".github/workflows/render-blogs.yml": os.path.join(ROOT, "render-blogs.yml"),
     "_blog-style.css":                    os.path.join(ROOT, "_blog-style.css"),

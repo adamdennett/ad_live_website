@@ -138,9 +138,11 @@ parse_work <- function(w) {
   title <- w$title$title$value %||% NA_character_
   if (is.na(title) || !nzchar(title)) return(NULL)
 
-  yr <- suppressWarnings(as.integer(
-    (w$`publication-date` %||% list())$year$value
-  ))
+  pdate <- w$`publication-date` %||% list()
+  yr  <- suppressWarnings(as.integer(pdate$year$value))
+  # Month and day are optional in ORCID; NA sorts to the end of its year.
+  mon <- suppressWarnings(as.integer(pdate$month$value %||% NA))
+  dy  <- suppressWarnings(as.integer(pdate$day$value %||% NA))
 
   journal <- (w$`journal-title` %||% list())$value %||% ""
 
@@ -167,6 +169,8 @@ parse_work <- function(w) {
   tibble(
     title    = title,
     year     = yr,
+    month    = mon,
+    day      = dy,
     journal  = journal,
     type     = w$type %||% "",
     doi      = doi,
@@ -182,7 +186,7 @@ pubs <- map_dfr(work_resps, function(r) {
 }) |>
   # Drop anything without a year (rare, makes grouping impossible)
   filter(!is.na(year)) |>
-  arrange(desc(year), title)
+  arrange(desc(year), desc(month), desc(day), title)
 
 # ---- Deduplicate -----------------------------------------------------------
 # ORCID groups the same work submitted by multiple sources (manual,
@@ -200,7 +204,8 @@ pubs <- pubs |>
   slice_max(.lnk, n = 1, with_ties = FALSE) |>
   ungroup() |>
   select(-.norm, -.lnk) |>
-  arrange(desc(year), title)
+  # Newest first within each year; undated-month papers last, by title.
+  arrange(desc(year), desc(month), desc(day), title)
 
 # ---- Theme classification -------------------------------------------------
 # Keyword-rule classifier. First matching theme wins; "Other" is the

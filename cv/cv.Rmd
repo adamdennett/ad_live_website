@@ -208,8 +208,12 @@ bind_rows(grants_manual, grants_orcid) |>
 # Invited Talks (recent)
 
 ```{r talks}
-tribble(
+talks <- tribble(
   ~when,             ~what,                                                                                                                              ~where,
+  "18 Nov 2026",     "Can we model our way out of this? — Putting the AI in ApplIed Urban Modelling. AI, collective intelligence, and the Brighton & Hove school system", "Department of Real Estate and Planning, Henley Business School, University of Reading",
+  "13 Nov 2026",     "Can we model our way out of this? — Putting the AI in ApplIed Urban Modelling. AI, collective intelligence, and the Brighton & Hove school system", "Geospatial Data Science Seminar, University of Glasgow",
+  "4 Nov 2026",      "Can we model our way out of this? — Putting the AI in ApplIed Urban Modelling. AI, collective intelligence, and the Brighton & Hove school system", "Brighton AI (meetup)",
+  "July 2026",       "How to Pull the Right Lever",                                                                                                       "BHASVIC (Brighton & Hove Sixth Form College)",
   "Sept 2025",       "Smart Cities and Collective Intelligence",                                                                                          "UCL Development Planning Unit — talk to Latin American city leaders",
   "Aug 2025",        "GIS vs The City Council: Data Analytics, Collective Intelligence and Policy Dust-ups (GISRUK 2025 Best Paper)",                    "Royal Geographical Society Annual Conference",
   "March 2025",      "The Case of the Brighton Secondary School Admissions Consultation",                                                                "Brighton Data Forum (public lecture)",
@@ -221,7 +225,16 @@ tribble(
   "Nov 2023",        "Foundations of Geospatial",                                                                                                          "Carto Spatial Data Science Bootcamp, London (invited back)",
   "May 2023",        "Careers panel",                                                                                                                     "Carto annual conference, Royal Geographical Society, London",
   "Feb 2023",        "Foundations of Geospatial",                                                                                                          "Carto Spatial Data Science Bootcamp, London"
-) %>%
+)
+
+# Talks given with a full date ("4 Nov 2026") are labelled upcoming until
+# the day has passed. The CV rebuilds daily, so the label drops off by
+# itself; month-only dates ("Sept 2025") are never labelled.
+talk_day <- as.Date(talks$when, format = "%d %b %Y")
+talks$when <- ifelse(!is.na(talk_day) & talk_day >= Sys.Date(),
+                     paste(talks$when, "(upcoming)"), talks$when)
+
+talks %>%
   detailed_entries(
     what  = what,
     when  = when,

@@ -40,6 +40,24 @@
 % JetBrains Mono for inline code and verbatim
 \setmonofont{JetBrains Mono}[Path=./fonts/site/, Extension=.ttf, UprightFont=JetBrainsMono-Regular, BoldFont=JetBrainsMono-Bold, ItalicFont=JetBrainsMono-Italic, BoldItalicFont=JetBrainsMono-BoldItalic, Ligatures=TeX]
 
+% ---- Keep headings with their first entry ---------------------------
+% awesome-cv's \section / \subsection don't stop a heading being left
+% alone at the foot of a page. Start a new page instead when there isn't
+% room for the heading plus roughly one entry. (Not the needspace
+% package: it adds a \penalty-100 before every heading, which on these
+% ragged-bottom pages makes LaTeX break early and leave big gaps.)
+\newcommand{\acvkeepspace}[1]{%
+  \par
+  \begingroup
+    \dimen0=#1\relax
+    \dimen2=\pagegoal \advance\dimen2 by -\pagetotal
+    \ifdim\pagegoal<\maxdimen \ifdim\dimen0>\dimen2 \vfil\break \fi\fi
+  \endgroup}
+\let\acvsection\section
+\renewcommand{\section}[1]{\acvkeepspace{8\baselineskip}\acvsection{#1}}
+\let\acvsubsection\subsection
+\renewcommand{\subsection}[1]{\acvkeepspace{6\baselineskip}\acvsubsection{#1}}
+
 % ---- Drop small caps: preserve source case --------------------------
 % awesome-cv uses \scshape for position subtitles, header position,
 % subsection headings, footer and recipient address. Inter's OpenType

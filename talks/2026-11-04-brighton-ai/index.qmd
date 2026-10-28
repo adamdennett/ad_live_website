@@ -1,0 +1,28 @@
+---
+title: "Can we model our way out of this? Putting the AI in ApplIed Urban Modelling"
+subtitle: "AI, collective intelligence, and the Brighton & Hove school system"
+description: "Brighton AI meetup, Plus X Innovation, Brighton — Wednesday 4 November 2026."
+author: "Adam Dennett"
+date: "2026-11-04"
+categories: [talk, AI, collective intelligence, schools, "Brighton and Hove"]
+image: featured.png
+---
+
+**Wednesday 4 November 2026, 6pm** ·
+[Brighton AI](https://www.meetup.com/brighton-ai/events/317118222/) ·
+Plus X Innovation, Lewes Road, Brighton
+
+Part of Brighton AI's evening *What Could Sussex Solve with its Own Data,
+AI, Modelling and Your Ideas?*
+
+How far can modelling help a city plan its schools? Using Brighton &
+Hove's secondary school system as a case study, this talk looks at what AI
+and collective intelligence can add to applied urban modelling, drawing on
+a model of the system built entirely from published data.
+
+The model and its documentation:
+[Brighton & Hove’s secondary school system](https://adamdennett.github.io/bh-school-system/).
+
+The same talk, at other venues: the
+[University of Glasgow](../2026-11-13-glasgow-geospatial-data-science/) and the
+[University of Reading](../2026-11-18-reading-real-estate-and-planning/).

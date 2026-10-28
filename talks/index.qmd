@@ -18,6 +18,42 @@ execute:
   freeze: false
 ---
 
+```{=html}
+<style>
+.talk-upcoming-badge {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: #C2542D;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+</style>
+<script>
+// Badge talks whose day hasn't passed yet. Each listing item carries its
+// date (midnight UTC, in ms) in data-listing-date-sort, so the badge
+// switches itself off after the talk without a rebuild.
+document.addEventListener("DOMContentLoaded", function () {
+  var now = Date.now();
+  document.querySelectorAll(".quarto-post[data-listing-date-sort]").forEach(function (post) {
+    var day = Number(post.getAttribute("data-listing-date-sort"));
+    if (!day || day + 86400000 <= now) return;
+    var title = post.querySelector(".listing-title");
+    if (!title) return;
+    var badge = document.createElement("span");
+    badge.className = "talk-upcoming-badge";
+    badge.textContent = "Upcoming";
+    title.appendChild(badge);
+  });
+});
+</script>
+```
+
 ## GitHub talks
 
 Auto-pulled from repos whose README front-matter includes `type: talk`.

@@ -1,0 +1,24 @@
+---
+title: "Can we model our way out of this? Putting the AI in ApplIed Urban Modelling"
+subtitle: "AI, collective intelligence, and the Brighton & Hove school system"
+description: "Department of Real Estate and Planning, Henley Business School, University of Reading — Wednesday 18 November 2026."
+author: "Adam Dennett"
+date: "2026-11-18"
+categories: [talk, AI, collective intelligence, schools, "Brighton and Hove"]
+image: featured.png
+---
+
+**Wednesday 18 November 2026** · Department of Real Estate and Planning,
+Henley Business School, University of Reading
+
+How far can modelling help a city plan its schools? Using Brighton &
+Hove's secondary school system as a case study, this talk looks at what AI
+and collective intelligence can add to applied urban modelling, drawing on
+a model of the system built entirely from published data.
+
+The model and its documentation:
+[Brighton & Hove’s secondary school system](https://adamdennett.github.io/bh-school-system/).
+
+The same talk, at other venues:
+[Brighton AI](../2026-11-04-brighton-ai/) and the
+[University of Glasgow](../2026-11-13-glasgow-geospatial-data-science/).

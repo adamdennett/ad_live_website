@@ -1,0 +1,50 @@
+---
+name: Adam
+surname: Dennett
+position: "Professor of Urban Analytics"
+address: "Bartlett Centre for Advanced Spatial Analysis, University College London"
+email: "a.dennett@ucl.ac.uk"
+www: "adamdennett.co.uk"
+github: "adamdennett"
+orcid: "0000-0001-8036-0185"
+headcolor: "C2542D"
+date: "`r format(Sys.time(), '%B %Y')`"
+docname: "Publications"
+# Same fonts and colours as cv.Rmd and the website.
+header-includes:
+  - \input{preamble.tex}
+output:
+  vitae::awesomecv:
+    keep_tex: false
+    page_total: true
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(vitae)
+library(dplyr)
+
+# The full list behind adamdennett.co.uk/publications.html — same fetch,
+# same de-duplication, same newest-first order.
+source("../_helpers/orcid.R")
+pubs <- orcid_works()
+```
+
+# Publications
+
+All `r nrow(pubs)` publications on my
+[ORCID record](https://orcid.org/`r ORCID`), generated
+`r format(Sys.Date(), "%d %B %Y")`. The live list, with research-theme
+filters, is at [adamdennett.co.uk/publications](https://adamdennett.co.uk/publications.html).
+
+```{r publications}
+pubs |>
+  mutate(authors     = vapply(authors, cite_authors, character(1)),
+         title_venue = cite_venue(title, journal, doi)) |>
+  detailed_entries(
+    what  = title_venue,
+    when  = year,
+    with  = authors
+  ) |>
+  cv_italics()
+```

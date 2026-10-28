@@ -16,6 +16,9 @@ cv/fonts/*
 cv/cv.log
 cv/cv.tex
 cv/cv.knit.md
+cv/publications.log
+cv/publications.tex
+cv/publications.knit.md
 .positai
 # Claude Code worktrees (never track these)
 .claude/

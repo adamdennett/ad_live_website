@@ -99,113 +99,10 @@ library(purrr)
 library(htmltools)
 library(stringr)
 
-ORCID <- "0000-0001-8036-0185"
-
-# ---- ORCID API helpers -----------------------------------------------------
-
-orcid_req <- function(url) {
-  request(url) |>
-    req_headers(Accept = "application/json",
-                `User-Agent` = "adamdennett.co.uk publications page")
-}
-
-# Fetch the summary list of all works.
-works_summary <- orcid_req(sprintf(
-  "https://pub.orcid.org/v3.0/%s/works", ORCID
-)) |>
-  req_perform() |>
-  resp_body_json()
-
-groups <- works_summary$group
-
-# ORCID groups duplicate submissions of the same work (same DOI) into one
-# group with multiple work-summary entries (one per source — manual,
-# CrossRef, Scopus, ...). Pick the first put-code from each group as the
-# canonical entry, then fetch its full record (which has authors).
-put_codes <- map_chr(groups, ~ as.character(.x$`work-summary`[[1]]$`put-code`))
-
-work_reqs <- map(put_codes, function(pc) {
-  orcid_req(sprintf("https://pub.orcid.org/v3.0/%s/work/%s", ORCID, pc))
-})
-
-work_resps <- req_perform_parallel(work_reqs, on_error = "continue",
-                                   max_active = 8)
-
-# ---- Parse one work record into a tidy row ---------------------------------
-
-parse_work <- function(w) {
-  if (is.null(w)) return(NULL)
-  title <- w$title$title$value %||% NA_character_
-  if (is.na(title) || !nzchar(title)) return(NULL)
-
-  pdate <- w$`publication-date` %||% list()
-  yr  <- suppressWarnings(as.integer(pdate$year$value))
-  # Month and day are optional in ORCID; NA sorts to the end of its year.
-  mon <- suppressWarnings(as.integer(pdate$month$value %||% NA))
-  dy  <- suppressWarnings(as.integer(pdate$day$value %||% NA))
-
-  journal <- (w$`journal-title` %||% list())$value %||% ""
-
-  # External IDs — pull out DOI (preferred) or any other URL
-  ext_ids <- (w$`external-ids` %||% list())$`external-id` %||% list()
-  doi <- NA_character_
-  for (eid in ext_ids) {
-    if (identical(eid$`external-id-type`, "doi")) {
-      doi <- eid$`external-id-value`; break
-    }
-  }
-
-  # Work URL (often points at the publisher / DOI landing page)
-  work_url <- (w$url %||% list())$value %||% NA_character_
-
-  # Contributors (authors) — credit-name.value is the display name as
-  # ORCID rendered it. Some works have empty contributor blocks.
-  contributors <- (w$contributors %||% list())$contributor %||% list()
-  authors <- map_chr(contributors, function(c) {
-    (c$`credit-name` %||% list())$value %||% NA_character_
-  })
-  authors <- authors[!is.na(authors) & nzchar(authors)]
-
-  tibble(
-    title    = title,
-    year     = yr,
-    month    = mon,
-    day      = dy,
-    journal  = journal,
-    type     = w$type %||% "",
-    doi      = doi,
-    work_url = work_url,
-    authors  = list(authors)
-  )
-}
-
-pubs <- map_dfr(work_resps, function(r) {
-  if (inherits(r, "error")) return(NULL)
-  if (resp_status(r) != 200) return(NULL)
-  parse_work(resp_body_json(r))
-}) |>
-  # Drop anything without a year (rare, makes grouping impossible)
-  filter(!is.na(year)) |>
-  arrange(desc(year), desc(month), desc(day), title)
-
-# ---- Deduplicate -----------------------------------------------------------
-# ORCID groups the same work submitted by multiple sources (manual,
-# CrossRef, Scopus, ...) — but if titles differ in casing or whitespace,
-# they slip through and appear twice. Collapse same-title-same-year
-# duplicates, keeping the entry with the strongest link
-# (DOI > work URL > none).
-pubs <- pubs |>
-  mutate(
-    .norm = tolower(trimws(gsub("\\s+", " ", title))),
-    .lnk  = ifelse(!is.na(doi) & nzchar(doi),       2L,
-            ifelse(!is.na(work_url) & nzchar(work_url), 1L, 0L))
-  ) |>
-  group_by(.norm, year) |>
-  slice_max(.lnk, n = 1, with_ties = FALSE) |>
-  ungroup() |>
-  select(-.norm, -.lnk) |>
-  # Newest first within each year; undated-month papers last, by title.
-  arrange(desc(year), desc(month), desc(day), title)
+# ORCID fetch, parse and de-duplication live in _helpers/orcid.R, shared
+# with the CV and the publications PDF so all three list the same papers.
+source("_helpers/orcid.R")
+pubs <- orcid_works()
 
 # ---- Theme classification -------------------------------------------------
 # Keyword-rule classifier. First matching theme wins; "Other" is the
@@ -357,6 +254,10 @@ every render. The full record (and any work not represented here) lives at
 are on [Google Scholar](https://scholar.google.co.uk/citations?user=P_sHtmkAAAAJ).
 :::
 
+<!-- cv/publications.pdf is rebuilt from the same ORCID data by
+     cv/build.R in CI on every site render. -->
+[{{< fa file-pdf >}}&nbsp;&nbsp;Download this list (PDF)](cv/publications.pdf){.btn .btn-primary role="button" target="_blank"}
+&nbsp;
 [{{< fa graduation-cap >}}&nbsp;&nbsp;PhD Thesis (PDF) — *Understanding Internal Migration in Britain at the Start of the 21st Century*, 2011](https://www.dropbox.com/scl/fi/tdrym79443ho4rfbwqyuu/AdamDennettPhDThesis.pdf?rlkey=kfdm2ca8xllnh0i9vkn8p3rda&dl=1){.btn .btn-outline-secondary role="button" target="_blank"}
 
 ```{r render}

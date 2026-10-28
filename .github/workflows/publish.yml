@@ -44,6 +44,26 @@ jobs:
             any::stringr
             any::knitr
             any::rmarkdown
+            any::vitae
+            any::tibble
+            any::here
+            any::tinytex
+
+      # The CV and the publications PDF are LaTeX (vitae + awesome-cv),
+      # rebuilt from ORCID on every run so they stay in step with the
+      # publications page. TinyTeX installs any missing LaTeX packages
+      # on the fly; rmarkdown needs pandoc on the PATH.
+      - name: Set up pandoc
+        uses: r-lib/actions/setup-pandoc@v2
+
+      - name: Set up TinyTeX
+        uses: r-lib/actions/setup-tinytex@v2
+
+      - name: Build CV and publications PDF
+        # If LaTeX ever fails, carry on: the site still publishes with
+        # the last committed cv.pdf / publications.pdf.
+        continue-on-error: true
+        run: Rscript cv/build.R
 
       - name: Render and publish to GitHub Pages
         uses: quarto-dev/quarto-actions/publish@v2

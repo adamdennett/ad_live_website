@@ -1,0 +1,55 @@
+% Shared awesome-cv preamble for cv.Rmd and publications.Rmd.
+% Pulled in with `header-includes: \input{preamble.tex}`, so it runs
+% after awesome-cv.cls has loaded and can redefine its colours + fonts
+% to match the website (terracotta #C2542D primary, ink #1A1A1A,
+% secondary #5E5E5E, muted #6E6862; Fraunces for headings, Inter for
+% body, JetBrains Mono for code).
+
+% --- colours ------------------------------------------------------------
+\definecolor{adwebink}{HTML}{1A1A1A}
+\definecolor{adwebsecondary}{HTML}{5E5E5E}
+\definecolor{adwebmuted}{HTML}{6E6862}
+\colorlet{text}{adwebink}
+\colorlet{darktext}{adwebink}
+\colorlet{graytext}{adwebsecondary}
+\colorlet{lighttext}{adwebmuted}
+
+% --- fonts --------------------------------------------------------------
+% All three families are bundled as static TTFs in fonts/site/ and loaded
+% by Path, so the build doesn't depend on system-installed fonts (the CI
+% runner has none of them). See fonts/site/README.md for sources.
+\usepackage{fontspec}
+% awesome-cv.cls calls \RequirePackage[default,opentype]{sourcesanspro}
+% which sets Source Sans as \rmfamily / \sffamily. Re-route those to
+% Inter so nothing falls through to SourceSans3 in the embedded PDF.
+\setmainfont{Inter}[Path=./fonts/site/, Extension=.ttf, UprightFont=Inter-Regular, BoldFont=Inter-SemiBold, ItalicFont=Inter-Italic, BoldItalicFont=Inter-SemiBoldItalic, Ligatures=TeX]
+\setsansfont{Inter}[Path=./fonts/site/, Extension=.ttf, UprightFont=Inter-Regular, BoldFont=Inter-SemiBold, ItalicFont=Inter-Italic, BoldItalicFont=Inter-SemiBoldItalic, Ligatures=TeX]
+% Fraunces for headers / display
+\renewfontfamily\headerfont[Path=./fonts/site/, Extension=.ttf, UprightFont=Fraunces-Regular, BoldFont=Fraunces-SemiBold, ItalicFont=Fraunces-Italic, BoldItalicFont=Fraunces-SemiBoldItalic, Ligatures=TeX]{Fraunces}
+\renewfontfamily\headerfontlight[Path=./fonts/site/, Extension=.ttf, UprightFont=Fraunces-Light, BoldFont=Fraunces-Regular, ItalicFont=Fraunces-LightItalic, BoldItalicFont=Fraunces-Italic, Ligatures=TeX]{Fraunces-Light}
+% Inter family commands used by the .cls \bodyfont / \bodyfontlight / \footerfont
+\newfontfamily\sitebody[Path=./fonts/site/, Extension=.ttf, UprightFont=Inter-Regular, BoldFont=Inter-SemiBold, ItalicFont=Inter-Italic, BoldItalicFont=Inter-SemiBoldItalic, Ligatures=TeX]{Inter}
+\newfontfamily\sitebodylight[Path=./fonts/site/, Extension=.ttf, UprightFont=Inter-Light, BoldFont=Inter-Regular, ItalicFont=Inter-LightItalic, BoldItalicFont=Inter-Italic, Ligatures=TeX]{Inter-Light}
+\renewcommand*{\bodyfont}{\sitebody}
+\renewcommand*{\bodyfontlight}{\sitebodylight}
+\renewcommand*{\footerfont}{\sitebody}
+% Belt-and-braces: redirect the sourcesanspro package's own commands to
+% Inter so even places that bypass \bodyfont don't embed SourceSans3.
+\renewcommand*{\sourcesanspro}{\sitebody}
+\renewcommand*{\sourcesansprolight}{\sitebodylight}
+% JetBrains Mono for inline code and verbatim
+\setmonofont{JetBrains Mono}[Path=./fonts/site/, Extension=.ttf, UprightFont=JetBrainsMono-Regular, BoldFont=JetBrainsMono-Bold, ItalicFont=JetBrainsMono-Italic, BoldItalicFont=JetBrainsMono-BoldItalic, Ligatures=TeX]
+
+% ---- Drop small caps: preserve source case --------------------------
+% awesome-cv uses \scshape for position subtitles, header position,
+% subsection headings, footer and recipient address. Inter's OpenType
+% small-caps coverage in the static cuts is incomplete, which produced
+% a glitchy mix (BARTLeTT CeNTRe foR…). Drop \scshape and render the
+% text exactly as written — keeps proper-noun capitalisation (UCL,
+% ESRC, RGS…) intact.
+\renewcommand*{\headerpositionstyle}[1]{{\fontsize{7.6pt}{1em}\bodyfont\color{awesome}#1}}
+\renewcommand*{\footerstyle}[1]{{\fontsize{8pt}{1em}\footerfont\color{lighttext}#1}}
+\renewcommand*{\subsectionstyle}[1]{{\fontsize{12pt}{1em}\bodyfont\textcolor{text}{#1}}}
+\renewcommand*{\entrypositionstyle}[1]{{\fontsize{8pt}{1em}\bodyfont\color{graytext}#1}}
+\renewcommand*{\subentrypositionstyle}[1]{{\fontsize{7pt}{1em}\bodyfont\color{graytext}#1}}
+\renewcommand*{\recipientaddressstyle}[1]{{\fontsize{9pt}{1em}\bodyfont\color{graytext}#1}}

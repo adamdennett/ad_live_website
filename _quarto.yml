@@ -4,6 +4,7 @@ project:
   resources:
     - "cv/cv.pdf"
     - "cv/cv.Rmd"
+    - "cv/publications.pdf"
     - "assets/noise.svg"
     - "assets/featured/**"
     - "CNAME"

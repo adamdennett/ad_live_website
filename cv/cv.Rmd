@@ -14,65 +14,10 @@ profilepic: "../assets/Me2025.jpg"
 # header position line, section underline highlights, and location text.
 headcolor: "C2542D"
 date: "`r format(Sys.time(), '%B %Y')`"
-# Redefine awesome-cv's named colours + fonts to match the website
-# (terracotta #C2542D primary, ink #1A1A1A, secondary #5E5E5E, muted
-# #6E6862; Fraunces for headings, Inter for body, JetBrains Mono for
-# code). All happens after the .cls loads, hence header-includes.
+# Fonts and colours match the website. They live in preamble.tex,
+# shared with publications.Rmd.
 header-includes:
-  # --- colours ------------------------------------------------------------
-  - \definecolor{adwebink}{HTML}{1A1A1A}
-  - \definecolor{adwebsecondary}{HTML}{5E5E5E}
-  - \definecolor{adwebmuted}{HTML}{6E6862}
-  - \colorlet{text}{adwebink}
-  - \colorlet{darktext}{adwebink}
-  - \colorlet{graytext}{adwebsecondary}
-  - \colorlet{lighttext}{adwebmuted}
-  # --- fonts --------------------------------------------------------------
-  # Match the website typography:
-  #   - Fraunces (serif) for headers / display
-  #   - Inter   (sans) for body / footer / main/sans
-  #   - JetBrains Mono for code
-  # Inter is loaded from CTAN (`inter` package). Fraunces and JetBrains
-  # Mono are bundled in cv/fonts/site/ as per-weight static TTFs because
-  # CTAN has no package for either (downloaded from the fontsource CDN
-  # of Google Fonts; SIL OFL 1.1).
-  - \usepackage{fontspec}
-  - \usepackage{inter}
-  # awesome-cv.cls calls \RequirePackage[default,opentype]{sourcesanspro}
-  # which sets Source Sans as \rmfamily / \sffamily. Re-route those to
-  # Inter so nothing falls through to SourceSans3 in the embedded PDF.
-  - \setmainfont{Inter}[Ligatures=TeX, UprightFont=*-Regular, BoldFont=*-SemiBold, ItalicFont=*-Italic, BoldItalicFont=*-SemiBoldItalic]
-  - \setsansfont{Inter}[Ligatures=TeX, UprightFont=*-Regular, BoldFont=*-SemiBold, ItalicFont=*-Italic, BoldItalicFont=*-SemiBoldItalic]
-  # Fraunces (static cuts, Path-loaded)
-  - \renewfontfamily\headerfont[Path=./fonts/site/, Extension=.ttf, UprightFont=Fraunces-Regular, BoldFont=Fraunces-SemiBold, ItalicFont=Fraunces-Italic, BoldItalicFont=Fraunces-SemiBoldItalic, Ligatures=TeX]{Fraunces}
-  - \renewfontfamily\headerfontlight[Path=./fonts/site/, Extension=.ttf, UprightFont=Fraunces-Light, BoldFont=Fraunces-Regular, ItalicFont=Fraunces-LightItalic, BoldItalicFont=Fraunces-Italic, Ligatures=TeX]{Fraunces-Light}
-  # Inter family commands used by the .cls \bodyfont / \bodyfontlight / \footerfont
-  - \newfontfamily\sitebody{Inter}[Ligatures=TeX, UprightFont=*-Regular, BoldFont=*-SemiBold, ItalicFont=*-Italic, BoldItalicFont=*-SemiBoldItalic]
-  - \newfontfamily\sitebodylight{Inter}[Ligatures=TeX, UprightFont=*-Light, BoldFont=*-Regular, ItalicFont=*-LightItalic, BoldItalicFont=*-Italic]
-  - \renewcommand*{\bodyfont}{\sitebody}
-  - \renewcommand*{\bodyfontlight}{\sitebodylight}
-  - \renewcommand*{\footerfont}{\sitebody}
-  # Belt-and-braces: redirect the sourcesanspro package's own commands to
-  # Inter so even places that bypass \bodyfont don't embed SourceSans3.
-  - \renewcommand*{\sourcesanspro}{\sitebody}
-  - \renewcommand*{\sourcesansprolight}{\sitebodylight}
-  # ---- Drop small caps: preserve source case --------------------------
-  # awesome-cv uses \scshape for position subtitles, header position,
-  # subsection headings, footer and recipient address. Inter's OpenType
-  # small-caps coverage in the bundled static cuts is incomplete, which
-  # produced a glitchy mix (BARTLeTT CeNTRe foR…). Drop \scshape and
-  # render the text exactly as written in cv.Rmd — keeps proper-noun
-  # capitalisation (UCL, ESRC, RGS…) intact instead of forcing all caps
-  # or all lowercase.
-  # Note: no space before `#1` — YAML would treat `# ...` as a comment.
-  - \renewcommand*{\headerpositionstyle}[1]{{\fontsize{7.6pt}{1em}\bodyfont\color{awesome}#1}}
-  - \renewcommand*{\footerstyle}[1]{{\fontsize{8pt}{1em}\footerfont\color{lighttext}#1}}
-  - \renewcommand*{\subsectionstyle}[1]{{\fontsize{12pt}{1em}\bodyfont\textcolor{text}{#1}}}
-  - \renewcommand*{\entrypositionstyle}[1]{{\fontsize{8pt}{1em}\bodyfont\color{graytext}#1}}
-  - \renewcommand*{\subentrypositionstyle}[1]{{\fontsize{7pt}{1em}\bodyfont\color{graytext}#1}}
-  - \renewcommand*{\recipientaddressstyle}[1]{{\fontsize{9pt}{1em}\bodyfont\color{graytext}#1}}
-  # JetBrains Mono for inline code and verbatim
-  - \setmonofont{JetBrains Mono}[Path=./fonts/site/, Extension=.ttf, UprightFont=JetBrainsMono-Regular, BoldFont=JetBrainsMono-Bold, ItalicFont=JetBrainsMono-Italic, BoldItalicFont=JetBrainsMono-BoldItalic, Ligatures=TeX]
+  - \input{preamble.tex}
 output:
   vitae::awesomecv:
     keep_tex: false
@@ -83,6 +28,16 @@ output:
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 library(vitae)
 library(tibble)
+library(dplyr)
+
+# Grants and selected publications are pulled from ORCID — the same
+# source and the same tidying as the website's publications page.
+source("../_helpers/orcid.R")
+orcid_pubs  <- orcid_works()
+orcid_funds <- orcid_fundings()
+
+# First year shown under Selected Publications.
+CV_PUBS_SINCE <- 2020
 ```
 
 # Profile
@@ -177,7 +132,11 @@ tribble(
 External grants total awarded as PI or Co-I since 2012: **£17,491,621.90**.
 
 ```{r grants}
-tribble(
+# Hand-kept list: the authoritative record, since ORCID has no roles and
+# not every grant is on it. Any ORCID grant that isn't matched here (by
+# grant number in the title, or by title) is appended automatically, so
+# new grants added to ORCID show up on the next build.
+grants_manual <- tribble(
   ~start_year, ~title,                                                                                                        ~role_status,                                                       ~funder_value,
   "2024",      "Census Innovation at CeLSIUS (ES/Z502741/1)",                                                                  "Co-I; active",                                                     "£384,576",
   "2024",      "TRACK-UK: Synthesized Census and Small Area Statistics for Transport and Energy (ES/Z50290X/1)",                "Co-I; active",                                                     "£327,680",
@@ -195,7 +154,49 @@ tribble(
   "2014",      "RGS Innovative Teaching Grant",                                                                                 "PI (Co-I Paul Turner, Bedales School); complete",                  "£1,000 (RGS)",
   "2013",      "SYLLS — Synthetic data estimation for the UK Longitudinal Studies",                                             "PI; complete",                                                     "£272,652.73 (ESRC)",
   "2012",      "CeLSIUS (ES/K000365/1)",                                                                                        "Co-I; complete",                                                   "£1,676,436 (ESRC)"
-) %>%
+)
+
+# Grant numbers of ORCID entries to leave off the CV.
+orcid_grants_hide <- character(0)
+
+funder_abbrev <- c(
+  "Economic and Social Research Council"              = "ESRC",
+  "Engineering and Physical Sciences Research Council" = "EPSRC",
+  "Natural Environment Research Council"              = "NERC",
+  "Arts and Humanities Research Council"              = "AHRC",
+  "Medical Research Council"                          = "MRC",
+  "UK Research and Innovation"                        = "UKRI",
+  "Innovate UK"                                       = "Innovate UK"
+)
+
+manual_keys <- norm_key(grants_manual$title, 30)
+in_manual <- function(id, title) {
+  (!is.na(id) && any(grepl(id, grants_manual$title, fixed = TRUE))) ||
+    norm_key(title, 30) %in% manual_keys
+}
+
+grants_orcid <- orcid_funds |>
+  filter(!grant_id %in% orcid_grants_hide,
+         !mapply(in_manual, grant_id, title)) |>
+  mutate(
+    funder = coalesce(funder_abbrev[funder], funder),
+    start_year   = as.character(start_year),
+    title        = ifelse(is.na(grant_id), title,
+                          paste0(title, " (", grant_id, ")")),
+    role_status  = ifelse(!is.na(end_year) &
+                            end_year < as.integer(format(Sys.Date(), "%Y")),
+                          "complete", "active"),
+    funder_value = ifelse(is.na(amount), funder,
+                          paste0(ifelse(currency %in% "GBP", "£",
+                                        paste0(currency, " ")),
+                                 vapply(amount, format, character(1),
+                                        big.mark = ",", scientific = FALSE),
+                                 " (", funder, ")"))
+  ) |>
+  select(start_year, title, role_status, funder_value)
+
+bind_rows(grants_manual, grants_orcid) |>
+  arrange(desc(as.integer(start_year))) |>
   detailed_entries(
     what  = role_status,      # bottom line (small caps)
     when  = start_year,
@@ -299,64 +300,39 @@ period directly line-managed (seeing several through promotions):
 - 6 Associate Professors (2 promoted to Professor during period)
 - 4 Lecturers (2 promoted to Associate Professor during period)
 
-# Selected Publications (since 2020)
+# Selected Publications (since `r CV_PUBS_SINCE`)
 
 A full list is available via [Google Scholar](https://scholar.google.co.uk/citations?user=P_sHtmkAAAAJ&hl=en)
 and [ORCID 0000-0001-8036-0185](http://orcid.org/0000-0001-8036-0185).
 
-```{r pubs-2024-26}
-tribble(
-  ~year, ~authors,                                                                                                                                     ~title_venue,
-  "2026", "Lynch, C.E.H., Casey, G., Suel, E., Dennett, A.",                                                                                          "Is transport modelling 'a bit of a racket'? On the role of transport planning support systems in England. *Transportation Research Interdisciplinary Perspectives* 36. doi:10.1016/j.trip.2026.101876",
-  "2026", "Wood, M., Dennett, A., Casey, G., Suel, E.",                                                                                                "Car dependence in England and Wales: spatial inequalities and implications for a just transition. *Frontiers in Sustainable Cities* 7. doi:10.3389/frsc.2025.1719495",
-  "2025", "Horsfall, L., Kennedy, C., Shelton, N., Taylor, J., Hurst, J.R., Loxham, M., Dennett, A., Hardelid, P.",                                    "High-resolution mapping of residential wood burning heat sources using Energy Performance Certificates. *Environment International* 201. doi:10.1016/j.envint.2025.109537",
-  "2025", "Tan, J., Dennett, A.",                                                                                                                      "Do Good Schools Influence Property Prices? Disentangling School and Neighbourhood Effects with Empirical Evidence from Brighton. In *Digital-Era Urban Transformations* (CUPUM). doi:10.1007/978-3-031-98300-9_17",
-  "2024", "Dennett, A., Bullock, S., Ajmeri, N., Batty, M., Black, M., Cartlidge, J., …, Williams, H.T.P.",                                            "Artificial Intelligence for Collective Intelligence: A National-Scale Research Strategy. *Knowledge Engineering Review*. doi:10.1017/S0269888924000110",
-  "2024", "Buyuklieva, B., Bevilacqua, I., Dennett, A., Reades, J., Hubbard, P.",                                                                     "Life for Rent: Evolving Residential Infrastructure in London and the Rise of Built-to-Rent. *Urban Studies*. doi:10.1177/00420980241277684",
-  "2024", "Suel, E., Lynch, C., Wood, M., Murat, T., Casey, G., Dennett, A.",                                                                          "Measuring transport-associated urban inequalities: Where are we and where do we go from here? *Transport Reviews*. doi:10.1080/01441647.2024.2389800",
-  "2024", "Rowe, F., Lovelace, R., Dennett, A.",                                                                                                       "Spatial interaction modelling: A manifesto. In *A Research Agenda for Spatial Analysis* (Elgar). doi:10.4337/9781802203233",
-  "2024", "Buyuklieva, B., Oléron-Evans, T., Bailey, N., Dennett, A.",                                                                                 "Variations in domestic energy efficiency by property, neighbourhood and local authority type. *Frontiers in Sustainability* 5. doi:10.3389/frsus.2024.1329034",
-  "2024", "Gericke, C., Llewellyn, C., Burgoine, T., Dennett, A.",                                                                                     "From textbooks to takeaways: a geospatial analysis of clustering of takeaway outlets near London schools.",
-) %>%
-  detailed_entries(
-    what  = title_venue,
-    when  = year,
-    with  = authors
-  )
-```
+```{r selected-pubs}
+# Pulled from ORCID, so new papers appear on the next build. To drop a
+# paper from the CV (it stays on the website), add its DOI, or the start
+# of its title, to cv_pubs_exclude.
+cv_pubs_exclude <- c(
+  "Our vulnerable high streets",
+  "10.5281/zenodo.4664620",                                     # GISRUK 2021 housing affordability
+  "10.1177/0308518X19880211",                                   # Visualising urban gentrification
+  "Exploring local authority travel time",                      # 2020 working paper
+  "Delineating the spatio-temporal pattern of local authority"  # 2020 working paper of the 2021 article
+)
 
-```{r pubs-2023}
-tribble(
-  ~year, ~authors,                                                                       ~title_venue,
-  "2023", "Dennett, A., Gray, S., Wyszomierski, J.",                                    "From the Beer Orders to Last Orders — Legislation, Taxation and the Modern Beer Landscape of London. In *The Geography of Beer* (Springer).",
-  "2023", "Yan, X., Dennett, A.",                                                       "Re-defining transport for London's strategic neighbourhoods from spatial and social perspectives. *Applied Geography*. doi:10.1016/j.apgeog.2023.103116",
-  "2023", "Wu, Y., Coulter, R., Dennett, A.",                                           "Relationships between family structures and destinations of married migrants with children in China. *Applied Geography*. doi:10.1016/j.apgeog.2023.103102",
-  "2023", "Liu, L., Dennett, A., Hickman, R.",                                          "Exploring the spatial differences in travel mode choice of rail transit in Chongqing. *Transportation Planning and Technology*. doi:10.1080/03081060.2023.2228301",
-  "2023", "Dennett, A., Buyuklieva, B.",                                                "Transitioning the residential environment of the UK to net-zero (CASA Working Paper 233).",
-  "2023", "Buyuklieva, B., Dennett, A., Bailey, N., Morley, J.",                        "Energy Efficient Homes: Social and Spatial Patterns of Residential Energy Efficiency in England. *GISRUK proceedings*. doi:10.5281/zenodo.7855112",
-  "2023", "Liu, L., Dennett, A., Hickman, R.",                                          "Social equity impacts of rail transit investments using community perceptions: evidence from Chongqing. *Transportation Planning and Technology*. doi:10.1080/03081060.2022.2152454"
-) %>%
-  detailed_entries(
-    what  = title_venue,
-    when  = year,
-    with  = authors
-  )
-```
+is_excluded <- function(title, doi) {
+  ex <- tolower(cv_pubs_exclude)
+  (!is.na(doi) & tolower(doi) %in% ex) |
+    vapply(tolower(title), function(t) any(startsWith(t, ex)), logical(1))
+}
 
-```{r pubs-2020-22}
-tribble(
-  ~year, ~authors,                                                                ~title_venue,
-  "2022", "MacLachlan, A., Dennett, A.",                                          "An Applied Geographic Information Systems and Science Course in R. *Journal of Open Source Education* 5(50). doi:10.21105/jose.00141",
-  "2022", "Yee, J., Dennett, A.",                                                 "Stratifying and predicting patterns of neighbourhood change and gentrification: an urban analytics approach. *Transactions of the Institute of British Geographers*. doi:10.1111/tran.12522",
-  "2021", "Spooner, F., Abrams, J.F., Morrissey, K., Shaddick, G., Batty, M., et al.", "A dynamic microsimulation model for epidemics. *Social Science & Medicine* 291. doi:10.1016/j.socscimed.2021.114461",
-  "2021", "Chi, B., Dennett, A., Oléron-Evans, T., Morphet, R.",                  "A new attribute-linked residential property price dataset for England and Wales, 2011--2019. *UCL Open: Environment*. doi:10.14324/111.444/ucloe.000019",
-  "2021", "Clifford, B., Dennett, A., Chi, B.",                                   "Mapping Class E: Understanding the expansion of permitted development. *TCPA report*.",
-  "2021", "Chi, B., Dennett, A., Oléron-Evans, T., Morphet, R.",                  "Delineating the Spatio-Temporal Pattern of House Price Variation by Local Authority in England: 2009 to 2016. *Geographical Analysis*. doi:10.1111/gean.12287",
-  "2020", "Chi, B., Dennett, A., Evans, T., Morphet, R.",                         "Shedding new light on residential property price variation in England: A multi-scale exploration. *Environment and Planning B*. doi:10.1177/2399808320951212"
-) %>%
+orcid_pubs |>
+  filter(year >= CV_PUBS_SINCE,
+         !type %in% c("dissertation-thesis", "preprint"),
+         !is_excluded(title, doi)) |>
+  mutate(authors     = vapply(authors, cite_authors, character(1)),
+         title_venue = cite_venue(title, journal, doi)) |>
   detailed_entries(
     what  = title_venue,
     when  = year,
     with  = authors
-  )
+  ) |>
+  cv_italics()
 ```

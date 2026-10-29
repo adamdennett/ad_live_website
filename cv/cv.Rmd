@@ -244,6 +244,49 @@ talks %>%
   )
 ```
 
+# Teaching
+
+## Postgraduate
+
+```{r teaching-pg}
+# One row per bullet: rows sharing when/module/role become one entry.
+tribble(
+  ~when,                  ~module,                                                          ~role,                                                                               ~note,
+  "2013 -- 2018",         "Course Director, MSc Smart Cities and Urban Analytics",          "Bartlett Centre for Advanced Spatial Analysis, UCL",                                NA,
+  "2025/26 -- Present",   "CASA0007 Quantitative Methods",                                  "Teaching contributor",                                                              NA,
+  "2015/16 -- 2016/17",   "CASA0008 Smart Cities: Context, Policy and Government",          "Co-convenor (with Dr Ed Manley)",                                                   "Rebuilt from a guest-lecture series into a module we led and taught, with a student-built class wiki and flipped-learning group work",
+  "2015/16 -- 2016/17",   "CASA0008 Smart Cities: Context, Policy and Government",          "Co-convenor (with Dr Ed Manley)",                                                   "Moved from among the weakest to among the best student feedback in the department",
+  "2014/15 -- Present",   "CASA0001 Urban Systems Theory",                                  "Co-convenor (with Dr Elsa Arcaute); module lead 2024/25 -- 2025/26",               "Core foundational module; wrote and teach the City Demography and City Inequalities sessions",
+  "2014/15 -- Present",   "CASA0001 Urban Systems Theory",                                  "Co-convenor (with Dr Elsa Arcaute); module lead 2024/25 -- 2025/26",               "Grew from 28 to 55 students by 2016/17",
+  "2014/15 -- 2016/17",   "BENVGSC6 Dissertation",                                          "Co-convenor, dissertation preparation classes (with Dr Martin Austwick, Dr Elsa Arcaute)", "Wrote the CASA dissertation handbook guiding students through the dissertation process",
+  "2014/15",              "GEOGG201 Interdisciplinary Approaches to the Study of Migration", "Guest lecturer, UCL Geography (c.30 students)",                                     "Lecture on quantitative migration modelling, drawing on my own research",
+  "2013/14 -- 2022/23",   "CASA0005 Geographic Information Systems and Science",            "Module convenor; core module for both CASA MSc programmes",                         "Grew from 20 to 65 students, with taught content and assessment extensively reworked",
+  "2013/14 -- 2022/23",   "CASA0005 Geographic Information Systems and Science",            "Module convenor; core module for both CASA MSc programmes",                         "Replaced the unseen written exam with an oral examination, and added research-led practicals (UCL Connected Curriculum)",
+  "2013/14 -- 2022/23",   "CASA0005 Geographic Information Systems and Science",            "Module convenor; core module for both CASA MSc programmes",                         "Coursework by a 2014/15 student was developed and published in Transactions in GIS"
+) %>%
+  detailed_entries(
+    what  = role,             # bottom line (small caps)
+    when  = when,
+    with  = module,           # top line (bold)
+    why   = note
+  )
+```
+
+## Undergraduate
+
+```{r teaching-ug}
+tribble(
+  ~when,           ~module,                                          ~role,
+  "2014/15 -- 2015/16", "BASC2042 Understanding Cities and Spatial Cultures", "Lecture on city populations and inequalities, UCL Arts and Sciences (c.30 students)",
+  "2011/12",       "GEOG1004 Human Ecology",                         "Five lectures on a core undergraduate geography course, UCL Geography (c.100 students)"
+) %>%
+  detailed_entries(
+    what  = role,             # bottom line (small caps)
+    when  = when,
+    with  = module            # top line (bold)
+  )
+```
+
 # PhD Supervision
 
 ## Current research students
@@ -251,6 +294,7 @@ talks %>%
 ```{r phd-current}
 tribble(
   ~start_year, ~student_project,                                                                                                                                                  ~role,
+  "2026",      "Yujing (Olivia) Xing — Thesis title to be confirmed.",                                                                                                              "1st supervisor",
   "2023",      "Maria Wood — Equity assessment of demand-side flexibility technologies in transportation decarbonisation (with Esra Suel, Gerry Casey). Upgrade passed.",          "1st supervisor",
   "2023",      "Claude Lynch — Pathways to Socially Equitable Net Zero Cities and Regions (with Esra Suel, Gerry Casey). Upgrade passed.",                                          "1st supervisor",
   "2023",      "Tom Murat — Generative scenarios for getting Transport to an equitable Net Zero (with Esra Suel, Gerry Casey).",                                                    "1st supervisor",

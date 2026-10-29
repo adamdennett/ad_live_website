@@ -95,7 +95,7 @@ tribble(
 ```{r affiliations}
 tribble(
   ~start, ~end,        ~role,                                                                              ~place,                       ~note,
-  "2025", "2025",      "Chair, CUPUM 2025 Conference",                                                     "Computational Urban Planning and Urban Management (CUPUM)", "Hosted by the Bartlett Centre for Advanced Spatial Analysis at UCL East, Stratford, London",
+  "2025", "2025",      "Chair, 19th CUPUM Conference (Cloud Cities), 23--27 June 2025",                     "Computational Urban Planning and Urban Management (CUPUM)", "Hosted by the Bartlett Centre for Advanced Spatial Analysis at UCL East, Stratford, London",
   "2024", "Present",   "Member, ESRC Peer Review College",                                                 "ESRC",                       NA,
   "2023", "2027",      "External Examiner, MSc Geographical Information Science",                          "University of Manchester",   "Department of Geography, School of Environment, Education and Development, Faculty of Humanities",
   "2023", "2027",      "External Examiner, MSc Geographical Information Science",                          "University of Manchester",   "Appointed 1 October 2023 to 31 December 2027",

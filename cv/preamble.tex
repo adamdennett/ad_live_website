@@ -22,14 +22,14 @@
 % awesome-cv.cls calls \RequirePackage[default,opentype]{sourcesanspro}
 % which sets Source Sans as \rmfamily / \sffamily. Re-route those to
 % Inter so nothing falls through to SourceSans3 in the embedded PDF.
-\setmainfont{Inter}[Path=./fonts/site/, Extension=.ttf, UprightFont=Inter-Regular, BoldFont=Inter-SemiBold, ItalicFont=Inter-Italic, BoldItalicFont=Inter-SemiBoldItalic, Ligatures=TeX]
-\setsansfont{Inter}[Path=./fonts/site/, Extension=.ttf, UprightFont=Inter-Regular, BoldFont=Inter-SemiBold, ItalicFont=Inter-Italic, BoldItalicFont=Inter-SemiBoldItalic, Ligatures=TeX]
+\setmainfont{Inter}[Path=./fonts/site/, Extension=.ttf, UprightFont=Inter-Regular, BoldFont=Inter-SemiBold, ItalicFont=Inter-Italic, BoldItalicFont=Inter-SemiBoldItalic, Ligatures=TeX, RawFeature=-calt]
+\setsansfont{Inter}[Path=./fonts/site/, Extension=.ttf, UprightFont=Inter-Regular, BoldFont=Inter-SemiBold, ItalicFont=Inter-Italic, BoldItalicFont=Inter-SemiBoldItalic, Ligatures=TeX, RawFeature=-calt]
 % Fraunces for headers / display
 \renewfontfamily\headerfont[Path=./fonts/site/, Extension=.ttf, UprightFont=Fraunces-Regular, BoldFont=Fraunces-SemiBold, ItalicFont=Fraunces-Italic, BoldItalicFont=Fraunces-SemiBoldItalic, Ligatures=TeX]{Fraunces}
 \renewfontfamily\headerfontlight[Path=./fonts/site/, Extension=.ttf, UprightFont=Fraunces-Light, BoldFont=Fraunces-Regular, ItalicFont=Fraunces-LightItalic, BoldItalicFont=Fraunces-Italic, Ligatures=TeX]{Fraunces-Light}
 % Inter family commands used by the .cls \bodyfont / \bodyfontlight / \footerfont
-\newfontfamily\sitebody[Path=./fonts/site/, Extension=.ttf, UprightFont=Inter-Regular, BoldFont=Inter-SemiBold, ItalicFont=Inter-Italic, BoldItalicFont=Inter-SemiBoldItalic, Ligatures=TeX]{Inter}
-\newfontfamily\sitebodylight[Path=./fonts/site/, Extension=.ttf, UprightFont=Inter-Light, BoldFont=Inter-Regular, ItalicFont=Inter-LightItalic, BoldItalicFont=Inter-Italic, Ligatures=TeX]{Inter-Light}
+\newfontfamily\sitebody[Path=./fonts/site/, Extension=.ttf, UprightFont=Inter-Regular, BoldFont=Inter-SemiBold, ItalicFont=Inter-Italic, BoldItalicFont=Inter-SemiBoldItalic, Ligatures=TeX, RawFeature=-calt]{Inter}
+\newfontfamily\sitebodylight[Path=./fonts/site/, Extension=.ttf, UprightFont=Inter-Light, BoldFont=Inter-Regular, ItalicFont=Inter-LightItalic, BoldItalicFont=Inter-Italic, Ligatures=TeX, RawFeature=-calt]{Inter-Light}
 \renewcommand*{\bodyfont}{\sitebody}
 \renewcommand*{\bodyfontlight}{\sitebodylight}
 \renewcommand*{\footerfont}{\sitebody}

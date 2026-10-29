@@ -94,17 +94,19 @@ tribble(
 
 ```{r affiliations}
 tribble(
-  ~start, ~end,        ~role,                                                                              ~place,
-  "2024", "Present",   "Member, ESRC Peer Review College",                                                 "ESRC",
-  "2023", "Present",   "External Examiner, MSc Geographical Information Science",                          "University of Manchester",
-  "2017", "2023",      "Editor-in-Chief, Applied Spatial Analysis and Policy (Impact Factor 1.9)",         "Springer",
-  "2021", "Present",   "Fellow of the Academy of Social Sciences (FAcSS) — Elected",                       "Academy of Social Sciences",
-  "2010", "Present",   "Fellow of the Royal Geographical Society (FRGS)",                                  "Royal Geographical Society"
+  ~start, ~end,        ~role,                                                                              ~place,                       ~note,
+  "2024", "Present",   "Member, ESRC Peer Review College",                                                 "ESRC",                       NA,
+  "2023", "2027",      "External Examiner, MSc Geographical Information Science",                          "University of Manchester",   "Department of Geography, School of Environment, Education and Development, Faculty of Humanities",
+  "2023", "2027",      "External Examiner, MSc Geographical Information Science",                          "University of Manchester",   "Appointed 1 October 2023 to 31 December 2027",
+  "2017", "2023",      "Editor-in-Chief, Applied Spatial Analysis and Policy (Impact Factor 1.9)",         "Springer",                   NA,
+  "2021", "Present",   "Fellow of the Academy of Social Sciences (FAcSS) — Elected",                       "Academy of Social Sciences", NA,
+  "2010", "Present",   "Fellow of the Royal Geographical Society (FRGS)",                                  "Royal Geographical Society", NA
 ) %>%
   detailed_entries(
     what  = place,            # bottom line (small caps)
     when  = paste(start, end, sep = "--"),
-    with  = role              # top line (bold)
+    with  = role,             # top line (bold)
+    why   = note
   )
 ```
 

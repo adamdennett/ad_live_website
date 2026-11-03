@@ -43,9 +43,11 @@ exclude <- c(
 
 # Optional manual category tags by repo name — repos not listed here are "Other"
 categories <- list(
-  "Brighton & Hove schools"        = c("BH_Schools_2", "BH_Schools_Consultation",
+  # Heading is "Schools", not "Brighton & Hove schools": most of these are
+  # B&H, but school_value_added covers every secondary school in England.
+  "Schools"                        = c("BH_Schools_2", "BH_Schools_Consultation",
                                        "bh_school_choice", "school_attainment_tool",
-                                       "bh-school-system"),
+                                       "bh-school-system", "school_value_added"),
   "Local government & policy"      = c("council_tax",
                                        "defibrillator-analysis", "west_london_alliance"),
   "Energy & EPC"                   = c("EPC_Analysis_Website", "EPC_Data_Analysis"),
@@ -53,6 +55,25 @@ categories <- list(
   "Maps & explorers"               = c("BrightonRestaurantsMap"),
   "Data resources & methods"       = c("Synthetic-LS-spines", "SIModelling")
 )
+
+# Manual per-repo title/image overrides, keyed by repo name like `categories`
+# above. The documented way to set these is YAML front-matter in the repo's
+# own README (see the callout at the foot of this page); this list is for
+# repos whose README has none and which are not convenient to edit. An entry
+# here wins over the README and over the GitHub description.
+overrides <- list(
+  school_value_added = list(
+    title = "Secondary Schools Value Added",
+    image = "assets/projects/school-value-added.png")
+)
+
+# Pull one override key for a vector of repo names; NA where unset.
+override_for <- function(nm, key) {
+  vapply(nm, function(n) {
+    v <- overrides[[n]][[key]]
+    if (is.null(v)) NA_character_ else as.character(v)
+  }, character(1), USE.NAMES = FALSE)
+}
 
 # ----------------------------------------------------------------------------
 # GitHub API helpers
@@ -188,12 +209,12 @@ project_df <- bind_cols(base_df, enriched) |>
   # or blog belongs in its own tab, not the Projects gallery.
   filter(is.na(meta_type) | !meta_type %in% c("teaching", "talk", "blog")) |>
   mutate(
-    display_title       = coalesce(meta_title, name),
+    display_title       = coalesce(override_for(name, "title"), meta_title, name),
     display_description = coalesce(na_if(meta_description, ""), na_if(description, "")),
     pages_url           = ifelse(!is.na(meta_site) & nzchar(meta_site),
                                  paste0(pages_root, sub("^/", "", meta_site)),
                                  pages_root),
-    image_url           = meta_image
+    image_url           = coalesce(override_for(name, "image"), meta_image)
   )
 
 # Attach category

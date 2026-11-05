@@ -15,6 +15,16 @@ Plus X Innovation, Lewes Road, Brighton
 Part of Brighton AI's evening *What Could Sussex Solve with its Own Data,
 AI, Modelling and Your Ideas?*
 
+## Watch the talk
+
+{{< video https://www.youtube.com/embed/AT5JeNhU4fU start="2050" title="Can we model our way out of this? Brighton AI, 4 November 2026" aspect-ratio="16x9" >}}
+
+The recording starts at the talk, 34 minutes into the evening. The
+[slides](https://adamdennett.github.io/school_attainment_tool/brighton_ai_talk.html)
+are online too.
+
+## About the talk
+
 How far can modelling help a city plan its schools? Using Brighton &
 Hove's secondary school system as a case study, this talk looks at what AI
 and collective intelligence can add to applied urban modelling, drawing on

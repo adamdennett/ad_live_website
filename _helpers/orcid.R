@@ -38,6 +38,14 @@ parse_work <- function(w) {
 
   pdate <- w$`publication-date` %||% list()
   yr  <- suppressWarnings(as.integer(pdate$year$value))
+  # Some feeds (UCL's, via Dimensions) send works with no publication
+  # date at all. Rather than drop them, date them by the year they reached
+  # ORCID, which for a new paper is the year it appeared.
+  if (length(yr) == 0 || is.na(yr)) {
+    created <- (w$`created-date` %||% list())$value
+    yr <- if (is.null(created)) NA_integer_ else
+      as.integer(format(as.POSIXct(created / 1000, origin = "1970-01-01", tz = "UTC"), "%Y"))
+  }
   # Month and day are optional in ORCID; NA sorts to the end of its year.
   mon <- suppressWarnings(as.integer(pdate$month$value %||% NA))
   dy  <- suppressWarnings(as.integer(pdate$day$value %||% NA))
@@ -51,6 +59,14 @@ parse_work <- function(w) {
     if (identical(eid$`external-id-type`, "doi")) {
       doi <- eid$`external-id-value`; break
     }
+  }
+
+  # SSRN working papers often arrive typed "other" with no journal: call
+  # them what they are, so the CV's preprint filter treats them alike.
+  type <- w$type %||% ""
+  if (!is.na(doi) && grepl("^10\\.2139/ssrn", doi, ignore.case = TRUE)) {
+    if (type %in% c("", "other")) type <- "preprint"
+    if (!nzchar(journal)) journal <- "SSRN"
   }
 
   # Work URL (often points at the publisher / DOI landing page)
@@ -70,7 +86,7 @@ parse_work <- function(w) {
     month    = mon,
     day      = dy,
     journal  = journal,
-    type     = w$type %||% "",
+    type     = type,
     doi      = doi,
     work_url = work_url,
     authors  = list(authors)

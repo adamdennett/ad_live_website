@@ -470,3 +470,10 @@
 }
 [data-bs-theme="dark"] .pub-legend-chip { color: #E8E5DC; }
 [data-bs-theme="dark"] .pub-legend-count { color: #9A9387; }
+
+/* Row of link buttons at the top of the publications page (ORCID,
+   Google Scholar, PDF, thesis). Spacing on the buttons themselves so
+   they wrap tidily on narrow screens. */
+.link-buttons { margin-bottom: 1.5rem; }
+.link-buttons p { margin-bottom: 0; }
+.link-buttons .btn { margin: 0 0.4rem 0.5rem 0; }

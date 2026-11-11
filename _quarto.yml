@@ -42,6 +42,7 @@ website:
         text: Teaching
       - href: cv.qmd
         text: CV
+    # Keep in step with page-footer.right below.
     right:
       - icon: github
         href: https://github.com/adamdennett/
@@ -49,19 +50,28 @@ website:
       - icon: linkedin
         href: https://www.linkedin.com/in/adam-dennett-b5b3a229/
         aria-label: LinkedIn
-      - icon: twitter-x
-        href: https://twitter.com/adam_dennett
-        aria-label: X
       - icon: bluesky
         href: https://bsky.app/profile/adamdennett.bsky.social
         aria-label: Bluesky
+      - icon: envelope
+        href: mailto:a.dennett@ucl.ac.uk
+        aria-label: Email
   page-footer:
     left: "© Adam Dennett"
+    # Same four links as the navbar.
     right:
       - icon: github
         href: https://github.com/adamdennett/
+        aria-label: GitHub
+      - icon: linkedin
+        href: https://www.linkedin.com/in/adam-dennett-b5b3a229/
+        aria-label: LinkedIn
+      - icon: bluesky
+        href: https://bsky.app/profile/adamdennett.bsky.social
+        aria-label: Bluesky
       - icon: envelope
         href: mailto:a.dennett@ucl.ac.uk
+        aria-label: Email
 
 format:
   html:

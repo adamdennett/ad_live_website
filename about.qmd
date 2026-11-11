@@ -5,6 +5,22 @@ about:
   image: assets/Me2025.jpg
   image-shape: round
   image-width: 12em
+  links:
+    - icon: building
+      text: CASA
+      href: https://www.ucl.ac.uk/bartlett/casa/bartlett-centre-advanced-spatial-analysis
+    - icon: person-badge
+      text: UCL Profile
+      href: https://profiles.ucl.ac.uk/28795-adam-dennett
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/adam-dennett-b5b3a229/
+    - icon: bluesky
+      text: Bluesky
+      href: https://bsky.app/profile/adamdennett.bsky.social
+    - icon: twitter-x
+      text: X
+      href: https://twitter.com/adam_dennett
 ---
 
 I am Professor of Urban Analytics at the

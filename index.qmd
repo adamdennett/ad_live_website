@@ -6,32 +6,9 @@ about:
   image: assets/Me2025.jpg
   image-shape: round
   image-width: 18em
-  links:
-    - icon: building
-      text: CASA
-      href: https://www.ucl.ac.uk/bartlett/casa/bartlett-centre-advanced-spatial-analysis
-    - icon: person-badge
-      text: UCL Profile
-      href: https://profiles.ucl.ac.uk/28795-adam-dennett
-    - icon: github
-      text: GitHub
-      href: https://github.com/adamdennett/
-    - icon: linkedin
-      text: LinkedIn
-      href: https://www.linkedin.com/in/adam-dennett-b5b3a229/
-    - icon: twitter-x
-      text: X
-      href: https://twitter.com/adam_dennett
-    - icon: bluesky
-      text: Bluesky
-      href: https://bsky.app/profile/adamdennett.bsky.social
-    - text: "{{< ai orcid >}} ORCID"
-      href: http://orcid.org/0000-0001-8036-0185
-    - text: "{{< ai google-scholar >}} Google Scholar"
-      href: https://scholar.google.co.uk/citations?user=P_sHtmkAAAAJ&hl=en
-    - icon: envelope
-      text: Email
-      href: mailto:a.dennett@ucl.ac.uk
+# No link buttons here: GitHub, LinkedIn, Bluesky and email are in the
+# navbar and footer; ORCID and Google Scholar are on the publications
+# page; CASA, UCL Profile and the other socials are on the About page.
 toc: false
 ---
 

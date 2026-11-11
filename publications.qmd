@@ -1,6 +1,5 @@
 ---
 title: "Publications"
-description: "Pulled live from my ORCID record on every render — should always be current."
 toc: true
 toc-depth: 2
 toc-title: "Jump to year"
@@ -247,18 +246,15 @@ render_year <- function(yr, df) {
 }
 ```
 
-::: {.lead}
-**`r nrow(pubs)` publications** indexed in my ORCID record, pulled live on
-every render. The full record (and any work not represented here) lives at
-[ORCID 0000-0001-8036-0185](https://orcid.org/`r ORCID`); citation counts
-are on [Google Scholar](https://scholar.google.co.uk/citations?user=P_sHtmkAAAAJ).
-:::
-
 <!-- cv/publications.pdf is rebuilt from the same ORCID data by
      cv/build.R in CI on every site render. -->
+::: {.link-buttons}
+[{{< ai orcid >}}&nbsp;&nbsp;ORCID](https://orcid.org/0000-0001-8036-0185){.btn .btn-outline-secondary role="button" target="_blank"}
+[{{< ai google-scholar >}}&nbsp;&nbsp;Google Scholar](https://scholar.google.co.uk/citations?user=P_sHtmkAAAAJ&hl=en){.btn .btn-outline-secondary role="button" target="_blank"}
 [{{< fa file-pdf >}}&nbsp;&nbsp;Download this list (PDF)](cv/publications.pdf){.btn .btn-primary role="button" target="_blank"}
-&nbsp;
+
 [{{< fa graduation-cap >}}&nbsp;&nbsp;PhD Thesis (PDF) — *Understanding Internal Migration in Britain at the Start of the 21st Century*, 2011](https://www.dropbox.com/scl/fi/tdrym79443ho4rfbwqyuu/AdamDennettPhDThesis.pdf?rlkey=kfdm2ca8xllnh0i9vkn8p3rda&dl=1){.btn .btn-outline-secondary role="button" target="_blank"}
+:::
 
 ```{r render}
 #| output: asis

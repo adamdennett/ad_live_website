@@ -480,10 +480,11 @@
     flex-wrap: wrap;
     justify-content: center;
   }
+  /* !important: the about template's own rules are more specific. */
   .about-links .about-link {
     width: auto !important;
-    padding: 0.3rem 0.7rem;
-    font-size: 0.875rem;
+    padding: 0.3rem 0.7rem !important;
+    font-size: 0.875rem !important;
   }
 }
 

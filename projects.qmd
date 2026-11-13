@@ -1,6 +1,6 @@
 ---
 title: "Projects"
-description: "A live gallery of projects published as GitHub Pages sites — pulled directly from my GitHub account so it stays current as new things go up."
+description: "A live gallery of projects, most published as GitHub Pages sites — pulled directly from my GitHub account so it stays current as new things go up."
 toc: true
 toc-depth: 2
 format:
@@ -51,10 +51,14 @@ categories <- list(
   "Local government & policy"      = c("council_tax",
                                        "defibrillator-analysis", "west_london_alliance"),
   "Energy & EPC"                   = c("EPC_Analysis_Website", "EPC_Data_Analysis"),
-  "Transport & travel"             = c("london-rail-value"),
+  "Transport & travel"             = c("london-rail-value", "school_active_travel"),
   "Maps & explorers"               = c("BrightonRestaurantsMap"),
   "Data resources & methods"       = c("Synthetic-LS-spines", "SIModelling")
 )
+
+# Repos with no GitHub Pages site that still belong in the gallery: code and
+# data projects. Their card links to the repository instead of a live site.
+repo_only <- c("school_active_travel")
 
 # Manual per-repo title/image overrides, keyed by repo name like `categories`
 # above. The documented way to set these is YAML front-matter in the repo's
@@ -64,7 +68,9 @@ categories <- list(
 overrides <- list(
   school_value_added = list(
     title = "Secondary Schools Value Added",
-    image = "assets/projects/school-value-added.png")
+    image = "assets/projects/school-value-added.png"),
+  school_active_travel = list(
+    title = "Walking and Cycling Routes to Every School in England")
 )
 
 # Pull one override key for a vector of repo names; NA where unset.
@@ -171,7 +177,7 @@ base_df <- map_dfr(repos, function(r) {
     pages_root     = sprintf("https://adamdennett.github.io/%s/", r$name)
   )
 }) |>
-  filter(has_pages, !archived, !(name %in% exclude)) |>
+  filter(has_pages | name %in% repo_only, !archived, !(name %in% exclude)) |>
   arrange(desc(updated))
 
 # For each project, fetch the README and parse optional front-matter.
@@ -211,9 +217,10 @@ project_df <- bind_cols(base_df, enriched) |>
   mutate(
     display_title       = coalesce(override_for(name, "title"), meta_title, name),
     display_description = coalesce(na_if(meta_description, ""), na_if(description, "")),
-    pages_url           = ifelse(!is.na(meta_site) & nzchar(meta_site),
+    pages_url           = ifelse(!has_pages, repo_url,
+                          ifelse(!is.na(meta_site) & nzchar(meta_site),
                                  paste0(pages_root, sub("^/", "", meta_site)),
-                                 pages_root),
+                                 pages_root)),
     image_url           = coalesce(override_for(name, "image"), meta_image)
   )
 
@@ -259,8 +266,10 @@ card <- function(row) {
                 span(class = "badge fork", "fork")
           ),
           div(class = "project-links",
-              a(href = row$pages_url, target = "_blank", "Live site →"),
-              a(href = row$repo_url,  target = "_blank", "Source")
+              if (row$has_pages)
+                a(href = row$pages_url, target = "_blank", "Live site →"),
+              a(href = row$repo_url,  target = "_blank",
+                if (row$has_pages) "Source" else "Code and data →")
           )
       )
   )
